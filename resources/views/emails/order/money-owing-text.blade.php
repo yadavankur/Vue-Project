@@ -1,0 +1,1 @@
+Please fully pay your order No: [{{ $content['orderNo'] }}] by 3pm today, otherwise your order will not be released.

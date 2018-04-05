@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Models\Repositories;
+
+
+class V6BomExtnRepository extends BaseRepository
+{
+    public function model() {
+        return 'App\Models\Entities\V6BomExtn';
+    }
+    public function getByPaginate($request)
+    {
+        $sort = $request->sort;
+        $sort = explode('|', $sort);
+
+        $sortBy = $sort[0];
+        $sortDirection = $sort[1];
+        $perPage = $request->per_page;
+
+        $quoteId = $request->quoteId;
+        $quoteVer = $request->quoteVer;
+        $orderId = $request->orderId;
+
+        $filter = $request->filter;
+
+        $search = '';
+        $itemNo = '';
+        if ($filter)
+        {
+            $itemNo = $filter['itemNo'];
+            $search = $filter['filterText'];
+        }
+
+        $query = $this->model->select([
+            'V_V6_QUOTE_ITEM.QTE_POS',
+            'V_V6_BOM_EXTN.*',
+        ])
+            ->join('V_V6_QUOTE_ITEM', 'V_V6_BOM_EXTN.QUOTE_ITEM_ID', '=', 'V_V6_QUOTE_ITEM.QUOTE_ITEM_ID')
+            ->join('V_V6_QUOTE', function($join) {
+                $join->on('V_V6_QUOTE.QUOTE_ID', '=', 'V_V6_QUOTE_ITEM.QUOTE_ID');
+                $join->on('V_V6_QUOTE.QUOTE_VERS', '=', 'V_V6_QUOTE_ITEM.QUOTE_VERS_STOP');
+            })
+            ->where('V_V6_QUOTE.QUOTE_ID', $quoteId)
+            ->where('V_V6_QUOTE.QUOTE_VERS', $quoteVer)
+            ->where('V_V6_QUOTE.UDF1', $orderId)
+            ->orderBy($sortBy, $sortDirection);
+
+        if ($itemNo) {
+            $query->where('V_V6_QUOTE_ITEM.QTE_POS', $itemNo);
+        }
+
+        if ($search) {
+            $like = "%{$search}%";
+            $query = $query->where(function ($query) use ($like) {
+                $query->where('V_V6_BOM_EXTN.FINCOL_CODE', 'LIKE', $like);
+            });
+        }
+        return $query->paginate($perPage);
+    }
+}

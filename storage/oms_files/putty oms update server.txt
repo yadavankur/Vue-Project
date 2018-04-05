@@ -1,0 +1,135 @@
+login as: lyu
+lyu@10.102.108.10's password:
+Last login: Mon Feb 19 19:46:24 2018 from 10.133.44.111
+[lyu@dw-nrd-web1 ~]$ cd /home/lyu/www/oms
+[lyu@dw-nrd-web1 oms]$ php artisan down
+Application is now in maintenance mode.
+[lyu@dw-nrd-web1 oms]$ git pull
+Password for 'https://dowellwindows@bitbucket.org':
+remote: Counting objects: 69, done.
+remote: Compressing objects: 100% (69/69), done.
+remote: Total 69 (delta 33), reused 0 (delta 0)
+Unpacking objects: 100% (69/69), done.
+From https://bitbucket.org/dowellwindows/oms
+   6625220..2d47e47  master     -> origin/master
+Updating 6625220..2d47e47
+Fast-forward
+ app/Http/Controllers/TicketCsController.php        | 107 +++++++
+ app/Http/Controllers/TicketstatusController.php    |  72 +++++
+ app/Http/Controllers/TickettypeController.php      |  78 ++++++
+ app/Models/Entities/Ticket_cs.php                  |  48 ++++
+ app/Models/Entities/ticketstatus.php               |  11 +
+ app/Models/Entities/tickettype.php                 |  12 +
+ app/Models/Repositories/TicketCsRepository.php     |  88 ++++++
+ app/Models/Repositories/TicketStatusRepository.php |  45 +++
+ app/Models/Repositories/TicketTypeRepository.php   |  46 +++
+ app/Models/Services/TicketCsService.php            |  24 ++
+ app/Models/Services/TicketStatusService.php        |  18 ++
+ app/Models/Services/TicketTypeService.php          |  17 ++
+ .../js/components/DashboardMain/AdminDashboard.vue |   2 +-
+ .../cs/AssociatedUser/AssociatedUserBody.vue       | 196 +++++++++++++
+ .../cs/AssociatedUser/AssociatedUserModal.vue      | 174 ++++++++++++
+ .../assets/js/components/cs/CsTicketCrudModal.vue  | 311 +++++++++++++++++++++
+ .../js/components/cs/CsTicketCustomActions.vue     |  38 +++
+ .../js/components/cs/CsTicketCustomFilterBar.vue   |  33 +++
+ .../assets/js/components/cs/CsTicketEditModal.vue  |   0
+ .../assets/js/components/cs/CsTicketListTable.vue  | 227 +++++++++++++++
+ resources/assets/js/components/cs/cs1ticket.vue    |  68 +++++
+ .../components/cs/csstatus/CsStatusCrudModal.vue   |  79 ++++++
+ .../cs/csstatus/CsStatusCustomActions.vue          |  32 +++
+ .../js/components/cs/csstatus/CsStatusListView.vue |  69 +++++
+ .../js/components/cs/csstatus/CsTicketStatus.vue   |  30 ++
+ .../js/components/cs/csttype/CsTicketType.vue      |  30 ++
+ .../js/components/cs/csttype/CsttypeCrudModal.vue  |  78 ++++++
+ .../js/components/cs/csttype/CsttypeListView.vue   |  68 +++++
+ .../js/components/cs/csttype/TestCustomActions.vue |  31 ++
+ resources/assets/js/config.js                      |  20 +-
+ resources/assets/js/mutation-types.js              |  39 ++-
+ resources/assets/js/router.js                      |   6 +
+ resources/assets/js/store/index.js                 |   9 +
+ resources/assets/js/store/modules/cs-ticket.js     | 117 ++++++++
+ .../assets/js/store/modules/csticket-status.js     | 123 ++++++++
+ resources/assets/js/store/modules/csticket-type.js | 118 ++++++++
+ resources/assets/js/store/modules/csticket.js      | 122 ++++++++
+ routes/api.php                                     |  25 ++
+ 38 files changed, 2608 insertions(+), 3 deletions(-)
+ create mode 100644 app/Http/Controllers/TicketCsController.php
+ create mode 100644 app/Http/Controllers/TicketstatusController.php
+ create mode 100644 app/Http/Controllers/TickettypeController.php
+ create mode 100644 app/Models/Entities/Ticket_cs.php
+ create mode 100644 app/Models/Entities/ticketstatus.php
+ create mode 100644 app/Models/Entities/tickettype.php
+ create mode 100644 app/Models/Repositories/TicketCsRepository.php
+ create mode 100644 app/Models/Repositories/TicketStatusRepository.php
+ create mode 100644 app/Models/Repositories/TicketTypeRepository.php
+ create mode 100644 app/Models/Services/TicketCsService.php
+ create mode 100644 app/Models/Services/TicketStatusService.php
+ create mode 100644 app/Models/Services/TicketTypeService.php
+ create mode 100644 resources/assets/js/components/cs/AssociatedUser/AssociatedU                                                                                        serBody.vue
+ create mode 100644 resources/assets/js/components/cs/AssociatedUser/AssociatedU                                                                                        serModal.vue
+ create mode 100644 resources/assets/js/components/cs/CsTicketCrudModal.vue
+ create mode 100644 resources/assets/js/components/cs/CsTicketCustomActions.vue
+ create mode 100644 resources/assets/js/components/cs/CsTicketCustomFilterBar.vu                                                                                        e
+ create mode 100644 resources/assets/js/components/cs/CsTicketEditModal.vue
+ create mode 100644 resources/assets/js/components/cs/CsTicketListTable.vue
+ create mode 100644 resources/assets/js/components/cs/cs1ticket.vue
+ create mode 100644 resources/assets/js/components/cs/csstatus/CsStatusCrudModal                                                                                        .vue
+ create mode 100644 resources/assets/js/components/cs/csstatus/CsStatusCustomAct                                                                                        ions.vue
+ create mode 100644 resources/assets/js/components/cs/csstatus/CsStatusListView.                                                                                        vue
+ create mode 100644 resources/assets/js/components/cs/csstatus/CsTicketStatus.vu                                                                                        e
+ create mode 100644 resources/assets/js/components/cs/csttype/CsTicketType.vue
+ create mode 100644 resources/assets/js/components/cs/csttype/CsttypeCrudModal.v                                                                                        ue
+ create mode 100644 resources/assets/js/components/cs/csttype/CsttypeListView.vu                                                                                        e
+ create mode 100644 resources/assets/js/components/cs/csttype/TestCustomActions.                                                                                        vue
+ create mode 100644 resources/assets/js/store/modules/cs-ticket.js
+ create mode 100644 resources/assets/js/store/modules/csticket-status.js
+ create mode 100644 resources/assets/js/store/modules/csticket-type.js
+ create mode 100644 resources/assets/js/store/modules/csticket.js
+[lyu@dw-nrd-web1 oms]$ npm run production
+
+> @ production /home/lyu/www/oms
+> node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_mod                                                                                        ules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/lara                                                                                        vel-mix/setup/webpack.config.js
+
+ 95% emitting
+
+ ERROR  Failed to compile with 1 errors                                                                                                                      10:30:49 PM
+
+This relative module was not found:
+
+* ./components/cs/Cs1ticket.vue in ./resources/assets/js/router.js                                                                                                                                                                                             Asset     Size  Chunks                    Chunk Names
+                             fonts/vendor/iview/dist/styles/ionicons.eot?2c2ae068be3b089e0a5b59abb1831550   121 kB          [emitted]
+  fonts/vendor/bootstrap-sass/bootstrap/glyphicons-halflings-regular.eot?f4769f9bdb7466be65088239c12046d1  20.1 kB          [emitted]
+ fonts/vendor/bootstrap-sass/bootstrap/glyphicons-halflings-regular.woff?fa2772327f55d8198301fdb8bcfc8158  23.4 kB          [emitted]
+  fonts/vendor/bootstrap-sass/bootstrap/glyphicons-halflings-regular.ttf?e18bbf611f2a2e43afc071aa2f4e1512  45.4 kB          [emitted]
+  fonts/vendor/bootstrap-sass/bootstrap/glyphicons-halflings-regular.svg?89889688147bd7575d6327160d64e760   109 kB          [emitted]
+                                                         images/logo.png?ae5f7d3ef1aa7cbde28f8cd93dc347cf  4.47 kB          [emitted]
+fonts/vendor/bootstrap-sass/bootstrap/glyphicons-halflings-regular.woff2?448c34a56d699c29117adc64c43affeb    18 kB          [emitted]
+                             fonts/vendor/iview/dist/styles/ionicons.ttf?24712f6c47821394fba7942fbb52c3b2   189 kB          [emitted]
+                            fonts/vendor/iview/dist/styles/ionicons.woff?05acfdb568b3df49ad31355b19495d4a  67.9 kB          [emitted]
+                             fonts/vendor/iview/dist/styles/ionicons.svg?621bd386841f74e0053cb8e67f8a0604   334 kB          [emitted]  [big]
+                                                                                               /js/app.js  3.02 MB       0  [emitted]  [big]  /js/app
+                                                                                             /css/app.css   122 kB       0  [emitted]         /js/app
+
+npm ERR! Linux 3.10.0-514.10.2.el7.x86_64
+npm ERR! argv "/usr/bin/node" "/usr/bin/npm" "run" "production"
+npm ERR! node v7.7.1
+npm ERR! npm  v4.1.2
+npm ERR! code ELIFECYCLE
+npm ERR! @ production: `node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js`
+npm ERR! Exit status 2
+npm ERR!
+npm ERR! Failed at the @ production script 'node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js'.
+npm ERR! Make sure you have the latest version of node.js and npm installed.
+npm ERR! If you do, this is most likely a problem with the  package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR!     node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js
+npm ERR! You can get information on how to open an issue for this project with:
+npm ERR!     npm bugs
+npm ERR! Or if that isn't available, you can get their info via:
+npm ERR!     npm owner ls
+npm ERR! There is likely additional logging output above.
+
+npm ERR! Please include the following file with any support request:
+npm ERR!     /home/lyu/www/oms/npm-debug.log
+[lyu@dw-nrd-web1 oms]$

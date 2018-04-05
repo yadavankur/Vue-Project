@@ -1,0 +1,1 @@
+Order No: [{{ $content['orderId'] }}] will be delivered on [{{ $content['deliveryDate'] }}]. Please call to confirm.

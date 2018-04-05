@@ -1,0 +1,1 @@
+Please call Dowell Windows regarding delivery for Address: {{ $content['deliveryAddress'] }} by 3pm today.

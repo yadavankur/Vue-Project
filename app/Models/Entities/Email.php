@@ -1,0 +1,34 @@
+<?php
+namespace App\Models\Entities;
+
+
+class Email extends BaseModel
+{
+    protected $table = 'emails';
+
+    const TEXT_MESSAGE_CARRIER = 'messagenet';
+    const TEXT_MESSAGE_GATEWAY = '@messagenet.com.au';
+
+    const TYPE_INTERNAL = 'INTERNAL';
+    const TYPE_EXPEDITE_ENQUIRY = 'EXPEDITE';
+    const TYPE_EXPEDITE_FEEDBACK = 'EXPEDITE_FEEDBACK';
+    const TYPE_EXTERNAL = 'EXTERNAL';
+    const TYPE_TEXT_MESSAGE = 'TEXT_MESSAGE'; // for single text confirmation
+    const TYPE_TEXT_MESSAGE_MONEY_OWING = 'TEXT_MESSAGE_MONEY_OWING';
+    const TYPE_NOTIFICATION = 'NOTIFICATION';
+    const TYPE_DELIVERY_CONFIRMATION = 'DELIVERY_CONFIRMATION';
+    const TYPE_TEXT_DELIVERY_CONFIRMATION = 'TEXT_DELIVERY_CONFIRMATION';
+
+    const TEMPLATE_ORDER_CONFIRMATION = 1;
+    const TEMPLATE_SINGLE_TEXT_CONFIRMATION = 2;
+    const TEMPLATE_SINGLE_EMAIL_CONFIRMATION = 3;
+    const TEMPLATE_LIST_EMAIL_CONFIRMATION = 4;
+    const TEMPLATE_SINGLE_TEXT_MONEY_OWING = 5;
+
+    const STATUS_NEW = 'NEW';
+    const STATUS_SENDING= 'SENDING';
+    const STATUS_SENT= 'SENT';
+    const STATUS_FAILED= 'FAILED';
+
+
+}
