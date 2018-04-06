@@ -29,12 +29,14 @@ mutations:
     [types.ADD_TICKET_TYPE_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE_FAILURE payload=', payload); },
     [types.ADD_TICKET_TYPE1_SUCCESS] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE1_SUCCESS payload=', payload); },
     [types.ADD_TICKET_TYPE1_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE1_FAILURE payload=', payload); },
-    [types.UPDATE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('csticketstatus.js-types.UPDATE_TICKET_TYPE_SUCCESS payload=', payload); },
-    [types.UPDATE_TICKET_TYPE_FAILURE] (state, payload) {console.log('csticketstatus.js-types.UPDATE_TICKET_TYPE_FAILURE payload=', payload); },
-    [types.DELETE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('csticketstatus.js-types.DELETE_TICKET_TYPE_SUCCESS payload=', payload); },
-    [types.DELETE_TICKET_TYPE_FAILURE] (state, payload) {console.log('csticketstatus.js-types.DELETE_TICKET_TYPE_FAILURE payload=', payload); },
-    [types.DELETE_TICKET_TYPE1_SUCCESS] (state, payload) {console.log('csticketstatus.js-types.DELETE_TICKET_TYPE1_SUCCESS payload=', payload); },
-    [types.DELETE_TICKET_TYPE1_FAILURE] (state, payload) {console.log('csticketstatus.js-types.DELETE_TICKET_TYPE1_FAILURE payload=', payload); },
+    [types.UPDATE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE_SUCCESS payload=', payload); },
+    [types.UPDATE_TICKET_TYPE_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE_FAILURE payload=', payload); },
+    [types.DELETE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE_SUCCESS payload=', payload); },
+    [types.DELETE_TICKET_TYPE_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE_FAILURE payload=', payload); },
+    [types.DELETE_TICKET_TYPE1_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE1_SUCCESS payload=', payload); },
+    [types.DELETE_TICKET_TYPE1_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE1_FAILURE payload=', payload); },
+    [types.UPDATE_TICKET_TYPE1_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE1_SUCCESS payload=', payload); },
+    [types.UPDATE_TICKET_TYPE1_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE1_FAILURE payload=', payload); },
 
     //--------------------------ticket type crud----
     [types.SET_CSTICKETTYPE1_SHOW_MODAL] (state, payload) 
@@ -186,10 +188,11 @@ updatetype: ({dispatch}, formData) =>
              
                 dispatch('gettickettype1table',body.gett1);  //----get back new result with modified values
             },
-        deletetype1Failure: ({commit, dispatch}, body) => 
+          deletetype1Failure: ({commit, dispatch}, body) => 
             {   commit({   type: types.DELETE_TICKET_TYPE1_FAILURE, errors: body  });
                 if(body.error) {  dispatch('showErrorNotification', body.error);  }
             },
+
 
                         
             updatetype1: ({dispatch}, formData) => 
@@ -205,7 +208,7 @@ updatetype: ({dispatch}, formData) =>
             {   console.log('csticket-type1.js---updatetype1Success body=', body);
                 commit({   type: types.UPDATE_TICKET_TYPE1_SUCCESS, state: body.state   });
                 dispatch('showSuccessNotification', 'TYPE has been updated.');   
-                dispatch('gettickettypetable');
+                dispatch('gettickettype1table',body.gett1); 
             },
             updateType1Failure: ({commit, dispatch}, body) => 
             {   commit({  type: types.UPDATE_TICKET_TYPE1_FAILURE, errors: body  });

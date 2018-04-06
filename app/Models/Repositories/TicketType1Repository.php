@@ -45,8 +45,9 @@ class TicketType1Repository extends BaseRepository
     public function updateTicketType1Table($request)
     {
         $ttt =  $this->model->findOrFail($request->input('id'));  
-        $ttt->ticket_type = $request->input('ticket_type');
-        $ttt->sla_time = $request->input('sla_time');
+        $ttt->price = $request->input('price');
+        $ttt->ticket_no = $request->input('ticket_no');
+        $ttt->description = $request->input('description');
        $ttt->comment = $request->input('comment');  $ttt->save();  return $ttt;
     }
 
@@ -57,6 +58,14 @@ class TicketType1Repository extends BaseRepository
         $testb1->save();   
         return $testb1;
     }
+
+    public function deleteTicketType1perTicket($request)
+    {   $testb1 =  $this->model->findOrFail($request->input('ticket_no'));
+        $testb1->active = 0;   
+        $testb1->save();   
+        return $testb1;
+    }
+
 
     public function getByPaginate($request)
     {

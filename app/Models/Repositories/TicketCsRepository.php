@@ -4,6 +4,7 @@ namespace App\Models\Repositories;
 
 use App\Models\Entities\ResourceType;
 use App\Models\Entities\Ticket_cs;
+use App\Models\Entities\tickettype1;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -158,7 +159,9 @@ class TicketCsRepository extends BaseRepository
 
     public function deleteCsTicket($request)
     {   $testb1 =  $this->model->findOrFail($request->input('id'));
+        $ticket_no = $request->input('ticket_no'); 
         $testb1->active = 0;   
+      //  $deletetype1= TicketType1Repository::deleteTicketType1perTicket($ticket_no);
         $testb1->save();   
         return $testb1;
     }
@@ -166,18 +169,11 @@ class TicketCsRepository extends BaseRepository
     public function addfile($request)
     {    // $file=$request->file('files');
         $file=$request->file;
-
-    // $path=$file->getClientOriginalName();
-    // if(!Storage::disk('public_uploads')->put($path, $file)) {    return false;   }
-
-  //  $imageName = $file->getClientOriginalName();
-   // $request->image->move(public_path('/'), $imageName);
-
-    $file = $request->file;
-    $path = storage_path() . '/oms_files';
-    $fileEx = $file->getClientOriginalExtension();
-    $fileName = $file->getClientOriginalName();
-    $file->move($path, $fileName);
+        $file = $request->file;
+        $path = storage_path() . '/oms_files';
+        $fileEx = $file->getClientOriginalExtension();
+        $fileName = $file->getClientOriginalName();
+        $file->move($path, $fileName);
 
         if($file){ 
                  $res="4";

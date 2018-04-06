@@ -45,12 +45,12 @@ public function addTicketType1Table(Request $request)
 }
 //------------------------------------------------------------
 //---------------update
-public function updateTicketType1Table(Request $request)
-{   $rules = ['id' => 'required', 'ticket_type'  =>  'required', ];
+public function updateTicketType1(Request $request)
+{   $rules = ['id' => 'required', 'price'  =>  'required', ];
 try {
     $user = JWTAuth::parseToken()->authenticate();
     $this->validate($request, $rules);
-    $gett1 = $this->TicketTypeService->updateTicketType1Table($request);
+    $gett1 = $this->TicketType1Service->updateTicketType1Table($request);
    // $this->TicketTypeService->LogEntity($gett1, 'success', __CLASS__ . '::' .__FUNCTION__);
     return response()->json(compact('gett1'));
 } catch (Exception $e) {

@@ -117,6 +117,7 @@ export default
         deletecstktSuccess: ({commit, dispatch}, body) => 
                 { commit({type: types.DELETE_CSTKT_SUCCESS,cpmService: body.cpmService });
                   dispatch('showSuccessNotification', 'CSTICKET has been deleted.');
+                
                 },
         deletecstktFailure: ({commit, dispatch}, body) => 
                { commit({  type: types.DELETE_CSTKT_FAILURE, errors: body  });

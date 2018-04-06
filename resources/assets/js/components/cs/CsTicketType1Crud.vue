@@ -31,7 +31,7 @@
                             selectedTicket: state => state.cstkt.selectedTicket,
                         }),   
             },
-       data ()  {  return {  title: '',  formData: {     id: '',  ticket_type: '',  sla_time: '', comment: '' }    }   },
+       data ()  {  return {  title: '',  formData: {     id: '', comment: '', price: '', description: '', ticket_no: '' }    }   },
        created() {  console.log('cs/cstickettype1crud.vue-- Component created.')  },
        components: {  'custom-modal': modal, 'bs-input': input,  },
        mounted() { console.log('cs/cstickettype1crud.vue--- Component mounted. typeData=', this.type1Data) },
@@ -77,6 +77,7 @@
                                this.formData.id = this.type1Data.data.id;
                                this.formData.changes = this.type1Data.data.description;
                                this.formData.price = this.type1Data.data.price;
+                               this.formData.ticket_no = this.type1Data.data.ticket_no;
                                this.formData.comment = this.type1Data.data.comment;
                            }
                        }
