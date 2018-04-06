@@ -6,9 +6,9 @@
             </div>
             <div slot="modal-body" class="modal-body">
                 <div class="form-group">
-                    <bs-input label="Changes" type="text" required  :maxlength="255" :icon="true" v-model="formData.changes"></bs-input>
+                 
                     <bs-input label="Price" type="text" required  :maxlength="255" :icon="true" v-model="formData.price"></bs-input>
-                    <bs-input label="Special Details" type="text" required  :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
+                    <bs-input label="Comments" type="text" required  :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
 
                 </div>
             </div>

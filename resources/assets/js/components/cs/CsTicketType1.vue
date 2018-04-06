@@ -9,12 +9,13 @@
             <div id="csticketinfoo" class="panel-collapse collapse in table-responsive">
               <table class="table table-hover table-striped table-responsive table-bordered table-condensed">
                 <thead>
-                  <tr> <th>CN No</th><th>Price </th> <th>Updated_by </th><th>Updated_at </th><th>Actions</th></tr>
+                  <tr> <th>CN No</th><th>Price </th><th>comments</th> <th>Updated_by </th><th>Updated_at </th><th>Actions</th></tr>
                 </thead>
                 <tbody>
                   <tr v-for="(csticket,index) in csticket">
                     <td> {{ csticket.id }} </td>
                     <td> {{ csticket.price }} </td>
+                    <td> {{ csticket.comment }} </td>
 
                     <td>{{ csticket.updated_by.name }} </td>
                     <td>{{ formatDatetime(csticket.updated_at) }} </td>
