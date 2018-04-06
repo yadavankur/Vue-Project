@@ -51,7 +51,7 @@
                   else if (this.type1Data.action === 'Edit')// update
                    { this.$store.dispatch('setCsTicketType1ShowModal', payload);  
                    console.log(' payload=',payload); 
-                      this.$store.dispatch('cstype1update', this.formData)
+                      this.$store.dispatch('updatetype1', this.formData)
                         .then((response) => {})     .catch((error) => {});
                    }
                   else  {     }// error
@@ -77,7 +77,7 @@
                                this.formData.id = this.type1Data.data.id;
                                this.formData.changes = this.type1Data.data.description;
                                this.formData.price = this.type1Data.data.price;
-                                this.formData.comment = this.type1Data.data.comment;
+                               this.formData.comment = this.type1Data.data.comment;
                            }
                        }
                }

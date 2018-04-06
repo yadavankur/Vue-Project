@@ -379,11 +379,11 @@
                     this.formData.comment = this.csticketActivityData.data.comment;
                    
                     this.formData.status_id = this.csticketActivityData.data.STATUS;
-                   // this.formData.ticket_type_id = this.csticketActivityData.data.ttype.ticket_type;
+                    // this.formData.ticket_type_id = this.csticketActivityData.data.ttype.ticket_type;
                     this.formData.status_id = this.csticketActivityData.data.tstatus? this.csticketActivityData.data.tstatus.id : '';
                     this.formData.ticket_type_id = this.csticketActivityData.data.ttype? this.csticketActivityData.data.ttype.id : '';
                      //------------for user and ts group
-                     this.formData.group1 = {  id : this.csticketActivityData.data.agroupid.id,
+                    this.formData.group1 = {  id : this.csticketActivityData.data.agroupid.id,
                                                name: this.csticketActivityData.data.agroupid.name
                                             };
                     this.formData.user1 = { id : this.csticketActivityData.data.auserid.id,
