@@ -387,3 +387,5 @@ export const currentAssociatedTasksList = apiDomain + '/associatedtasks';
 export const deletetype1 = apiDomain + '/csticket/deletetype1';
 export const gettickettype1tableapi1 = apiDomain + '/csticket/gettype1tickettable1';
 
+export const updatetype1 = apiDomain + '/csticket/updatetype1';
+
