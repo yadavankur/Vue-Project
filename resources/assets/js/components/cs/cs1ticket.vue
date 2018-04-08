@@ -20,7 +20,11 @@
                     <div class="col-md-6" v-if="selectedTicket">
                          <order-info></order-info>
                          <order-history-summary></order-history-summary>
+                      
                     </div>
+
+
+                    
                     <div class="col-md-6" v-if="selectedTicketType == 'TYPE1'">
                           <ticket-type1></ticket-type1>
                           <ticket-type1crud></ticket-type1crud>
@@ -52,6 +56,10 @@
                       <div class="col-md-6" v-if="selectedTicketType == 'TYPE9'">
                     <ticket-type9></ticket-type9>
                     </div>
+                    <div class="col-md-6" v-if="selectedTicket">
+
+                    <email-booking-info> </email-booking-info>
+                    </div>
 
                 </div>
             </div>
@@ -82,6 +90,8 @@
     import CsTicketType8 from './CsTicketType8.vue'
     import CsTicketType9 from './CsTicketType9.vue'
 
+    import EmailBookingInfo from './EmailBookingInfo.vue'
+
     export default 
     {   data () {      return {     }    },
         computed: {  ...mapGetters({ 
@@ -98,6 +108,7 @@
                       'csticket-list-table': CsTicketListTable,
                       'order-info': OrderInfo,
                       'order-history-summary': OrderHistorySummary,
+                      'email-booking-info': EmailBookingInfo,
                       'ticket-type1': CsTicketType1,'ticket-type1crud': CsTicketType1Crud,
                        'ticket-type2A': CsTicketType2A,
                         'ticket-type2B': CsTicketType2B,

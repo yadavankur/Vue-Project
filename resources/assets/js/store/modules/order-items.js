@@ -31,7 +31,7 @@ export default {
             console.log('/store/modules/order-items.js-types.SET_ORDER_ITEMS_COMPONENTS state=', state);
 
             let componentsArray = payload.components;
-            console.log('/store/modules/order-items.js-types.SET_COMPONENTS componentsArray=', componentsArray);
+           // console.log('/store/modules/order-items.js-types.SET_COMPONENTS componentsArray=', componentsArray);
             if (componentsArray.length > 0)
                 state.components = JSON.parse(componentsArray);
         },
