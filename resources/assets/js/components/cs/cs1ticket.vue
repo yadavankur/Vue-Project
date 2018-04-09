@@ -90,7 +90,7 @@
     import CsTicketType8 from './CsTicketType8.vue'
     import CsTicketType9 from './CsTicketType9.vue'
 
-    import EmailBookingInfo from './EmailBookingInfo.vue'
+    import EmailBookingInfo from './EmailnCommentsinfo.vue'
 
     export default 
     {   data () {      return {     }    },

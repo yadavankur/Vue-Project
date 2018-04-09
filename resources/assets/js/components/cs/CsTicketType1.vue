@@ -61,8 +61,8 @@ export default
                  selectedTicket1() { return this.selectedTicket; },
           csticket() {   if (this.csType1perTicket )  
                           { console.log('type1-add this.csType1perTicket=',this.csType1perTicket); 
-                          console.log('type1-add this.selectedTicketttype1=',this.selectedTicketttype1); 
-                          console.log('type1-add this.csType1perTicket[0].ttype1=',this.csType1perTicket[0].ttype1);
+                            console.log('type1-add this.selectedTicketttype1=',this.selectedTicketttype1); 
+                            console.log('type1-add this.csType1perTicket[0].ttype1=',this.csType1perTicket[0].ttype1);
                            // console.log('type1-add this.csType1perTicket[Object.keys(this.csType1perTicket)[0]].ticket_no=', this.csType1perTicket[Object.keys(this.csType1perTicket)[0]].ticket_no); 
                          //   console.log('type1-add this.selectedTicket.ticket_no=',this.selectedTicket.ticket_no);
                          //   console.log('type1-add this.csType1perTicket=',this.csType1perTicket.ttype1); 

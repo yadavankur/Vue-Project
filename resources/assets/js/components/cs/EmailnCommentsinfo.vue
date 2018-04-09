@@ -82,7 +82,7 @@
                    }
         },
         created() 
-        {   console.log('/booking/booking/EmailBookingInfo.vue-App Component created.');
+        {   console.log('/cs/Emailncommentsinfo.vue-Component created.');
             this.getLatestNotesRequest();// get the latest customer notes
         },
         components: 
@@ -93,11 +93,11 @@
             'customer-notes-history-modal': CustomerNotesHistoryModal,
             'attachment-preparation-modal': AttachmentPreparationModal,
         },
-        mounted() { console.log('/booking/booking/EmailBookingInfo.vue-App Component mounted.')  },
+        mounted() { console.log('/cs/Emailncommentsinfo.vue--App Component mounted.')  },
         events: {'customer-notes-refresh' () { this.getLatestNotesRequest(); }, },
         methods:
         {  onOpenAttachmentModal() 
-            {   console.log('/booking/booking/EmailBookingInfo.vue-EmailBooking component -> onOpenAttachmentModal');
+            {   console.log('/cs/Emailncommentsinfo.vue--EmailBooking component -> onOpenAttachmentModal');
                 this.isShowAttachment = true;
             },
             getLatestNotesRequest() 
@@ -106,9 +106,9 @@
                               location: this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
                               type: 'CUSTOMER_NOTES',
                             };
-                this.$store.dispatch('getLatestNotesRequest', payload)
+                this.$store.dispatch('getLatestcsComments', payload)
                     .then((response) => 
-                    {   console.log('/booking/booking/EmailBookingInfo.vue-getLatestNotesRequest response=', response);
+                    {   console.log('/cs/Emailncommentsinfo.vue--getLatestcsComments response=', response);
                         let notes = response.data;
                         if (!this.isEmpty(notes))
                         {   this.updatedInfo = 'Last update by '+ notes.created_by.name
@@ -118,22 +118,22 @@
                         else  {   this.updatedInfo = ''; this.customerNotes = ''; }
 
                     })
-                    .catch((error) => { console.log('/booking/booking/EmailBookingInfo.vue-getLatestNotesRequest error=', error); });
+                    .catch((error) => { console.log('/cs/Emailncommentsinfo.vue--getLatestNotesRequest error=', error); });
             },
-            onOpenCustomerNotesModal() { console.log('/booking/booking/EmailBookingInfo.vue-onOpenCustomerNotesModal.'); this.isShowCustomerNotes = true;  },
-            onOpenCustomerNotesHistoryModal() { console.log('/booking/booking/EmailBookingInfo.vue-onOpenCustomerNotesHistoryModal.'); this.isShowCustomerNotesHistory = true; },
-            onOpenEmailModal() {  console.log('/booking/booking/EmailBookingInfo.vue-onOpenEmailModal.');this.selectedAttachments = []; this.isShowEmail = true;  },
+            onOpenCustomerNotesModal() { console.log('/cs/Emailncommentsinfo.vue--onOpenCustomerNotesModal.'); this.isShowCustomerNotes = true;  },
+            onOpenCustomerNotesHistoryModal() { console.log('/cs/Emailncommentsinfo.vue--onOpenCustomerNotesHistoryModal.'); this.isShowCustomerNotesHistory = true; },
+            onOpenEmailModal() {  console.log('/cs/Emailncommentsinfo.vue--onOpenEmailModal.');this.selectedAttachments = []; this.isShowEmail = true;  },
                 // populate a modal window // to let the operator to select email type and template
             onOpenEmailHistoryModal() 
-            {   console.log('/booking/booking/EmailBookingInfo.vue-onOpenEmailHistoryModal.');
+            {   console.log('/cs/Emailncommentsinfo.vue--onOpenEmailHistoryModal.');
                 this.isShowEmailHistory = true;// populate a modal window // to let the operator to select email type and template
             },
-            onCloseEmailModal() { console.log('/booking/booking/EmailBookingInfo.vue-onCloseEmailModal.'); this.isShowEmail = false; },
-            onCloseEmailHistoryModal() { console.log('/booking/booking/EmailBookingInfo.vue-onCloseEmailHistoryModal.'); this.isShowEmailHistory = false;  },
-            onCloseCustomerNotesModal() { console.log('/booking/booking/EmailBookingInfo.vue-onCloseCustomerNotesModal.'); this.isShowCustomerNotes = false; },
-            onCloseCustomerNotesHistoryModal() { console.log('/booking/booking/EmailBookingInfo.vue-onCloseCustomerNotesHistoryModal.'); this.isShowCustomerNotesHistory = false; },
+            onCloseEmailModal() { console.log('/cs/Emailncommentsinfo.vue---onCloseEmailModal.'); this.isShowEmail = false; },
+            onCloseEmailHistoryModal() { console.log('/cs/Emailncommentsinfo.vue---onCloseEmailHistoryModal.'); this.isShowEmailHistory = false;  },
+            onCloseCustomerNotesModal() { console.log('/cs/Emailncommentsinfo.vue---onCloseCustomerNotesModal.'); this.isShowCustomerNotes = false; },
+            onCloseCustomerNotesHistoryModal() { console.log('/cs/Emailncommentsinfo.vue---onCloseCustomerNotesHistoryModal.'); this.isShowCustomerNotesHistory = false; },
             onCloseAttachmentModal(selectedAttachments) 
-                {  console.log('/booking/booking/EmailBookingInfo.vue-onCloseAttachmentModal selectedAttachments=', selectedAttachments);
+                {  console.log('/cs/Emailncommentsinfo.vue---onCloseAttachmentModal selectedAttachments=', selectedAttachments);
                    this.isShowAttachment = false;  this.selectedAttachments = selectedAttachments;
                 }
         }

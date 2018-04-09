@@ -11,9 +11,9 @@
 
     export default 
     {   data () {         return {         }        },
-        created() {      console.log('CustomerNotesHistoryBody Component created.')        },
+        created() {      console.log('/cs/comments/historybody--created')        },
         components: { 'customer-notes-history-body-list-table': CustomerNotesHistoryBodyListTable,        },
-        mounted() {    console.log('CustomerNotesHistoryBody Component mounted.')          },
+        mounted() {    console.log('/cs/comments/-- Component mounted.')          },
         methods:         {        }
     }
 </script>
