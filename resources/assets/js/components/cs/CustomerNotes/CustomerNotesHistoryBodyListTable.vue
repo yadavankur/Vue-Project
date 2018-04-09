@@ -57,139 +57,95 @@
 
     Vue.component('customer-notes-history-actions', CustomerNotesHistoryBodyActions);
 
-    export default {
-        computed: {
-            ...mapState({
-                user: state => state.authUser,
-                selectedOrder: state => state.tab.selectedOrder,
-            }),
-            url(){
-                this.moreParams = {
-                    orderId: this.selectedOrder? this.selectedOrder.UDF1 : '',
-                    quoteId: this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
-                    location: this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
-                };
-                return api.currentCustomerNotesHistoryList;
-            },
-        },
-        props: {
-        },
-        mounted() {
-        },
-        components: {
-            'customer-notes-history-vue-table': Vuetable,
-            VuetablePagination,
-            VuetablePaginationInfo,
-            'customer-notes-history-filter-bar': CustomerNotesHistoryBodyFilterBar,
-        },
-        data () {
-            return {
-                paginationPath: '',
-                search: '',
-                perPage: 5,
-                fields: [
-                    {
-                        title: 'Input Date',
-                        name: 'updated_at',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                        sortField: 'updated_at',
-                    },
-                    {
-                        title: 'Comments',
-                        name: 'comments',
-                        titleClass: 'text-center',
-                        dataClass: 'text-left',
-                    },
-                    {
-                        title: 'Input By',
-                        name: 'created_by.name',
-                        titleClass: 'text-center',
-                        dataClass: 'text-center',
-                    },
-                ],
-                css: {
-                    table: {
-                        tableClass: 'table table-bordered table-striped table-hover',
-                        ascendingIcon: 'glyphicon glyphicon-chevron-up',
-                        descendingIcon: 'glyphicon glyphicon-chevron-down'
-                    },
-                    pagination: {
-                        wrapperClass: 'pagination',
-                        activeClass: 'active',
-                        disabledClass: 'disabled',
-                        pageClass: 'page',
-                        linkClass: 'link',
-                    },
-                    icons: {
-                        first: 'glyphicon glyphicon-step-backward',
-                        prev: 'glyphicon glyphicon-chevron-left',
-                        next: 'glyphicon glyphicon-chevron-right',
-                        last: 'glyphicon glyphicon-step-forward',
-                    },
+    export default 
+    {   computed: { ...mapState({  user: state => state.authUser,
+                                   selectedOrder: state => state.tab.selectedOrder,
+                                }),
+                    url(){ this.moreParams = {  orderId: this.selectedOrder? this.selectedOrder.UDF1 : '',
+                                                quoteId: this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
+                                                location: this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
+                                            };
+                            return api.currentCustomerNotesHistoryList;
+                        },
                 },
-                sortOrder: [
-                    { field: 'updated_at', sortField: 'comments.updated_at', direction: 'desc'}
-                ],
-                moreParams: {}
-            }
-        },
-        methods: {
-            onPaginationData (paginationData) {
-                this.$refs.customerNotesHistorypagination.setPaginationData(paginationData);
-                this.$refs.customerNotesHistorypaginationInfo.setPaginationData(paginationData);
-            },
-            onChangePage (page) {
-                this.$refs.customerNotesHistoryVueTable.changePage(page)
-            },
-            onActions (data) {
-                console.log('customerNotesHistoryTable onActions', data);
-                console.log('customerNotesHistoryTable onActions data.data.id=', data.data.id);
-            },
-        },
-        events: {
-            'customer-notes-history-list-filter-set' (filterData) {
-                console.log('customer-notes-history-list-filter-set filter Data=', filterData);
-                this.moreParams = {
-                    orderId: this.selectedOrder? this.selectedOrder.UDF1 : '',
-                    quoteId:  this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
-                    location:  this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
-                    filter: filterData,
-                };
-                Vue.nextTick( () => {
-                    if (this.$refs.customerNotesHistoryVueTable)
-                        this.$refs.customerNotesHistoryVueTable.refresh();
-                });
-            },
-            'customer-notes-history-list-filter-reset' () {
-                console.log('customer-notes-history-list-filter-reset');
-                this.moreParams = {
-                    orderId: this.selectedOrder? this.selectedOrder.UDF1 : '',
-                    quoteId:  this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
-                    location:  this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
-                };
-                Vue.nextTick( () => this.$refs.customerNotesHistoryVueTable.refresh() )
-            },
-            'refreshCustomerNotesHistoryTable'() {
-                console.log('events -> refreshCustomerNotesHistoryTable');
-                Vue.nextTick( () => this.$refs.customerNotesHistoryVueTable.refresh() );
-            }
-        },
-        watch: {
-            'perPage' (newVal, oldVal) {
-                this.$nextTick(function() {
-                    this.$refs.customerNotesHistoryVueTable.refresh()
-                })
-            },
-            'paginationComponent' (newVal, oldVal) {
-                this.$nextTick(function() {
-                    this.$refs.customerNotesHistorypagination.setPaginationData(this.$refs.customerNotesHistoryVueTable.tablePagination)
-                })
-            },
-            url() {
-                console.log('watch +++++++ url() = ', this.url);
-            },
-        },
+        props: {    },
+        mounted() {     },
+        components: {   'customer-notes-history-vue-table': Vuetable,
+                         VuetablePagination,
+                         VuetablePaginationInfo,
+                        'customer-notes-history-filter-bar': CustomerNotesHistoryBodyFilterBar,
+                    },
+        data () { return {  paginationPath: '',
+                            search: '',
+                            perPage: 5,
+                            fields: [ {  title: 'Input Date',  name: 'updated_at', titleClass: 'text-center', dataClass: 'text-center', sortField: 'updated_at', },
+                                      { title: 'Comments', name: 'comments', titleClass: 'text-center', dataClass: 'text-left',  },
+                                      { title: 'Input By', name: 'created_by.name', titleClass: 'text-center', dataClass: 'text-center',  },
+                                    ],
+                            css: { table: {  tableClass: 'table table-bordered table-striped table-hover',
+                                            ascendingIcon: 'glyphicon glyphicon-chevron-up',
+                                            descendingIcon: 'glyphicon glyphicon-chevron-down'
+                                          },
+                                  pagination: { wrapperClass: 'pagination',
+                                                activeClass: 'active',
+                                                disabledClass: 'disabled',
+                                                pageClass: 'page',
+                                                linkClass: 'link',
+                                             },
+                                    icons: {    first: 'glyphicon glyphicon-step-backward',
+                                                prev: 'glyphicon glyphicon-chevron-left',
+                                                next: 'glyphicon glyphicon-chevron-right',
+                                                last: 'glyphicon glyphicon-step-forward',
+                                            },
+                                },
+                        sortOrder: [ { field: 'updated_at', sortField: 'comments.updated_at', direction: 'desc'}  ],
+                        moreParams: {}
+                     } //return end
+                }, //data end
+        methods: {  onPaginationData (paginationData) 
+                        {   this.$refs.customerNotesHistorypagination.setPaginationData(paginationData);
+                             this.$refs.customerNotesHistorypaginationInfo.setPaginationData(paginationData);
+                        },
+                    onChangePage (page) { this.$refs.customerNotesHistoryVueTable.changePage(page)  },
+                    onActions (data) { console.log('customerNotesHistoryTable onActions', data);
+                               console.log('customerNotesHistoryTable onActions data.data.id=', data.data.id);
+                             },
+                },
+        events: {   'customer-notes-history-list-filter-set' (filterData) 
+                        {   console.log('customer-notes-history-list-filter-set filter Data=', filterData);
+                           this.moreParams = 
+                           {  orderId: this.selectedOrder? this.selectedOrder.UDF1 : '',
+                              quoteId:  this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
+                              location:  this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
+                              filter: filterData,
+                           };
+                          Vue.nextTick( () => {  if (this.$refs.customerNotesHistoryVueTable)
+                                       this.$refs.customerNotesHistoryVueTable.refresh();
+                                   });
+                        },
+                    'customer-notes-history-list-filter-reset' () 
+                     {   console.log('customer-notes-history-list-filter-reset');
+                        this.moreParams = {  orderId: this.selectedOrder? this.selectedOrder.UDF1 : '',
+                                            quoteId:  this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
+                                            location:  this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
+                                          };
+                        Vue.nextTick( () => this.$refs.customerNotesHistoryVueTable.refresh() )
+                    },
+                     'refreshCustomerNotesHistoryTable'() 
+                    {   console.log('events -> refreshCustomerNotesHistoryTable');
+                        Vue.nextTick( () => this.$refs.customerNotesHistoryVueTable.refresh() );
+                    }
+                }, //events end
+        watch: { 'perPage' (newVal, oldVal) 
+                    {  this.$nextTick(function() { this.$refs.customerNotesHistoryVueTable.refresh()  })
+                    },
+                 'paginationComponent' (newVal, oldVal) 
+                    {  this.$nextTick(function() 
+                          {  this.$refs.customerNotesHistorypagination.setPaginationData(this.$refs.customerNotesHistoryVueTable.tablePagination)
+                          })
+                   },
+                 url() {   console.log('watch +++++++ url() = ', this.url); },
+               }, //watch end
     }
 </script>
 <style scoped>

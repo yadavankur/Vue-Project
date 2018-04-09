@@ -13,12 +13,8 @@
     {   data () {         return {         }        },
         created() {      console.log('CustomerNotesHistoryBody Component created.')        },
         components: { 'customer-notes-history-body-list-table': CustomerNotesHistoryBodyListTable,        },
-        mounted() {    console.log('CustomerNotesHistoryBody Component mounted.')
-        },
-        methods:
-        {
-
-        }
+        mounted() {    console.log('CustomerNotesHistoryBody Component mounted.')          },
+        methods:         {        }
     }
 </script>
 

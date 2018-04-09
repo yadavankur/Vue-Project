@@ -13,27 +13,17 @@
 
 <script>
     import input from 'vue-strap/src/Input'
-    export default {
-        components: {
-            'bs-input': input,
-        },
-        props: {
-        },
-        data () {
-            return {
-                filterText: '',
-            }
-        },
-        created() {
-        },
-        methods: {
-            doFilter () {
-                this.$events.fire('customer-notes-history-list-filter-set', this.filterText)
-            },
-            resetFilter () {
-                this.filterText = '';
-                this.$events.fire('customer-notes-history-list-filter-reset')
-            },
-        }
+    export default 
+    {   components: {  'bs-input': input,   },
+        props:    {      },
+        data ()   {   return {  filterText: '',      }    },
+        created() {     },
+        methods:  {  doFilter () 
+                     {  this.$events.fire('customer-notes-history-list-filter-set', this.filterText)   },
+                    resetFilter () 
+                     {   this.filterText = '';
+                        this.$events.fire('customer-notes-history-list-filter-reset')
+                     },
+                 }
     }
 </script>

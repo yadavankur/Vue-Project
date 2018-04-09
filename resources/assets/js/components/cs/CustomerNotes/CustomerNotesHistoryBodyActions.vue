@@ -6,46 +6,23 @@
     </div>
 </template>
 <script>
-    export default {
-        components: {
-        },
-        props: {
-            item: {
-                type: Object,
-            },
-            rowData: {
-                type: Object,
-                required: true
-            },
-            rowIndex: {
-                type: Number,
-            },
-        },
-        data () {
-            return {
-                actView: {
-                    type: Boolean,
-                    default: true
+    export default 
+    {   components: {    },
+        props: {    item: {   type: Object,   },
+                    rowData: { type: Object,  required: true },
+                    rowIndex: { type: Number, },
                 },
-            }
-        },
-        mounted() {
-        },
-        updated() {
-            console.log('CustomerNotesHistoryBodyActions Component updated.');
-        },
-        created() {
-            console.log('CustomerNotesHistoryBodyActions created: ', this.rowData, this.rowIndex);
-        },
-        methods: {
-            itemAction (action, data, index) {
-                console.log('itemAction: CustomAction:action-item :' + action, data, index);
-                // emit event to let parent do things
-                this.$parent.$emit('CustomAction:action-item', {action: action, data: data, index: index});
-            },
-        },
-        watch: {
-        }
+        data () {   return { actView: { type: Boolean,  default: true },  }  },
+        mounted() {    },
+        updated() { console.log('CustomerNotesHistoryBodyActions Component updated.');  },
+        created() { console.log('CustomerNotesHistoryBodyActions created: ', this.rowData, this.rowIndex);  },
+        methods: {  itemAction (action, data, index) 
+                    {    console.log('itemAction: CustomAction:action-item :' + action, data, index);
+                        // emit event to let parent do things
+                        this.$parent.$emit('CustomAction:action-item', {action: action, data: data, index: index});
+                    },
+                },
+        watch: {      }
     }
 </script>
 

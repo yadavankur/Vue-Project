@@ -19,38 +19,23 @@
 <script>
     import modal from 'vue-strap/src/Modal'
     import CustomerNotesHistoryBody from './CustomerNotesHistoryBody.vue'
-    export default {
-        props: {
-            isShowCustomerNotesHistory: false,
-        },
-        data () {
-            return {
-                isVisible: false,
-            }
-        },
-        computed: {
-            isShowModal() {
-                this.isVisible = this.isShowCustomerNotesHistory;
-                return this.isVisible;
-            }
-        },
-        created() {
-            console.log('CustomerNotesHistoryModal Component created.')
-        },
-        components: {
-            'customer-notes-history-body': CustomerNotesHistoryBody,
-            'customer-notes-history-modal': modal,
-        },
-        mounted() {
-            console.log('CustomerNotesHistoryModal Component mounted.')
-        },
+    export default 
+    {   props: {  isShowCustomerNotesHistory: false,   },
+        data () { return { isVisible: false,   }  },
+        computed: {  isShowModal() {  this.isVisible = this.isShowCustomerNotesHistory;
+                                      return this.isVisible;
+                                    }
+                },
+        created() { console.log('CustomerNotesHistoryModal Component created.')  },
+        components: { 'customer-notes-history-body': CustomerNotesHistoryBody,
+                      'customer-notes-history-modal': modal,
+                    },
+        mounted() { console.log('CustomerNotesHistoryModal Component mounted.') },
         methods:
-        {
-            onClickClose() {
-                console.log('onClickClose');
-                this.$emit('onCloseCustomerNotesHistoryModal');
-            },
-        }
+             { onClickClose() {  console.log('onClickClose');
+                                this.$emit('onCloseCustomerNotesHistoryModal');
+                              },
+             }
     }
 </script>
 

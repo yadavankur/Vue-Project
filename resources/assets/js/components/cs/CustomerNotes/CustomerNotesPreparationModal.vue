@@ -22,64 +22,45 @@
     import { mapGetters, mapState, mapActions} from 'vuex'
     import modal from 'vue-strap/src/Modal'
     import CustomerNotesPreparationBody from './CustomerNotesPreparationBody.vue'
-    export default {
-        props: {
-            isShowCustomerNotes: false,
-        },
-        data () {
-            return {
-                isVisible: false,
-            }
-        },
-        computed: {
-            isShowModal() {
-                this.isVisible = this.isShowCustomerNotes;
-                return this.isVisible;
-            },
-            ...mapState({
-                user: state => state.authUser,
-                selectedOrder: state => state.tab.selectedOrder,
-            }),
-        },
-        created() {
-            console.log('CustomerNotesPreparationModal Component created.')
-        },
-        components: {
-            'customer-notes-preparation-body': CustomerNotesPreparationBody,
-            'custom-modal': modal,
-        },
-        mounted() {
-            console.log('CustomerNotesPreparationModal Component mounted.')
-        },
-        methods:
-        {
-            onClickSave() {
-                console.log('onClickSave');
-                this.$emit('onCloseCustomerNotesModal');
-                // send save request
-                let formData = {
-                    orderId: this.selectedOrder? this.selectedOrder.UDF1 : '',
-                    quoteId:  this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
-                    location:  this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
-                    notes: this.$refs.customerNotes.customerNotesContent
-                };
-                console.log('onClickSave formData=', formData);
-                // SEND EMAIL REQUEST
-                this.$store.dispatch('saveCustomerNotesRequest', formData)
-                    .then((response) => {
-                        console.log('saveCustomerNotesRequest response=', response);
-                        // refresh the customer notes
-                        this.$events.fire('customer-notes-refresh');
-                    })
-                    .catch((error) => {
-                            console.log('saveCustomerNotesRequest error=', error);
-                    });
-            },
-            onClickCancel() {
-                console.log('onClickCancel');
-                this.$emit('onCloseCustomerNotesModal');
-            }
-        }
+    export default 
+        {   props: {  isShowCustomerNotes: false,  },
+            data () {   return {  isVisible: false,   }     },
+            computed: {  isShowModal() {   this.isVisible = this.isShowCustomerNotes;
+                                            return this.isVisible;
+                                        },
+                        ...mapState({    user: state => state.authUser,
+                                        selectedOrder: state => state.tab.selectedOrder,
+                                    }),
+                    },
+            created() {  console.log('CustomerNotesPreparationModal Component created.')    },
+            components: {  'customer-notes-preparation-body': CustomerNotesPreparationBody,
+                        'custom-modal': modal,
+                        },
+            mounted() {  console.log('CustomerNotesPreparationModal Component mounted.')   },
+            methods:
+                {   onClickSave() 
+                    {   console.log('onClickSave');
+                        this.$emit('onCloseCustomerNotesModal');
+                        // send save request
+                        let formData = 
+                        {   orderId: this.selectedOrder? this.selectedOrder.UDF1 : '',
+                            quoteId:  this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
+                            location:  this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
+                            notes: this.$refs.customerNotes.customerNotesContent
+                        };
+                        console.log('onClickSave formData=', formData);
+                         // SEND EMAIL REQUEST
+                        this.$store.dispatch('saveCustomerNotesRequest', formData)
+                        .then((response) => {  console.log('saveCustomerNotesRequest response=', response);
+                                            // refresh the customer notes
+                                                this.$events.fire('customer-notes-refresh');
+                                            })
+                        .catch((error) => { console.log('saveCustomerNotesRequest error=', error);  });
+                    },
+                    onClickCancel() {  console.log('onClickCancel');
+                                        this.$emit('onCloseCustomerNotesModal');
+                                    }
+                }//methods end
     }
 </script>
 
