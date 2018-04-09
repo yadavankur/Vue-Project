@@ -83,7 +83,7 @@
         },
         created() 
         {   console.log('/cs/Emailncommentsinfo.vue-Component created.');
-            this.getLatestNotesRequest();// get the latest customer notes
+            this.getLatestNotesRequest();
         },
         components: 
         {
