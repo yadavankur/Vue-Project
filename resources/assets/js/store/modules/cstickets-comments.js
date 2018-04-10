@@ -22,7 +22,7 @@ mutations:
         getLatestcsComments: ({dispatch}, payload) => 
         {   console.log('/store/cstktcomments.js-getLatestcscomments');
             return new Promise((resolve, reject) => 
-            {   Vue.http.get(api.latestcscomments, {params: payload} )
+            {   Vue.http.post(api.latestcscomments, {params: payload} )
                     .then(response => 
                         { console.log('/store/cstktcomments.js-getLatestcscomments response.body=', response.body);
                         resolve(response);

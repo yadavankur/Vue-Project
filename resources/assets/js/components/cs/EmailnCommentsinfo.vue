@@ -38,13 +38,13 @@
                     <table class="table table-hover table-striped table-bordered table-condensed">
                         <tbody>
                         <tr>
-                            <td class="col-title">Confirmation </td>
+                            <td class="col-title">Emails </td>
                             <td><button type="button" class="btn btn-success btn-sm"  @click="onOpenEmailModal" ><i class="glyphicon glyphicon-envelope"></i> New Email </button>
                                 <button type="button" class="btn btn-warning btn-sm"  @click="onOpenEmailHistoryModal"> <i class="glyphicon glyphicon-th-list"></i> Email History </button>
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-title">Customer Notes </td>
+                            <td class="col-title">Ticket Notes </td>
                             <td >
                                 <button type="button" class="btn btn-success btn-sm" @click="onOpenCustomerNotesModal" ><i class="glyphicon glyphicon-comment"></i> New Notes </button>
                                 <button type="button" class="btn btn-warning btn-sm" @click="onOpenCustomerNotesHistoryModal" ><i class="glyphicon glyphicon-list-alt"></i> Notes History </button>
@@ -73,7 +73,15 @@
 
     export default 
     {   computed: 
-        {   ...mapState({ user: state => state.authUser, selectedOrder: state => state.tab.selectedOrder,  }), },
+        {   ...mapState({ 
+                          selectedOrder: state => state.tab.selectedOrder,  
+
+                          user: state => state.authUser,
+                          selectedTicket: state => state.cstkt.selectedTicket,
+                          
+                          }),
+               selectedTicket1() { return this.selectedTicket; }, 
+        },
             props: { orderId :{ type: String, default: '', } },
         data () 
         {   return {  isShowEmail: false,   isShowEmailHistory: false,   isShowCustomerNotes: false,
@@ -101,10 +109,11 @@
                 this.isShowAttachment = true;
             },
             getLatestNotesRequest() 
-            { let payload = { orderId: this.orderId,
-                              quoteId: this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
-                              location: this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
-                              type: 'CUSTOMER_NOTES',
+            { let payload = { //orderId: this.this.selectedTicket.ticket_no,
+                              ticket_no: this.selectedTicket1.ticket_no,
+                             // quoteId: this.selectedOrder? this.selectedOrder.QUOTE_ID : '',
+                            //  location: this.selectedOrder? this.selectedOrder.QUOTE_NUM_PREF : '',
+                             // type: 'CUSTOMER_NOTES',
                             };
                 this.$store.dispatch('getLatestcsComments', payload)
                     .then((response) => 
@@ -141,25 +150,6 @@
 </script>
 
 <style scoped>
-    /*.panel-primary > .panel-heading {*/
-        /*color: white;*/
-        /*background-color: #0a5b9e;*/
-        /*border-color: #0a5b9e;*/
-    /*}*/
-    /*.panel-heading a {*/
-        /*color: white;*/
-    /*}*/
-    /*.panel-heading .accordion-toggle:after {*/
-        /*!* symbol for "opening" panels *!*/
-        /*font-family: 'Glyphicons Halflings';*/
-        /*content: "\e114";*/
-        /*float: right;*/
-        /*color: white;*/
-    /*}*/
-    /*.panel-heading .accordion-toggle.collapsed:after {*/
-        /*!* symbol for "collapsed" panels *!*/
-        /*content: "\e080";*/
-    /*}*/
     .notes {
         height: 200px;
         overflow-y: scroll;
