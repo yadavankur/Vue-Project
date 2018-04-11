@@ -40,7 +40,10 @@ class TicketCsRepository extends BaseRepository
         $ticketcs->status = $request->input('status_id');  
         $ticketcs->allocated_user_id = $request->input('user1.id');
         $ticketcs->GROUP_ID = $request->input('group1.id');   
-        $ticketcs->CONTACT_PERSON = $request->input('CONTACT_PERSON');   
+        $ticketcs->CONTACT_PERSON = $request->input('CONTACT_PERSON');  
+        $ticketcs->CONTACT_PHONE = $request->input('CONTACT_PHONE'); 
+        $ticketcs->CONTACT_EMAIL = $request->input('CONTACT_EMAIL'); 
+        $ticketcs->CONTACT_PHONE = $request->input('CONTACT_PHONE');     
         $ticketcs->user_id = 1;  
     
         $ticketcs->save();   return $ticketcs;
@@ -147,7 +150,7 @@ class TicketCsRepository extends BaseRepository
         if ($ORDER_ID) {   $like = "%{$ORDER_ID}%"; $query->where('ORDER_ID', 'LIKE', $like);  }
         if ($QUOTE_ID) {   $like = "%{$QUOTE_ID}%"; $query->where('QUOTE_ID', 'LIKE', $like);  }
         if ($ticketStatus)  {   $like = "%{$ticketStatus}%";  $query->where('status', 'LIKE', $like);}
-        if ($ticketType)  {   $like = "%{$ticketType}%";  $query->where('ticket_type_id', 'LIKE', $like);}
+        if ($ticketType)  {   $like = "{$ticketType}";  $query->where('ticket_type_id', 'LIKE', $like);}
        // if ($salesOrderNumber) {   $like = "%{$salesOrderNumber}%";  $query->where('status', 'LIKE', $like); }
         if ($orderLocation) {   $like = "%{$orderLocation}%";  $query->where('location_id', 'LIKE', $like); }
 

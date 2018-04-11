@@ -55,14 +55,17 @@
                         
                     </tr>
 
-                    <tr> <td colspan="2"><bs-input label="CONTACT_PERSON" type="integer" required  :maxlength="255" :icon="true" v-model="formData.CONTACT_PERSON"></bs-input></td>
-                    <td> <bs-input label="PHONE" type="integer" required  :maxlength="255" :icon="true" v-model="formData.PHONE"></bs-input></td>
+                    <tr> <td colspan="2"><bs-input label="CONTACT_PERSON" type="text" required  :maxlength="255" :icon="true" v-model="formData.CONTACT_PERSON"></bs-input></td>
+                    
+                    <td> <bs-input label="PHONE" type="integer" required  :maxlength="255" :icon="true" v-model="formData.CONTACT_PHONE"></bs-input></td>
                      </tr>
+                       <tr> <td colspan="2"><bs-input label="CONTACT_EMAIL" type="email" placeholder="example@example.com"   :maxlength="255" :icon="true" v-model="formData.CONTACT_EMAIL"></bs-input></td>
+                       </tr>
                   </tbody>
               </table>
 
              
-              <bs-input label="Comment" type="textarea" :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
+              <bs-input label="Comments" type="textarea" :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
 
             <div slot="modal-footer" class="modal-footer">
                 <button type="button" class="btn btn-success" @click="onClose">Cancel</button>
