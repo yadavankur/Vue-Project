@@ -25,13 +25,37 @@
                    </tr>
                    <tr>
                         <td><bs-input label="LOCATION" type="text" disabled  :maxlength="255" :icon="true" v-model="formData.location_name"></bs-input></td>
-                       <td>
+                       
+                          <td><bs-input label="CUST_NAME" type="text" disabled   :maxlength="255" :icon="true" v-model="formData.CUST_NAME"></bs-input></td>
+                        
+                    </tr>
+                    <tr><td colspan="2">
+                             <div class="form-group">
+                                 <div><label for="status">ALLOCATED USER</label></div>
+                                   <Cascader v-model="cascade_state_location" :data="cascadeLocationOptions"
+                                  size="large"  placeholder="Please select a Group/User..."
+                                  @on-change="handleUserChange" :disabled="formData.id != ''"
+                                   > </Cascader>
+                             </div>
+                        </td>
+                        <td>
                             <div class="form-group"><div><label for="status">TYPE</label></div>
                                 <Select clearable filterable v-model="formData.ticket_type_id"
                                         @on-change="onChangeType"  placeholder="Please select a Type..."   style="width:180px"  >
                                     <Option v-for="item in typeOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
                                 </Select>
                             </div>
+                        </td>
+                      
+                        </tr>
+                       <tr><td colspan="2">
+                             <div class="form-group">
+                                 <div><label for="status">MANAGED USER</label></div>
+                                   <Cascader v-model="cascade_state_location1" :data="cascadeLocationOptions"
+                                  size="large"  placeholder="Please select a Group/User..."
+                                  @on-change="handleUserChange1" :disabled="formData.id != ''"
+                                   > </Cascader>
+                             </div>
                         </td>
                         <td>
                              <div class="form-group"><div><label for="status">STATUS</label></div>
@@ -41,26 +65,13 @@
                                 </Select>
                             </div>
                         </td>
+                       
                     </tr>
-                    <tr><td colspan="2">
-                             <div class="form-group">
-                                 <div><label for="status">USER</label></div>
-                                   <Cascader v-model="cascade_state_location" :data="cascadeLocationOptions"
-                                  size="large"  placeholder="Please select a Group/User..."
-                                  @on-change="handleUserChange" :disabled="formData.id != ''"
-                                   > </Cascader>
-                             </div>
-                        </td>
-                        <td><bs-input label="CUST_NAME" type="text" disabled   :maxlength="255" :icon="true" v-model="formData.CUST_NAME"></bs-input></td>
-                        
-                    </tr>
-
                     <tr> <td colspan="2"><bs-input label="CONTACT_PERSON" type="text" required  :maxlength="255" :icon="true" v-model="formData.CONTACT_PERSON"></bs-input></td>
-                    
-                    <td> <bs-input label="PHONE" type="integer" required  :maxlength="255" :icon="true" v-model="formData.CONTACT_PHONE"></bs-input></td>
-                     </tr>
-                       <tr> <td colspan="2"><bs-input label="CONTACT_EMAIL" type="email" placeholder="example@example.com"   :maxlength="255" :icon="true" v-model="formData.CONTACT_EMAIL"></bs-input></td>
-                       </tr>
+                         <td> <bs-input label="PHONE" type="integer" required  :maxlength="255" :icon="true" v-model="formData.CONTACT_PHONE"></bs-input></td>
+                    </tr>
+                    <tr> <td colspan="2"><bs-input label="CONTACT_EMAIL"  type="email" placeholder="example@example.com"  required :maxlength="255" :icon="true" v-model="formData.CONTACT_EMAIL"></bs-input></td>  
+                    </tr>
                   </tbody>
               </table>
 
@@ -83,38 +94,53 @@
                       <td><bs-input label="ORDER_ID" type="text" disabled  :maxlength="255" :icon="true" v-model="formData.ORDER_ID"></bs-input></td>
                      
                   </tr>
-                   <tr> <td><div class="form-group"><div><label for="status" >TYPE</label></div>
+                   <tr> 
+                   </tr>
+                   <tr><td colspan="2">
+                             <div class="form-group">
+                                 <div><label for="status">ALLOCATED USER</label></div>
+                                   <Cascader v-model="cascade_state_location" :data="cascadeLocationOptions"
+                                             size="large"  placeholder="Please select a Group/User..."
+                                             @on-change="handleUserChange" 
+                                    ></Cascader>
+                             </div>
+                        </td>
+                        <td><div class="form-group"><div><label for="status" >TYPE</label></div>
                                 <Select clearable filterable v-model="formData.ticket_type_id" placeholder="Please select a Type..."   style="width:180px"
                                         @on-change="onChangeType" :disabled="formData.id != ''" >
                                     <Option v-for="item in typeOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
                                 </Select>
                             </div>
                         </td> 
-                    <td>
+                           
+                    </tr>
+                    <tr><td colspan="2">
+                             <div class="form-group">
+                                 <div><label for="status">MANAGED USER</label></div>
+                                   <Cascader v-model="cascade_state_location1" :data="cascadeLocationOptions"
+                                             size="large"  placeholder="Please select a Group/User..."
+                                             @on-change="handleUserChange1" 
+                                   > </Cascader>
+                             </div>
+                        </td>
+                        <td>
                         <div class="form-group"><div><label for="status">STATUS</label></div>
                                 <Select clearable filterable v-model="formData.status_id"
                                         @on-change="onChangeStatus"  placeholder="Please select a status..."   style="width:180px"  >
                                     <Option v-for="item in statusOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
                                 </Select>
                         </div>
-                    </td>
-                    
-                    </tr>
-                    <tr><td colspan="2">
-                             <div class="form-group">
-                                 <div><label for="status">USER</label></div>
-                                   <Cascader v-model="cascade_state_location" :data="cascadeLocationOptions"
-                                             size="large"  placeholder="Please select a Group/User..."
-                                             @on-change="handleUserChange" 
-                                   > </Cascader>
-                             </div>
                         </td>
+                           
+                    </tr>
+                    <tr> <td colspan="2"><bs-input label="CONTACT_PERSON" type="text" required  :maxlength="255" :icon="true" v-model="formData.CONTACT_PERSON"></bs-input></td>
+                         <td> <bs-input label="PHONE" type="integer" required  :maxlength="255" :icon="true" v-model="formData.CONTACT_PHONE"></bs-input></td>
+                    </tr>
+                    <tr> <td colspan="2"><bs-input label="CONTACT_EMAIL"  type="email" placeholder="example@example.com"  required :maxlength="255" :icon="true" v-model="formData.CONTACT_EMAIL"></bs-input></td>  
                     </tr>
                   </tbody>
               </table>
-
-                <bs-input label="Comment" type="textarea" :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
-
+              <bs-input label="Comment" type="textarea" :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
             <div slot="modal-footer" class="modal-footer">
                 <button type="button" class="btn btn-success" @click="onClose">Cancel</button>
                 <button type="button" class="btn btn-primary" @click="OnSave">Save</button>
@@ -156,7 +182,7 @@
                                            location_id: '',name: '',  comment: '',  id: ''  ,orderStatus: '', CONTACT_NAME:'', CONTACT_PHONE:'',
                                        }, statusOptions: [], typeOptions: [], 
                               cascadeLocationOptions: [],
-                              cascade_state_location: [],
+                              cascade_state_location: [],cascade_state_location1: [],
                              } 
                     //this form data is required in the above form during rendering
                 },
@@ -192,6 +218,7 @@
                         .then((response) => 
                         {   console.log('/csticket/crud.vue created useraspergroupscascade success=', response);
                             this.cascadeLocationOptions = response.data.groupNodes;
+                         
                         })
                         .catch((error) => { console.error('/csticket/crud.vue--useraspergroupscascade error=', error);  });
                  },
@@ -296,7 +323,7 @@
                                       status_id:'',
                                       ticket_type_id:'',  CONTACT_PERSON:'',
                                     };  
-                              this.cascade_state_location = [];
+                              this.cascade_state_location = []; this.cascade_state_location1 = [];
                             },
 
 
@@ -335,6 +362,19 @@
                       this.formData.user1 = {id: selectedData[selectedData.length-1].value, name: selectedData[selectedData.length-1].label};
                    }
             },
+           handleUserChange1 (value, selectedData) //----change user
+            {  console.log('/csticket/crud.vue--handleUserChange value=', value);
+                 console.log('/csticket/crud.vue--handleUserChange selectedData=', selectedData);
+                // this.formData.location = {id:'', name:''};
+                // this.formData.state = {id:'', name:''};
+
+                 this.formData.user2 = {id:'', name:''};
+                 this.formData.group2 = {id:'', name:''};
+                 if (selectedData.length > 0)
+                   {  this.formData.group2 = {id: selectedData[0].value, name: selectedData[0].label};
+                      this.formData.user2 = {id: selectedData[selectedData.length-1].value, name: selectedData[selectedData.length-1].label};
+                   }
+            },
 
         },
         watch: 
@@ -356,7 +396,7 @@
                     this.resetFormData();
                     var aa=this.csTicketlast.id; aa++;   aa = String(aa).trim(); 
                     this.formData.ticket_no=aa;
-                    this.title = 'Adding a new TKT';
+                    this.title = 'Adding new TICKET';
                   //  this.formData.location_id=this.csticketActivityData.loccation.id;
                     this.formData.QUOTE_ID=this.csticketActivityData.QUOTE_ID;
                     this.formData.CUST_NAME=this.csticketActivityData.CUST_NAME;
@@ -374,12 +414,16 @@
                 {  console.log('/cs/crud.vue- inside edit'); 
                    
                     this.resetFormData();
-                    this.title = 'Edit Ticket';
+                    this.title = 'Edit TICKET';
                     this.formData.id = this.csticketActivityData.data.id;
                     this.formData.ticket_no = this.csticketActivityData.data.ticket_no;
                     this.formData.QUOTE_ID = this.csticketActivityData.data.QUOTE_ID;
                     this.formData.ORDER_ID = this.csticketActivityData.data.ORDER_ID;
                     this.formData.comment = this.csticketActivityData.data.comment;
+                    this.formData.CUST_NAME = this.csticketActivityData.data.CUST_NAME;
+                    this.formData.CONTACT_PERSON = this.csticketActivityData.data.CONTACT_PERSON;
+                    this.formData.CONTACT_PHONE = this.csticketActivityData.data.CONTACT_PHONE;
+                    this.formData.CONTACT_EMAIL = this.csticketActivityData.data.CONTACT_EMAIL;
                    
                     this.formData.status_id = this.csticketActivityData.data.STATUS;
                     // this.formData.ticket_type_id = this.csticketActivityData.data.ttype.ticket_type;
@@ -392,8 +436,16 @@
                     this.formData.user1 = { id : this.csticketActivityData.data.auserid.id,
                                                 name: this.csticketActivityData.data.auserid.name,
                                             };
+                    this.formData.group2 = {  id : this.csticketActivityData.data.bgroupid.id,
+                                               name: this.csticketActivityData.data.bgroupid.name
+                                            };
+                    this.formData.user2 = { id : this.csticketActivityData.data.buserid.id,
+                                                name: this.csticketActivityData.data.buserid.name,
+                                            };
                     this.cascade_state_location.push(this.formData.group1.id);
                     this.cascade_state_location.push(this.formData.user1.id);
+                    this.cascade_state_location1.push(this.formData.group2.id);
+                    this.cascade_state_location1.push(this.formData.user2.id);
                    //---------user group finished
                    this.formData.location_id=this.csticketActivityData.data.location_id;
                    console.log('/cs/crud.vue- this.csticketactivity.location_id=', this.csticketActivityData.data.location_id); 

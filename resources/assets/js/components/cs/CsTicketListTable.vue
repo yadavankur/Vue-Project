@@ -86,12 +86,13 @@
                                 {  title: 'Status', name: 'tstatus.STATUS',sortField: 'status',     },
                                 {  title: 'Location', name: 'location.name',    },
                                 {  title: 'CONTACT', name: 'CONTACT_PERSON',     },
-                                {  title: 'Comments', name: 'comment',   },
-                                {  title: 'AssignedUser', name: 'auserid.name',sortField: 'user_id',     },
+                               // {  title: 'Comments', name: 'comment',   },
+                                {  title: 'AllocatedUser', name: 'auserid.name',sortField: 'user_id',     },
+                                 {  title: 'ManagedUser', name: 'buserid.name',sortField: 'user_id',     },
                                 {  title: 'Created_by', name: 'created_by.name',sortField: 'user_id',     },
                                 {  title: 'Updated_by', name: 'updated_by.name',sortField: 'user_id',},
                                 {  title: 'Updated_At', name: 'updated_at',sortField: 'updated_at',     },
-                                {  title: 'Created_At', name: 'created_at',sortField: 'created_at',     },
+                             //   {  title: 'Created_At', name: 'created_at',sortField: 'created_at',     },
                                 
                                  
                               { name: '__component:permission-custom-actions', title: 'Actions',  titleClass: 'text-center', dataClass: 'text-center'  }

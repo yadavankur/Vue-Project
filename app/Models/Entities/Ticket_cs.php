@@ -88,9 +88,19 @@ class Ticket_cs extends BaseModel
         return $this->belongsTo(user::class, 'allocated_user_id', 'id')->where('active', 1);
                                                       //column name in ticket_cs table//then column name in status table
     }
+    public function buserid() //allocated user_id
+    {
+        return $this->belongsTo(user::class, 'managed_user_id', 'id')->where('active', 1);
+                                                      //column name in ticket_cs table//then column name in status table
+    }
     public function agroupid()
     {
         return $this->belongsTo(Group::class, 'GROUP_ID', 'id')->where('active', 1);
+                                                      //column name in ticket_cs table//then column name in status table
+    }
+    public function bgroupid()
+    {
+        return $this->belongsTo(Group::class, 'user_id', 'id')->where('active', 1);
                                                       //column name in ticket_cs table//then column name in status table
     }
 }

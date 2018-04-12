@@ -54,9 +54,18 @@
                                 </Select>
                             </div>
 
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"><div><label for="type">Assigned_user</label></div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"><div><label for="type">Allocated_user</label></div>
                                 <Select clearable filterable v-model="formSearchData.assigneduser"
                                         @on-change="onChangeAssignedUser"
+                                        placeholder="Select a user..."
+                                        style="width:180px"
+                                >
+                                    <Option v-for="item in usersOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
+                                </Select>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"><div><label for="type">Managed_user</label></div>
+                                <Select clearable filterable v-model="formSearchData.manageduser"
+                                        @on-change="onChangeManagedUser"
                                         placeholder="Select a user..."
                                         style="width:180px"
                                 >
@@ -166,6 +175,7 @@
            onChangeCreatedBy(val) { console.log('/cs/Search.vue--onChangeCreatedBy val=',val);   },
            onChangeUpdatedBy(val) { console.log('/cs/Search.vue--onChangeUpdatedBy val=',val);   },
             onChangeAssignedUser(val) { console.log('/cs/Search.vue--onChangeUpdatedBy val=',val);   },
+             onChangeManagedUser(val) { console.log('/cs/Search.vue--onChangeUpdatedBy val=',val);   },
            setOrderStatusOptions(statuses) 
             {   console.log('/cs/Search.vue--setOrderStatusOptions statuses=',statuses);
                 let options = [];
@@ -212,7 +222,7 @@
                     customerAddress: '',   customer: {code: '', name: ''}, users:'',
                     dateRange: '',dateRangeUpdate:'', 
                     ticket_no:'',ORDER_ID:'',QUOTE_ID:'',ticketStatus:'',
-                    ticketType:'',createdby:'',updatedby:'',assigneduser:'',orderLocation:'',
+                    ticketType:'',createdby:'',updatedby:'',assigneduser:'',orderLocation:'',manageduser:'',
                    };
               }
         }

@@ -38,30 +38,38 @@ class TicketCsRepository extends BaseRepository
         $ticketcs->ticket_no = $request->input('ticket_no');   
         $ticketcs->ticket_type_id = $request->input('ticket_type_id');   
         $ticketcs->status = $request->input('status_id');  
-        $ticketcs->allocated_user_id = $request->input('user1.id');
-        $ticketcs->GROUP_ID = $request->input('group1.id');   
+        $ticketcs->allocated_user_id = $request->input('user1.id'); //allocated user id
+        $ticketcs->GROUP_ID = $request->input('group1.id');   //allocated group id
         $ticketcs->CONTACT_PERSON = $request->input('CONTACT_PERSON');  
-        $ticketcs->CONTACT_PHONE = $request->input('CONTACT_PHONE'); 
         $ticketcs->CONTACT_EMAIL = $request->input('CONTACT_EMAIL'); 
-        $ticketcs->CONTACT_PHONE = $request->input('CONTACT_PHONE');     
-        $ticketcs->user_id = 1;  
+        $ticketcs->CONTACT_PHONE = $request->input('CONTACT_PHONE');    
+        
+        $ticketcs->managed_user_id = $request->input('user2.id'); //managed user id
+        $ticketcs->user_id = $request->input('group2.id');   //managed user group
+       // $ticketcs->user_id = 1;  
     
         $ticketcs->save();   return $ticketcs;
     }
-    public function save($request)
+    public function save($request)  //edit ticket
     {     
         $ticketcs =  $this->model->findOrFail($request->input('ticket_no')); 
         $ticketcs->ORDER_ID = $request->input('ORDER_ID');  
         $ticketcs->comment = $request->input('comment');
         $ticketcs->QUOTE_ID = $request->input('QUOTE_ID'); 
-        $ticketcs->location_id=1;
-        //$ticketcs->location_id = $request->input('location_id');   
+      
+        $ticketcs->location_id = $request->input('location_id');   
         $ticketcs->ticket_no = $request->input('ticket_no');   
         $ticketcs->ticket_type_id = $request->input('ticket_type_id');   
         $ticketcs->status = $request->input('status_id');  
+
         $ticketcs->allocated_user_id = $request->input('user1.id');
         $ticketcs->GROUP_ID = $request->input('group1.id');   
-        $ticketcs->user_id = 1;  
+        $ticketcs->managed_user_id = $request->input('user2.id'); //managed user id
+        $ticketcs->user_id = $request->input('group2.id');   //managed user group
+
+        $ticketcs->CONTACT_PERSON = $request->input('CONTACT_PERSON');  
+        $ticketcs->CONTACT_EMAIL = $request->input('CONTACT_EMAIL'); 
+        $ticketcs->CONTACT_PHONE = $request->input('CONTACT_PHONE');
     
         $ticketcs->save();   return $ticketcs;
     }
@@ -98,7 +106,9 @@ class TicketCsRepository extends BaseRepository
         ->with('v6quotee')
         ->with('userid')
         ->with('auserid')
+        ->with('buserid')
         ->with('agroupid')
+        ->with('bgroupid')
        // ->with('v6items')
         ->with('location');
 
@@ -113,6 +123,7 @@ class TicketCsRepository extends BaseRepository
         $createdby = trim($search['createdby']);
         $updatedby = trim($search['updatedby']);
         $assigneduser = trim($search['assigneduser']);
+        $manageduser = trim($search['manageduser']);
         if (count($search['dateRange']) == 2)
         {   $dateRangeFrom = trim($search['dateRange'][0]); $dateRangeTo = trim($search['dateRange'][1]);  }
         else
@@ -144,15 +155,16 @@ class TicketCsRepository extends BaseRepository
         }
 
         if ($ticket_no) {   $like = "%{$ticket_no}%"; $query->where('ticket_no', 'LIKE', $like);  }
-        if ($createdby) {   $like = "%{$createdby}%"; $query->where('created_by', 'LIKE', $like);  }
-        if ($updatedby) {   $like = "%{$updatedby}%"; $query->where('updated_by', 'LIKE', $like);  }
-        if ($assigneduser) {   $like = "%{$assigneduser}%"; $query->where('allocated_user_id', 'LIKE', $like);  }
+        if ($createdby) {   $like = "{$createdby}"; $query->where('created_by', 'LIKE', $like);  }
+        if ($updatedby) {   $like = "{$updatedby}"; $query->where('updated_by', 'LIKE', $like);  }
+        if ($assigneduser) {   $like = "{$assigneduser}"; $query->where('allocated_user_id', 'LIKE', $like);  }
+        if ($manageduser) {   $like = "{$manageduser}"; $query->where('managed_user_id', 'LIKE', $like);  }
         if ($ORDER_ID) {   $like = "%{$ORDER_ID}%"; $query->where('ORDER_ID', 'LIKE', $like);  }
         if ($QUOTE_ID) {   $like = "%{$QUOTE_ID}%"; $query->where('QUOTE_ID', 'LIKE', $like);  }
-        if ($ticketStatus)  {   $like = "%{$ticketStatus}%";  $query->where('status', 'LIKE', $like);}
+        if ($ticketStatus)  {   $like = "{$ticketStatus}";  $query->where('status', 'LIKE', $like);}
         if ($ticketType)  {   $like = "{$ticketType}";  $query->where('ticket_type_id', 'LIKE', $like);}
        // if ($salesOrderNumber) {   $like = "%{$salesOrderNumber}%";  $query->where('status', 'LIKE', $like); }
-        if ($orderLocation) {   $like = "%{$orderLocation}%";  $query->where('location_id', 'LIKE', $like); }
+        if ($orderLocation) {   $like = "{$orderLocation}";  $query->where('location_id', 'LIKE', $like); }
 
 
         return $query->paginate($perPage);

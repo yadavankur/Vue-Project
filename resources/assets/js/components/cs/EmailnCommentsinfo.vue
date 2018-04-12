@@ -44,12 +44,17 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="col-title">Ticket Notes </td>
+                            <td class="col-title">Ticket Notes 
+                                 <tr></tr><tr></tr><tr></tr> <br><br>
+                                <tr> <a><strong> Main Comments: </strong></a></tr>
+                                <tr> {{ selectedTicket1.comment }}</tr>
+                            </td>
                             <td >
                                 <button type="button" class="btn btn-success btn-sm" @click="onOpenCustomerNotesModal" ><i class="glyphicon glyphicon-comment"></i> New Notes </button>
                                 <button type="button" class="btn btn-warning btn-sm" @click="onOpenCustomerNotesHistoryModal" ><i class="glyphicon glyphicon-list-alt"></i> Notes History </button>
                                 <br><br>
                                 <a><strong>{{ updatedInfo }}</strong></a>
+                               
                                 <br>
                                 <div class="notes" v-html="customerNotes"></div>
                             </td>
@@ -91,7 +96,7 @@
         },
         created() 
         {   console.log('/cs/Emailncommentsinfo.vue-Component created.');
-            this.getLatestNotesRequest();
+          //  this.getLatestNotesRequest();
         },
         components: 
         {
