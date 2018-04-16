@@ -256,9 +256,11 @@
                        {    console.log('/cs/crud-----inside add');
                             console.log('/cs/crud-----add inside formdata:',this.formData);
                             console.log('/cs/crud-----add inside formdata:',this.formData.CONTACT_PERSON);
-                            if (this.isEmpty(this.formData.CONTACT_PERSON))
+                          //  if (this.isEmpty(this.formData.CONTACT_PERSON) || this.isEmpty(this.formData.ticket_type_id) || this.isEmpty(this.formData.status_id) )
+                            if (this.isEmpty(this.formData.CONTACT_PERSON)  )
                             {
-                             this.$store.dispatch('showErrorNotification', 'Please input name!');
+                             //this.$store.dispatch('showErrorNotification', 'Please enter TYPE, STATUS, CONTACT_PERSON !');
+                             this.$store.dispatch('showErrorNotification', 'Please enter TYPE, STATUS, CONTACT_PERSON !');
                                 return;
                             }
                             console.log('/cs/crud-----inside payload:',payload);

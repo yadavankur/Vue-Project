@@ -30,7 +30,8 @@
                           <ticket-type1crud></ticket-type1crud>
                     </div>
                     <div class="col-md-6" v-if="selectedTicketType == 'TYPE2A'">
-                    <ticket-type2A></ticket-type2A>
+                        <ticket-type2A></ticket-type2A>  
+                        <ticket-type2Acrud></ticket-type2Acrud>
                     </div>
                     <div class="col-md-6" v-if="selectedTicketType == 'TYPE2B'">
                     <ticket-type2B></ticket-type2B>
@@ -80,6 +81,7 @@
     import OrderHistorySummary from './OrderHistorySummary.vue'
     import CsTicketType1 from './CsTicketType1.vue'
     import CsTicketType1Crud from './CsTicketType1Crud.vue'
+    import CsTicketType2ACrud from './Type2A/CsTicketType2ACrud.vue'
     import CsTicketType2A from './CsTicketType2A.vue'
     import CsTicketType2B from './CsTicketType2B.vue'
     import CsTicketType3 from './CsTicketType3.vue'
@@ -110,7 +112,7 @@
                       'order-history-summary': OrderHistorySummary,
                       'email-booking-info': EmailBookingInfo,
                       'ticket-type1': CsTicketType1,'ticket-type1crud': CsTicketType1Crud,
-                       'ticket-type2A': CsTicketType2A,
+                      'ticket-type2A': CsTicketType2A,'ticket-type2Acrud': CsTicketType2ACrud,
                         'ticket-type2B': CsTicketType2B,
                          'ticket-type3': CsTicketType3,
                          'ticket-type4': CsTicketType4,

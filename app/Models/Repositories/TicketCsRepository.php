@@ -102,6 +102,7 @@ class TicketCsRepository extends BaseRepository
         ->where('active',1)
         ->with('ttype')
         ->with('ttype1')
+        ->with('ttype2a')
         ->with('tstatus')
         ->with('v6quotee')
         ->with('userid')
@@ -200,17 +201,13 @@ class TicketCsRepository extends BaseRepository
     }
     //--------------------
     public function gettype1ticket($request)
-    {
-       // $ticketcs->QUOTE_ID = $request->input('QUOTE_ID'); 
+    {    // $ticketcs->QUOTE_ID = $request->input('QUOTE_ID'); 
         $qi = $request->input('ticket_no'); 
        // return $this->model->all()->toArray();
 
       // $q1=33;
-       return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype1')->get()->toArray();
-      //return $this->model->orderBy('id', 'desc')->first()->toArray();
-
-       // return $this->model->where('active',1)->where('QUOTE_ID',25850)->get()->keyBy('id')->toArray();
-       // return $this->model->where('active',1)->get(['*', DB::raw("'RW' as permission")])->keyBy('id')->toArray();
+       return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype2a')->get()->toArray();
+     
     }
 
 

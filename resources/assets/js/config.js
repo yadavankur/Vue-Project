@@ -389,4 +389,7 @@ export const gettickettype1tableapi1 = apiDomain + '/csticket/gettype1tickettabl
 
 export const updatetype1 = apiDomain + '/csticket/updatetype1';
 export const latestcscomments = apiDomain + '/csticket/latestcscomments';
+//-----------------
+export const addcstype2A = apiDomain + '/csticket/addtype2Atickettable';
+export const gettickettype2Atableapi = apiDomain + '/csticket/gettype2Atickettable';
 

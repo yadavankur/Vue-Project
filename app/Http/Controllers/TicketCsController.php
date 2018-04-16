@@ -131,19 +131,32 @@ public function addfile(Request $request)
         }
 }
 //----------------------------------------------------
-public function gettype1ticket(Request $request)
-//public function displaycs()
-{    try {   $user = JWTAuth::parseToken()->authenticate(); // 1) first get user from token to check validation
-           // $this->validate($request, $rules);         
-            $gett1= $this->ticketcsService->gettype1ticket($request);
-           // $gett1= $this->ticketcsService->displaycs();// 2) get all states
-            // return response()->json(['gett1' => $gett1, ]);
-             return response()->json($gett1);
-            // return response()->json($gett1);
-           //  return $gett1;
-         } catch (Exception $e) 
-         { return response()->json(['error' => $e->getMessage()], 500); }
-}
+    public function gettype1ticket(Request $request)
+        //public function displaycs()
+        {    try {   $user = JWTAuth::parseToken()->authenticate(); // 1) first get user from token to check validation
+                // $this->validate($request, $rules);         
+                    $gett1= $this->ticketcsService->gettype1ticket($request);
+                // $gett1= $this->ticketcsService->displaycs();// 2) get all states
+                    // return response()->json(['gett1' => $gett1, ]);
+                    return response()->json($gett1);
+                    // return response()->json($gett1);
+                //  return $gett1;
+                } catch (Exception $e) 
+                { return response()->json(['error' => $e->getMessage()], 500); }
+        }
+        public function gettype2Aticket(Request $request)
+        //public function displaycs()
+        {    try {   $user = JWTAuth::parseToken()->authenticate(); // 1) first get user from token to check validation
+                // $this->validate($request, $rules);         
+                    $gett1= $this->ticketcsService->gettype2Aticket($request);
+                // $gett1= $this->ticketcsService->displaycs();// 2) get all states
+                    // return response()->json(['gett1' => $gett1, ]);
+                    return response()->json($gett1);
+                    // return response()->json($gett1);
+                //  return $gett1;
+                } catch (Exception $e) 
+                { return response()->json(['error' => $e->getMessage()], 500); }
+        }
 
     
 }

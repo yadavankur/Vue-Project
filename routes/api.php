@@ -371,5 +371,8 @@ Route::get('/csticket/tickettype1pagination', 'Tickettype1Controller@getByPagina
     Route::post('/csticket/updatetype1', 'Tickettype1Controller@updateTicketType1');
     Route::post('/csticket/latestcscomments', 'TicketCommentController@latestcscomments');
   //  Route::get('latestactivitynotes', 'CpmCommentController@getLatestNotes');
+
+    Route::post('/csticket/addtype2Atickettable', 'Tickettype2AController@addTicketType2ATable');
+    Route::post('/csticket/gettype2Atickettable', 'TicketCsController@gettype2Aticket');
     
 });
