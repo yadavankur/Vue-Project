@@ -392,4 +392,5 @@ export const latestcscomments = apiDomain + '/csticket/latestcscomments';
 //-----------------
 export const addcstype2A = apiDomain + '/csticket/addtype2Atickettable';
 export const gettickettype2Atableapi = apiDomain + '/csticket/gettype2Atickettable';
+export const deletetype2A = apiDomain + '/csticket/deletetype2A';
 

@@ -10,9 +10,9 @@ export default
      },
     mutations: 
     {  [types.SET_AUTH_USER] (state, payload) 
-        {   console.log('/resources/assets/js/store/modules/auth-user.js-types.SET_AUTH_USER payload=', payload.user);
+        {   console.log('/store/auth-user.js-types.SET_AUTH_USER payload=', payload.user);
             let user = payload.user;
-            console.log('/resources/assets/js/store/modules/auth-user.js-types.SET_AUTH_USER user=', user);
+            console.log('/store/auth-user.js-types.SET_AUTH_USER user=', user);
             state.authenticated = true;
             state.name = user.name;    state.email = user.email;     state.role = user.role;
             state.id = user.id;        state.isAdmin = user.isAdmin;
@@ -30,10 +30,10 @@ export default
     },
     actions: 
     {  setAuthUser: ({commit, dispatch}) => 
-        {   console.log('/resources/assets/js/store/modules/auth-user.js- setAuthUser');
+        {   console.log('/store/auth-user.js- setAuthUser');
             Vue.http.get(api.currentUser)
                 .then(response => 
-                    {  console.log('/resources/assets/js/store/modules/auth-user.js-setAuthUser response=', response);
+                    {  console.log('/store/auth-user.js-setAuthUser response=', response);
                        commit({   type: types.SET_AUTH_USER,  user: response.body  })
                     })
                 .catch(error => { dispatch('logoutRequest'); })
@@ -41,15 +41,15 @@ export default
         unsetAuthUser: ({commit}) => {  commit({  type: types.UNSET_AUTH_USER  }); },
         runPhpCode: ({dispatch}, payload) => 
         {
-            console.log('/resources/assets/js/store/modules/auth-user.js-runPhpCode');
+            console.log('/store/auth-user.js-runPhpCode');
             return new Promise((resolve, reject) => 
             {   Vue.http.post(api.runPhpCode, payload)
                     .then(response => {
-                        console.log('/resources/assets/js/store/modules/auth-user.js-runPhpCode get http success response.body=', response.body);
+                        console.log('/store/auth-user.js-runPhpCode get http success response.body=', response.body);
                         resolve(response);
                     })
                     .catch(error => {
-                        console.error('/resources/assets/js/store/modules/auth-user.js-runPhpCode error =', error);
+                        console.error('/store/auth-user.js-runPhpCode error =', error);
                         reject(error);
                     });
             });

@@ -201,11 +201,13 @@ class TicketCsRepository extends BaseRepository
     }
     //--------------------
     public function gettype1ticket($request)
-    {    // $ticketcs->QUOTE_ID = $request->input('QUOTE_ID'); 
+    {
+       $qi = $request->input('ticket_no'); 
+       return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype1')->get()->toArray();
+    }
+    public function gettype2Aticket($request)
+    {   
         $qi = $request->input('ticket_no'); 
-       // return $this->model->all()->toArray();
-
-      // $q1=33;
        return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype2a')->get()->toArray();
      
     }

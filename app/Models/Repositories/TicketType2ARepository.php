@@ -32,7 +32,7 @@ class TicketType2ARepository extends BaseRepository
     }
 
 
-    public function updateTicketType1Table($request)
+    public function updateTicketType2ATable($request)
     {
         $ttt =  $this->model->findOrFail($request->input('id'));  
         $ttt->price = $request->input('price');
@@ -42,14 +42,14 @@ class TicketType2ARepository extends BaseRepository
     }
 
 
-    public function deleteTicketType1Table($request)
+    public function deleteTicketType2ATable($request)
     {   $testb1 =  $this->model->findOrFail($request->input('id'));
         $testb1->active = 0;   
         $testb1->save();   
         return $testb1;
     }
 
-    public function deleteTicketType1perTicket($request)
+    public function deleteTicketType2AperTicket($request)
     {   $testb1 =  $this->model->findOrFail($request->input('ticket_no'));
         $testb1->active = 0;   
         $testb1->save();   

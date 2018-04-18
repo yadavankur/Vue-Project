@@ -41,6 +41,10 @@ mutations:
     [types.DELETE_TICKET_TYPE1_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE1_FAILURE payload=', payload); },
     [types.UPDATE_TICKET_TYPE1_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE1_SUCCESS payload=', payload); },
     [types.UPDATE_TICKET_TYPE1_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE1_FAILURE payload=', payload); },
+    [types.DELETE_TICKET_TYPE2A_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE2A_SUCCESS payload=', payload); },
+    [types.DELETE_TICKET_TYPE2A_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE2A_FAILURE payload=', payload); },
+    [types.UPDATE_TICKET_TYPE2A_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE2A_SUCCESS payload=', payload); },
+    [types.UPDATE_TICKET_TYPE2A_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE2A_FAILURE payload=', payload); },
 
     //--------------------------ticket type crud----
     [types.SET_CSTICKETTYPE1_SHOW_MODAL] (state, payload) 
@@ -246,7 +250,7 @@ updatetype: ({dispatch}, formData) =>
              {   console.log('csticket-type.js---addtype2ASuccess body=', body);
                  commit({   type: types.ADD_TICKET_TYPE2A_SUCCESS, state: body.state   });
                  dispatch('showSuccessNotification', 'TYPE2A has been added.');   
-                 dispatch('gettickettype1table',body.gett1);
+                 dispatch('gettickettype2Atable',body.gett1);
                 // dispatch('gettickettypetable');
              },
            addtype2AFailure: ({commit, dispatch}, body) => 
@@ -257,13 +261,32 @@ updatetype: ({dispatch}, formData) =>
            gettickettype2Atable: ({commit, dispatch},dataItem) =>// 
             {  return new Promise((resolve, reject) => 
                     {  
-                    Vue.http.post(api.gettickettype1tableapi1,dataItem)
+                    Vue.http.post(api.gettickettype2Atableapi,dataItem)
                     .then(response => {    
                                     commit({type: types.GET_TICKET_TYPE2A_TABLE, csType2AperTicket: response.body });
                                     resolve(response);
                         }) 
                     .catch(error => {    reject(error); });
                     });
+            },
+
+            //-----------add---get working--delete for type2a
+            deletetype2A: ({dispatch}, formData) => 
+            {   return new Promise((resolve, reject) => 
+                {    Vue.http.post(api.deletetype2A, formData)
+                 .then(response => {  dispatch('deletetype2ASuccess', response.body); resolve(); })
+                .catch(response => { dispatch('deletetype2AFailure', response.body);  reject(); });
+                })
+            },
+           deletetype2ASuccess: ({commit, dispatch}, body) => 
+            {   commit({ type: types.DELETE_TICKET_TYPE2A_SUCCESS, state: body });
+                dispatch('showSuccessNotification', 'TYPE1 has been deleted.');
+             
+                dispatch('gettickettype2Atable',body.gett1);  //----get back new result with modified values
+            },
+           deletetype2AFailure: ({commit, dispatch}, body) => 
+            {   commit({   type: types.DELETE_TICKET_TYPE2A_FAILURE, errors: body  });
+                if(body.error) {  dispatch('showErrorNotification', body.error);  }
             },
 
 //=========================================
