@@ -7,7 +7,7 @@ export default
 
    state: 
     {   showcstPopup:false, showcstEditPopup:false,  csticketActivityData:null, csticketinbooking:null,
-        selectedTicket: null,selectedTicketType:null,
+        selectedTicket: null,selectedTicketType:null,useraspgroup:null,
        //till above add is working
         csTicketdata: null , csTicketperQuote : null, csTicketlast: null,//this is for refresh
         //---it[state], gets value from mutations[REFRESH_CSTICKET_TABLE]---then gives it to getter[allcsTicketdata]
@@ -56,6 +56,11 @@ export default
             console.log('/store/cs-tcket.js--types.SET_SELECTED_TICKET state=', state);
             state.selectedTicket = payload.selectedTicket;
             state.selectedTicketType = payload.selectedTicketType;
+        },
+        [types.SET_USER_AS_PER_GROUP] (state, payload) 
+        {   console.log('/store/cs-tcket.js--types.SET_SELECTED_TICKET payload=', payload.useraspgroup);
+            console.log('/store/cs-tcket.js--types.SET_SELECTED_TICKET state=', state);
+            state.useraspgroup = payload.useraspgroup;
         },
     },
     actions: 
@@ -149,11 +154,13 @@ export default
              if(body.error) {  dispatch('showErrorNotification', body.error); }
        },
         //-----------------cascade----users
-        useraspergroupscascade: ({dispatch}) => 
+        useraspergroupscascade: ({commit,dispatch}) => 
         {   return new Promise((resolve, reject) => 
             {   console.log('/store/cs-ticket.js-useraspergroupscascade');
                 Vue.http.get(api.useraspergroups)
-                    .then(response => { resolve(response); })
+                    .then(response => { commit({type: types.SET_USER_AS_PER_GROUP, useraspgroup: response.body });
+                                        resolve(response); 
+                                       })
                     .catch(response => { reject(response); });
             })
         },

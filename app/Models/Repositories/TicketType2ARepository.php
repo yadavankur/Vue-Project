@@ -35,7 +35,7 @@ class TicketType2ARepository extends BaseRepository
     public function updateTicketType2ATable($request)
     {
         $ttt =  $this->model->findOrFail($request->input('id'));  
-        $ttt->price = $request->input('price');
+     //   $ttt->price = $request->input('price');
         $ttt->ticket_no = $request->input('ticket_no');
         $ttt->description = $request->input('description');
        $ttt->comment = $request->input('comment');  $ttt->save();  return $ttt;

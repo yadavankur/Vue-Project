@@ -288,7 +288,26 @@ updatetype: ({dispatch}, formData) =>
             {   commit({   type: types.DELETE_TICKET_TYPE2A_FAILURE, errors: body  });
                 if(body.error) {  dispatch('showErrorNotification', body.error);  }
             },
-
+            updatetype2A: ({dispatch}, formData) => 
+            {  return new Promise((resolve, reject) => 
+                {  console.log('csticket-type1.js-- update-- formData=', formData);
+                    Vue.http.post(api.updatetype2A, formData)
+                        .then(response => { dispatch('updateType2ASuccess', response.body);  resolve();   })
+                        .catch(response => { dispatch('updateType2AFailure', response.body); reject();   });
+                    
+                })
+            },
+            updateType2ASuccess: ({commit, dispatch}, body) => 
+            {   console.log('csticket-type2.js---updatetype2Success body=', body);
+                commit({   type: types.UPDATE_TICKET_TYPE2A_SUCCESS, state: body.state   });
+                dispatch('showSuccessNotification', 'TYPE2 has been updated.');   
+                dispatch('gettickettype2Atable',body.gett1); 
+            },
+            updateType2AFailure: ({commit, dispatch}, body) => 
+            {   commit({  type: types.UPDATE_TICKET_TYPE2A_FAILURE, errors: body  });
+                console.error('csticket-type2.js---updateType2Failure body.error=', body.error);
+                if(body.error) {  dispatch('showErrorNotification', body.error);  }
+            },
 //=========================================
     }//actions finished
 
