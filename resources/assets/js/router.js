@@ -74,6 +74,7 @@ import Cpm2ServiceListView from './components/cpm2/Cpm2ServiceList.vue'
 import Csticket from './components/cs/Cs1ticket.vue'
 import Csttype from './components/cs/csttype/CsTicketType.vue'
 import CsStatus from './components/cs/csstatus/CsTicketStatus.vue'
+import CsCnStatus from './components/cs/cnstatus/CsCnTicketStatus.vue'
 
 let routes = [
     { path: '/login', component: LoginView, name: 'login', meta: { requiresGuest: true } },
@@ -132,6 +133,7 @@ let routes = [
                     { path: '/cs', component: Csticket,  meta: { requiresAuth: true }},
                     { path: '/csttype', component: Csttype,  meta: { requiresAuth: true }},
                     { path: '/cststatus', component: CsStatus,  meta: { requiresAuth: true }},
+                    { path: '/cstcnstatus', component: CsCnStatus,  meta: { requiresAuth: true }},
                     
                 ]
             },

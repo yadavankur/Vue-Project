@@ -393,4 +393,10 @@ export const latestcscomments = apiDomain + '/csticket/latestcscomments';
 export const addcstype2A = apiDomain + '/csticket/addtype2Atickettable';
 export const gettickettype2Atableapi = apiDomain + '/csticket/gettype2Atickettable';
 export const deletetype2A = apiDomain + '/csticket/deletetype2A';
+export const updatetype2A = apiDomain + '/csticket/updatetype2A';
+
+export const getticketcnstatustableapi = apiDomain + '/csticket/getticketcnstatustable';
+export const addcscnstatus = apiDomain + '/csticket/addcnstatustickettable';
+export const updatecnstatus = apiDomain + '/csticket/updatecnstatus';
+export const deletecnstatus = apiDomain + '/csticket/deletecnstatus';
 

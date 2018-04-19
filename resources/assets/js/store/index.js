@@ -56,6 +56,8 @@ import cstickettype from "./modules/csticket-type"
 import cstkt from "./modules/cs-ticket"
 import csticketcomments from "./modules/cstickets-comments"
 
+import csticketcnstatus from "./modules/csticket-cnstatus"
+
 
 Vue.use(Vuex);
 
@@ -73,7 +75,7 @@ export default new Vuex.Store({
        // state,
         cstkt,
         csticket,
-        csticketstatus,
+        csticketstatus, csticketcnstatus,
         cstickettype,
         csticketcomments,
         new2,
