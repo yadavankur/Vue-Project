@@ -185,10 +185,10 @@ Route::get('/csticket/getlastcsticket', 'TicketCsController@getlastcsticket');
 //Route::post('/csticket/getpage', 'TickettypeController@getByPaginate');
 
 
-Route::get('/csticket/getticketstatustable', 'TicketStatusController@getTicketStatusTable');
-Route::post('/csticket/addstatustickettable', 'TicketStatusController@addTicketStatusTable');
-Route::post('/csticket/updatestatus', 'TicketStatusController@updateTicketStatusTable');
-Route::post('/csticket/deletestatus', 'TicketStatusController@deleteTicketStatusTable');
+Route::get('/csticket/getticketstatustable', 'TicketstatusController@getTicketStatusTable');
+Route::post('/csticket/addstatustickettable', 'TicketstatusController@addTicketStatusTable');
+Route::post('/csticket/updatestatus', 'TicketstatusController@updateTicketStatusTable');
+Route::post('/csticket/deletestatus', 'TicketstatusController@deleteTicketStatusTable');
 //Route::post('/csticket/deletestatus', 'Testb1Controller@deleteTest');
 
 
@@ -376,5 +376,10 @@ Route::get('/csticket/tickettype1pagination', 'Tickettype1Controller@getByPagina
     Route::post('/csticket/gettype2Atickettable', 'TicketCsController@gettype2Aticket');
     Route::post('/csticket/deletetype2A', 'Tickettype2AController@deleteTicketType2A');
     Route::post('/csticket/updatetype2A', 'Tickettype2AController@updateTicketType2A');
+
+    Route::get('/csticket/getticketcnstatustable', 'TicketcnstatusController@getTicketCnStatusTable');
+    Route::post('/csticket/addcnstatustickettable', 'TicketcnstatusController@addTicketCnStatusTable');
+    Route::post('/csticket/updatecnstatus', 'TicketcnstatusController@updateTicketCnStatusTable');
+    Route::post('/csticket/deletecnstatus', 'TicketcnstatusController@deleteTicketCnStatusTable');
     
 });

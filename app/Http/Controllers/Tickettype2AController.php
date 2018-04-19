@@ -47,7 +47,7 @@ public function addTicketType2ATable(Request $request)
 //------------------------------------------------------------
 //---------------update
 public function updateTicketType2A(Request $request)
-{   $rules = ['id' => 'required', 'price'  =>  'required', ];
+{   $rules = ['id' => 'required', 'ticket_no'  =>  'required', ];
 try {
     $user = JWTAuth::parseToken()->authenticate();
     $this->validate($request, $rules);
