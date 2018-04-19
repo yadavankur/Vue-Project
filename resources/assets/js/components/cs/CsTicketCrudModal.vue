@@ -168,8 +168,11 @@
                           permissionData: state=> state.permission.permissionData,
                           csticketActivityData:state=> state.cstkt.csticketActivityData,
                           user: state => state.authUser,
+                         //  cascadeUserOptions1: state => state.cstkt.useraspgroup,
                           csTicketlast: state => state.csticket.csTicketlast,
+                        //  cascadeLocationOptions: state => state.cstkt.useraspgroup.groupNodes,
                       }),
+
             order() {  if (this.selectedOrder)  return this.selectedOrder;  else return null;  },
             locationOptions() {  if (this.csticketActivityData)  return this.csticketActivityData.locationOptions;  else return null;  },
         },
@@ -211,7 +214,7 @@
                         })
                        .catch((error) => {  console.error('/cs/crud.vue-created getticketstatustable error=', error); });
                  
-
+                   // this.$store.dispatch('useraspergroupscascade');
         
 //-----------------------------------------------------------------------------
                  this.$store.dispatch('useraspergroupscascade')//----------------users
@@ -221,6 +224,7 @@
                          
                         })
                         .catch((error) => { console.error('/csticket/crud.vue--useraspergroupscascade error=', error);  });
+                     
                  },
         components: { 'custom-modal': modal, 'bs-input': input,   },
         mounted() { console.log('/cs/crud.vue---CustomModal Component mounted. permissionData=', this.permissionData)  },

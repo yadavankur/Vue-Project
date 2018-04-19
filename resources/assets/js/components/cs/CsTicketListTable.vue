@@ -69,8 +69,8 @@
         components: { Vuetable, VuetablePagination,  VuetablePaginationInfo,
                      'permission-custom-filter-bar': PermissionCustomFilterBar,
                    },
-        created() {
-                     
+        created() {             this.$store.dispatch('getticketcnstatustable'); //to get credit note status--used /type2A/crud   
+                              // this.$store.dispatch('useraspergroupscascade');
         },
         data () 
            { return {   paginationPath: '',

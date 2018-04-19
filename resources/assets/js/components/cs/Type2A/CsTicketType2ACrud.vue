@@ -9,8 +9,22 @@
                  
                     <bs-input label="Price" type="text" required  :maxlength="255" :icon="true" v-model="formData.price"></bs-input>
                     <bs-input label="Comments" type="text" required  :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
-                    <Checkbox v-model="formData.isFull">Need Full Day?</Checkbox>
-                    <Checkbox v-model="formData.tick_option">Need Manual Confirm?</Checkbox>
+                             <td colspan="2">
+                             <div class="form-group">
+                                 <div><label for="status">MANAGED USER</label></div>
+                                   <Cascader v-model="cascade_state_location1" :data="cascadeUserOptions"
+                                             size="large"  placeholder="Please select a Group/User..."
+                                             @on-change="handleUserChange1" 
+                                   > </Cascader>
+                             </div>
+                        </td>
+                             
+                             <div class="form-group"><div><label for="status">STATUS</label></div>
+                                <Select clearable filterable v-model="formData.status_id"
+                                        @on-change="onChangeStatus"  placeholder="Please select a status..."   style="width:180px"  >
+                                    <Option v-for="item in statusOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
+                                </Select>
+                            </div>
                 </div>
             </div>
             <div slot="modal-footer" class="modal-footer">
@@ -30,10 +44,14 @@
            { ...mapState({ showFormType2A: state => state.cstickettype.showFormType2A,//---------add---6
                            type2Data: state=> state.cstickettype.csticketType2Adata,  
                             selectedTicket: state => state.cstkt.selectedTicket,
-
+                            cascadeUserOptions: state => state.cstkt.useraspgroup.groupNodes,
+                        ticketcnstatustable: state => state.csticketcnstatus.ticketcnstatustable,
                         selectedTicketttype1: state => state.cstkt.selectedTicket.ttype2a,
                         csType1perTicket: state => state.cstickettype.csType2AperTicket,
                         }), 
+                      //  cascadeUserOptions() {  console.log('this.cascadeUserOptions1=',this.cascadeUserOptions1);
+                        //      return this.cascadeUserOptions1
+                          //    },
                         csticket() {  console.log('/2a/- this.selectedTicketttype1=',this.selectedTicketttype1); 
                         if (this.csType1perTicket )  
                               { 
@@ -50,28 +68,55 @@
                         else return null; 
                      },  
             },
-       data ()  {  return {  title: '',  formData: {     id: '', comment: '', price: '', description: '', ticket_no: '' }    }   },
-       created() {  console.log('cs/cstickettype1crud.vue-- Component created.')  },
+       data ()  {  return {  title: '',  formData: {     id: '', comment: '', 
+                            price: '', description: '', ticket_no: '', } ,statusOptions: [] ,cascade_state_location1:[]   }   },
+       created() {  console.log('cs/cstickettype1crud.vue-- Component created.')  
+                                    
+                    this.collectCnStatusOptions(this.ticketcnstatustable); //to collect cn status options for dropdown
+                  },
        components: {  'custom-modal': modal, 'bs-input': input,  },
        mounted() { console.log('cs/cstickettype1crud.vue--- Component mounted. typeData=', this.type2Data) },
        methods: 
-           {
+           {    
+                    collectCnStatusOptions(statuses) 
+                     {  console.log('CNstatuscrud-- statuses=',statuses);
+                        let options = [];
+                        for (let status in statuses) 
+                         { options.push({value: statuses[status].id, label: statuses[status].STATUS});  }
+                           this.statusOptions = options;
+                     },
+                    onChangeStatus(val) { console.log('CNstatuscrud-- statuses=-onStatusLocation val=',val);    },
+                               handleUserChange1 (value, selectedData) //----change user
+            {  console.log('/csticket/crud.vue--handleUserChange value=', value);
+                 console.log('/csticket/crud.vue--handleUserChange selectedData=', selectedData);
+                // this.formData.location = {id:'', name:''};
+                // this.formData.state = {id:'', name:''};
+
+                 this.formData.user2 = {id:'', name:''};
+                 this.formData.group2 = {id:'', name:''};
+                 if (selectedData.length > 0)
+                   {  this.formData.group2 = {id: selectedData[0].value, name: selectedData[0].label};
+                      this.formData.user2 = {id: selectedData[selectedData.length-1].value, name: selectedData[selectedData.length-1].label};
+                   }
+            },
+
+
                OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
                 { console.log('cs/cstickettype2Acrud.vue-----OnSave_click');
                   let payload = {  isShow: false,  data: this.formData, };
                   if (this.type2Data.action === 'Add')// add new state
                      { this.$store.dispatch('setCsTicketType2AShowModal', payload); //---to disable popup
                        this.$store.dispatch('cstype2Aadd', this.formData)
-                        .then((response) => {console.log(' save success'); 
-                        this.$events.fire('refreshcsticket');
-                        console.log(' setselectedticket--this.selectedTicket=',this.selectedTicket); 
-                                          })     .catch((error) => {console.log('save error');});
+                        .then((response) => {   console.log(' save success'); 
+                                                this.$events.fire('refreshcsticket');
+                                            }).catch((error) => {console.log('save error');});
                      } 
                   else if (this.type2Data.action === 'Edit')// update
                    { this.$store.dispatch('setCsTicketType2AShowModal', payload);  
                    console.log(' payload=',payload); 
-                      this.$store.dispatch('updatetype1', this.formData)
-                        .then((response) => {})     .catch((error) => {});
+                      this.$store.dispatch('updatetype2A', this.formData)
+                        .then((response) => { console.log(' edit success');  this.$events.fire('refreshcsticket');})     
+                        .catch((error) => {});
                    }
                   else  {     }// error
                 },
@@ -97,6 +142,7 @@
                                this.formData.id = this.csticket[0].id;
                                 this.formData.price = this.csticket[0].price;
                                this.formData.comment = this.csticket[0].comment;
+                               this.formData.ticket_no = this.csticket[0].ticket_no;
                            }
                        }
                }

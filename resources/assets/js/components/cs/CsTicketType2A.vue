@@ -83,58 +83,63 @@ export default
                                };
                 let payload = { isShow: true, data: {action: 'Add', data: formData,index: 0} };
                 if(this.selectedTicketttype1.length > 0) 
-                {   console.log('this.selectedTicketttype1.length>0',this.selectedTicketttype1);
-                    this.$store.dispatch('showErrorNotification', 'Rectification Report is already added to this Ticket !');
-                    return;
-                } else if (this.csType1perTicket )  
-                     {   if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
-                         {   console.log('this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no',this.csType1perTicket[0].ticket_no);
-                           this.$store.dispatch('showErrorNotification', 'Rectification Report is already added to this Ticket !');
-                            return;
-                          }
+                {   if (this.csType1perTicket && this.csType1perTicket[0].ttype2a.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                     {  console.log('inside 1st--deletion done--this.csType1perTicket',this.csType1perTicket);
+                        this.$store.dispatch('setCsTicketType2AShowModal', payload)
+                     }
+                     else{
+                          console.log('this.selectedTicketttype1.length>0',this.selectedTicketttype1);
+                          if(this.csType1perTicket) console.log('csType1perTicket=',this.csType1perTicket);
+                          this.$store.dispatch('showErrorNotification', 'Rectification Report is already added to this Ticket !');
+                          return;
+                     }
+                } else if (this.csType1perTicket && this.csType1perTicket[0].ttype2a.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                     {  console.log('inside 2nd-this.csType1perTicket',this.csType1perTicket);
+                        this.$store.dispatch('showErrorNotification', 'Rectification Report is already added to this Ticket !');
+                        return;
                      }
                 else {this.$store.dispatch('setCsTicketType2AShowModal', payload)  //----triggers this in store--with empty data and opens new popup for adding
-                     //  this.$events.fire('refreshcsticket');
                 }
              }, //onclicknew finish
               onClickEdit() 
-              { console.log('cs/cstickettype1.vue-onClickNew');
-                let formData = {   ticket_no: '',ticket_type_id: '',QUOTE_ID: '',ORDER_ID: '',
-                                   location_id: '',  name: '',  title: '',  id: ''
-                               };
-                let payload = { isShow: true, data: {action: 'Edit', data: formData,index: 0} };
-                if(this.selectedTicketttype1.length > 0) 
-                {   this.$store.dispatch('setCsTicketType2AShowModal', payload)
-                } else if (this.csType1perTicket )  
-                     {   if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
-                         {  this.$store.dispatch('setCsTicketType2AShowModal', payload)
-                          }
-                     }
-                else 
-                  { this.$store.dispatch('showErrorNotification', 'Please add Rectification Report to this Ticket !');
-                     return;
-                  }
+              {   console.log('cs/cstickettype1.vue-onClickNew');
+                 // let formData = {   ticket_no: '',ticket_type_id: '',QUOTE_ID: '',ORDER_ID: '', location_id: '',  name: '',  title: '',  id: ''  };
+                  let payload = { isShow: true, data: {action: 'Edit' } };  // data: formData,index: 0} };
+                  if(this.selectedTicketttype1.length > 0) 
+                    {    if (this.csType1perTicket && this.csType1perTicket[0].ttype2a.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                            { this.$store.dispatch('showErrorNotification', 'Nothing to Edit!');}
+                          else {this.$store.dispatch('setCsTicketType2AShowModal', payload)}
+                    } 
+                  else if (this.csType1perTicket && this.csType1perTicket[0].ttype2a.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
+                    {   this.$store.dispatch('setCsTicketType2AShowModal', payload)    }
+                  else 
+                    { this.$store.dispatch('showErrorNotification', 'Please add Rectification Report to this Ticket !');
+                      return;
+                    }
               }, //onclickEdit finish
              onClickPdf() 
               { //console.log('delete clicked');
-                      var doc = new jsPDF({
-                        orientation: 'landscape',
-                        unit: 'in',
-                        format: [4, 2]
-                      })
+                      var doc = new jsPDF({  orientation: 'landscape', unit: 'in', format: [4, 2]  })
                       doc.text(this.csticket[0].comment, 1, 1)
                       doc.save('Rectification-Report.pdf')
               },
 
              onClickDel()
               {   if(this.selectedTicketttype1.length > 0) 
-                {    let data=this.csticket[0];
-                              
-                                 let payload = { isShow: true, data: data   };
-                                   console.log('delete clickewd- payload=',payload );
-                                let swal = this.$swal;
-                                  let me = this;
-                                  this.$swal({
+                     {    
+                         if (this.csType1perTicket && this.csType1perTicket[0].ttype2a.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                          { console.log('already deleted--this.csType1perTicket',this.csType1perTicket);
+                            this.$store.dispatch('showErrorNotification', 'Whats this-- Pls add something !');
+                            return;
+                          }
+                          else
+                          {
+                            let data=this.csticket[0];
+                            let payload = { isShow: true, data: data   };
+                            console.log('delete this.selectedTicketttype1.length > 0=',this.selectedTicketttype1 );
+                            console.log('delete 1st- payload=',payload );
+                            let swal = this.$swal;  let me = this;
+                            this.$swal({
                                       title: 'Are you sure?',
                                       text: 'You will not be able to recover this Rectification Report!',
                                       type: 'warning',   showCancelButton: true,
@@ -142,49 +147,53 @@ export default
                                       confirmButtonText: 'Yes',  cancelButtonText: 'cancel',
                                       confirmButtonClass: 'btn btn-success', cancelButtonClass: 'btn btn-danger',
                                       allowOutsideClick: false
-                                  }).then(  function() {    me.$store.dispatch('deletetype2A', data)
-                                                                  .then((response) => {})
+                                     }).then(  function() {    me.$store.dispatch('deletetype2A', data)
+                                                                  .then((response) => {
+                                                                   // console.log('delete done1',response.data);
+                                                                   // this.$events.fire('refreshcsticket');
+                                                                    })
                                                                   .catch((error) => {});
-                                                                
-                                                    }, 
-                                            function (dismiss) {       }
-                                          );
+                                                          }, 
+                                                function (dismiss) {       }
+                                             );
                                   return;
-                                  this.$events.fire('refreshcsticket');
-                       } else if (this.csType1perTicket )  
-                            {   if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
-                                {      let data=this.csticket[0];
+                                
+                                   
+                            }
+                       } else if(this.csType1perTicket && this.csType1perTicket[0].ttype2a.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
+                                {   let data=this.csticket[0];
                                     let payload = { isShow: true, data: data   };
-                                    console.log('delete clickewd- payload',payload );
+                                    console.log('delete 2nd- payload',payload );
                                     let swal = this.$swal;     let me = this;
                                     this.$swal({
-                                      title: 'Are you sure?',
-                                      text: 'You will not be able to recover this Rectification Report!',
-                                      type: 'warning',  showCancelButton: true,
-                                      confirmButtonColor: '#3085d6',   cancelButtonColor: '#d33',
-                                      confirmButtonText: 'Yes',   cancelButtonText: 'cancel',
-                                      confirmButtonClass: 'btn btn-success',  cancelButtonClass: 'btn btn-danger',
-                                      allowOutsideClick: false
-                                  }).then(  function() {    me.$store.dispatch('deletetype2A', data.data)
-                                                                  .then((response) => {})
-                                                                  .catch((error) => {});
-
-                                                           
-                                                    }, 
-                                            function (dismiss) {       }
-                                          );
-                                  return;
-                                   this.$events.fire('refreshcsticket');
-
-                        }
-                             this.$store.dispatch('setCsTicketType2AShowModal', payload) 
-
-                     }
-                else 
-                  { this.$store.dispatch('showErrorNotification', 'nothing to delete !');
-                     return;
-                  }
-              }//del finish
+                                              title: 'Are you sure?',
+                                              text: 'You will not be able to recover this Rectification Report!',
+                                              type: 'warning',  showCancelButton: true,
+                                              confirmButtonColor: '#3085d6',   cancelButtonColor: '#d33',
+                                              confirmButtonText: 'Yes',   cancelButtonText: 'cancel',
+                                              confirmButtonClass: 'btn btn-success',  cancelButtonClass: 'btn btn-danger',
+                                              allowOutsideClick: false
+                                            }).then(  function() {    me.$store.dispatch('deletetype2A', data)
+                                                                    .then((response) => {//console.log('delete done2',response.data);
+                                                                                         //this.$events.fire('refreshcsticket');
+                                                                                       })
+                                                                    .catch((error) => {});
+                                                                     
+                                                                  }, 
+                                                      function (dismiss) {       }
+                                                    );
+                                     
+                                   
+                                     console.log('refresh done--after delete2');
+                                     return;
+                                  
+                               // this.$store.dispatch('setCsTicketType2AShowModal', payload) 
+                             }
+                         else 
+                              { this.$store.dispatch('showErrorNotification', 'nothing to delete !');
+                                return;
+                              }
+                      }//del finish
           },//methods finish
 
           watch: 
