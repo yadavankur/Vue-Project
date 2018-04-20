@@ -277,8 +277,7 @@
                               .catch((error) => {console.log('save error');});
                         } 
                        else if (this.csticketActivityData.action === 'Edit')// add new state
-                       {    console.log('/cs/crud-----inside Edit');
-                            console.log('/cs/crud-----Edit formdata:',this.formData);
+                       {    console.log('/cs/crud-----Edit formdata:',this.formData);
                             console.log('/cs/crud-----Edit payload:',payload);
                             this.$store.dispatch('setCsTicketShowPopup', payload); 
                             this.$store.dispatch('editCsTicket', this.formData)

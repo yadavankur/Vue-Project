@@ -1,36 +1,49 @@
 <template>
     <div>
         <custom-modal :value="showFormType2A" @cancel="onClose" effect="fade">
-            <div slot="modal-header" class="modal-header">
-                <h4 class="modal-title"> {{ title }} </h4>
-            </div>
-            <div slot="modal-body" class="modal-body">
-                <div class="form-group">
-                 
-                    <bs-input label="Price" type="text" required  :maxlength="255" :icon="true" v-model="formData.price"></bs-input>
-                    <bs-input label="Comments" type="text" required  :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
-                             <td colspan="2">
+             <div slot="modal-header" class="modal-header"><h4 class="modal-title"> {{ title }} </h4></div>
+
+              <table class="table table-hover table-striped table-responsive table-bordered table-condensed">
+                <tbody>
+              
+   
+                     <tr><td colspan="2">
                              <div class="form-group">
-                                 <div><label for="status">MANAGED USER</label></div>
-                                   <Cascader v-model="cascade_state_location1" :data="cascadeUserOptions"
+                                 <div><label for="status">APPROVING USER</label></div>
+                                   <Cascader v-model="cascade_group_user" :data="cascadeUserOptions"
                                              size="large"  placeholder="Please select a Group/User..."
                                              @on-change="handleUserChange1" 
                                    > </Cascader>
-                             </div>
+                              </div>
                         </td>
-                             
-                             <div class="form-group"><div><label for="status">STATUS</label></div>
+                        <td >
+                            <div class="form-group"><div><label for="status">STATUS</label></div>
                                 <Select clearable filterable v-model="formData.status_id"
-                                        @on-change="onChangeStatus"  placeholder="Please select a status..."   style="width:180px"  >
+                                       size="large"  @on-change="onChangeStatus"  placeholder="Please select a status..."   >
                                     <Option v-for="item in statusOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
-                                </Select>
+                               </Select>
                             </div>
-                </div>
-            </div>
+                        </td>
+                      
+                        </tr>
+                                ` <tr>
+                        <td colspan="2">
+                            <bs-input label="Reason" type="text" required  :maxlength="255" :icon="true" v-model="formData.reason"></bs-input>
+                        </td>
+                        <td >
+                            <bs-input label="Price" type="text" required  :maxlength="255" :icon="true" v-model="formData.price"></bs-input>
+                         </td>
+                    
+                    </tr> 
+             
+              </tbody>
+              </table>
+                <bs-input label="Comments" type="textarea" :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
             <div slot="modal-footer" class="modal-footer">
                 <button type="button" class="btn btn-success" @click="onClose">Cancel</button>
                 <button type="button" class="btn btn-primary" @click="OnSave">Save</button>
             </div>
+       
         </custom-modal>
     </div>
 </template>
@@ -69,7 +82,8 @@
                      },  
             },
        data ()  {  return {  title: '',  formData: {     id: '', comment: '', 
-                            price: '', description: '', ticket_no: '', } ,statusOptions: [] ,cascade_state_location1:[]   }   },
+                            price: '', description: '', ticket_no: '', status_id: '' } ,statusOptions: [] ,
+                            cascade_group_user:[]   }   },
        created() {  console.log('cs/cstickettype1crud.vue-- Component created.')  
                                     
                     this.collectCnStatusOptions(this.ticketcnstatustable); //to collect cn status options for dropdown
@@ -86,26 +100,33 @@
                            this.statusOptions = options;
                      },
                     onChangeStatus(val) { console.log('CNstatuscrud-- statuses=-onStatusLocation val=',val);    },
-                               handleUserChange1 (value, selectedData) //----change user
-            {  console.log('/csticket/crud.vue--handleUserChange value=', value);
-                 console.log('/csticket/crud.vue--handleUserChange selectedData=', selectedData);
-                // this.formData.location = {id:'', name:''};
-                // this.formData.state = {id:'', name:''};
-
-                 this.formData.user2 = {id:'', name:''};
-                 this.formData.group2 = {id:'', name:''};
-                 if (selectedData.length > 0)
-                   {  this.formData.group2 = {id: selectedData[0].value, name: selectedData[0].label};
-                      this.formData.user2 = {id: selectedData[selectedData.length-1].value, name: selectedData[selectedData.length-1].label};
-                   }
-            },
+                    handleUserChange1 (value, selectedData) //----change user
+                            {  console.log('/csticket/crud.vue--handleUserChange value=', value);
+                                console.log('/csticket/crud.vue--handleUserChange selectedData=', selectedData);
+                                this.formData.user = {id:'', name:''};
+                               this.formData.group = {id:'', name:''};
+                                if (selectedData.length > 0)
+                                {  this.formData.group = {id: selectedData[0].value, name: selectedData[0].label};
+                                 this.formData.user = {id: selectedData[selectedData.length-1].value, name: selectedData[selectedData.length-1].label};
+                                }
+                            },
 
 
                OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
-                { console.log('cs/cstickettype2Acrud.vue-----OnSave_click');
+                { console.log('2Acrud.vue-----OnSave_click this.formdata',this.formData);
                   let payload = {  isShow: false,  data: this.formData, };
                   if (this.type2Data.action === 'Add')// add new state
-                     { this.$store.dispatch('setCsTicketType2AShowModal', payload); //---to disable popup
+                     {   console.log('add--formdata----',this.formData);
+                          if (  this.isEmpty(this.formData.price) )
+                            { this.$store.dispatch('showErrorNotification', 'Please provie price !');   return;  }
+                            if (  this.formData.status_id === "" )
+                            {  this.$store.dispatch('showErrorNotification', 'Please select status_id '); return;  }
+                           // if (  this.isEmpty(this.formData.group) || this.isEmpty(this.formData.user)  )
+                           // {      this.$store.dispatch('showErrorNotification', 'Please select user !');
+                           //     return;
+                           // }
+                         
+                         this.$store.dispatch('setCsTicketType2AShowModal', payload); //---to disable popup
                        this.$store.dispatch('cstype2Aadd', this.formData)
                         .then((response) => {   console.log(' save success'); 
                                                 this.$events.fire('refreshcsticket');
@@ -125,7 +146,9 @@
                            this.$store.dispatch('setCsTicketType2AShowModal', payload);
                            this.resetFormData();
                         },
-               resetFormData() {  this.formData = { id: '',  ticket_type: '',  sla_time: '', comment: ''  }; }
+               resetFormData() {  this.formData = { id: '', price: '',  user:{id:'', name:''}, group :{id:'', name:''}, status_id: '', 
+                                  comment: '', reason: ''  };this.cascade_group_user=[]; 
+                                }
 
            },
            watch: {  type2Data() 
@@ -140,9 +163,20 @@
                            {   this.resetFormData();  this.title = 'Editing Credit Note';
                                console.log('cs/cstickettype1crud.vue--ticket_no', this.csticket);
                                this.formData.id = this.csticket[0].id;
-                                this.formData.price = this.csticket[0].price;
+                                this.formData.price = this.csticket[0].amount;
+                                this.formData.reason = this.csticket[0].aaa;
                                this.formData.comment = this.csticket[0].comment;
                                this.formData.ticket_no = this.csticket[0].ticket_no;
+
+                               this.formData.group = {  id : this.csticket[0].agroupid.id,
+                                                         name: this.csticket[0].agroupid.name
+                                                     };
+                                this.formData.user = { id : this.csticket[0].auserid.id,
+                                                name: this.csticket[0].name,
+                                            };
+                                this.cascade_group_user.push(this.formData.group.id);
+                                this.cascade_group_user.push(this.formData.user.id);
+                                 this.formData.status_id = this.csticket[0].tstatus? this.csticket[0].tstatus.id : '';
                            }
                        }
                }

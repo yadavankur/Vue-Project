@@ -3,7 +3,7 @@
     <div class="app-row">
         <div class="panel panel-primary">
             <div class="panel-heading">
-              <a class="accordion-toggle" data-toggle="collapse"  href="#csticketinfoo"> Ticket No: {{ selectedTicket1 ? selectedTicket1.ticket_no  : ''  }} [ Type 2A - Rectification Report ] </a>
+              <a class="accordion-toggle" data-toggle="collapse"  href="#csticketinfoo"> Ticket No: {{ selectedTicket1 ? selectedTicket1.ticket_no  : ''  }} [ Credit Note ] </a>
               <span class="pull-right"> <button class="btn btn-info btn-xs" @click.prevent="onClickPdf">SAVE PDF</button>
                                         <button class="btn btn-success btn-sm" @click.prevent="onClickNew">NEW</button> 
                                         <button class="btn btn-warning btn-sm" @click.prevent="onClickEdit">EDIT</button>
@@ -14,17 +14,31 @@
               <table class="table table-hover table-striped table-responsive table-bordered table-condensed">
                
                 <tbody>
-                      <tr><td>ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
-                       <tr><td>Comments</td><td colspan="2"> {{ csticket[0] ? csticket[0].comment : '' }}</td></tr>
-                      <tr><td>Errors caused </td>
-                        <td>{{ csticket[0] ? csticket[0].comment : '' }}</td>
-                        <td>{{ csticket[0] ? csticket[0].comment : '' }}</td>
+                      <tr><td>Credit Note ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
+                      <tr><td>Ticket No</td><td colspan="2"> {{csticket[0] ? csticket[0].ticket_no: '' }}</td></tr>
+                       <tr><td>Price</td><td colspan="2"> {{csticket[0] ? csticket[0].amount: '' }}</td></tr>
+                        <tr><td>Reason</td><td colspan="2"> {{csticket[0] ? csticket[0].aaa: '' }}</td></tr>
+                        <tr><td>Status</td><td colspan="2"> {{csticket[0] ? csticket[0].tstatus.STATUS: '' }}</td></tr>
+                      
+                      <tr><td>Approving User : Group </td>
+                        <td>{{ csticket[0] ? csticket[0].auserid.name : '' }}</td>
+                        <td>{{ csticket[0] ? csticket[0].agroupid.name : '' }}</td>
                       </tr>
+                     <tr><td>Comments</td><td colspan="2"> {{ csticket[0] ? csticket[0].comment : '' }}</td></tr>
+                    <tr><td>Created By/ Updated By </td>
+                        <td>{{ csticket[0] ? csticket[0].created_by.name : '' }}</td>
+                        <td>{{ csticket[0] ? csticket[0].updated_by.name : '' }}</td>
+                    </tr>
+                    <tr><td>Created At/ Updated At </td>
+                        <td>{{ csticket[0] ? csticket[0].created_at : '' }}</td>
+                        <td>{{ csticket[0] ? csticket[0].updated_at : '' }}</td>
+                    </tr>
+                   
                     <td class="center">
 
                 </td>
 
-                  </tr>
+                
                 </tbody>
               </table>
             </div>          
@@ -38,6 +52,8 @@ import Vue from 'vue';
 import { mapGetters, mapState} from 'vuex'
 import PermissionCustomActions from './Type2A/CsTicketType2ACustomActions.vue'
 import jsPDF from 'jspdf'
+import modal from 'vue-strap/src/Modal'
+import input from 'vue-strap/src/Input'
 
 export default 
 {    computed: 
@@ -119,9 +135,16 @@ export default
               }, //onclickEdit finish
              onClickPdf() 
               { //console.log('delete clicked');
-                      var doc = new jsPDF({  orientation: 'landscape', unit: 'in', format: [4, 2]  })
-                      doc.text(this.csticket[0].comment, 1, 1)
-                      doc.save('Rectification-Report.pdf')
+                     var doc = new jsPDF();
+                             doc.text(10, 50, 'CREDIT NOTE');
+                            doc.text(20, 20, 'Ticket Number'); doc.text(60, 20, this.csticket[0].ticket_no);
+                            doc.text(20, 30, 'Approving User'); doc.text(60, 30, this.csticket[0].auserid.name);
+                             doc.text(20, 40, 'Status');  doc.text(60, 40, this.csticket[0].tstatus.STATUS);
+                              doc.text(20, 50, 'Comment'); doc.text(60, 50, this.csticket[0].comment);
+                         //   doc.addPage();
+                          //  doc.text(20, 50, 'Do you like that?');
+                       //doc.text(this.csticket[0].comment, 1, 1);
+                      doc.save('Credit Note.pdf')
               },
 
              onClickDel()
@@ -149,8 +172,8 @@ export default
                                       allowOutsideClick: false
                                      }).then(  function() {    me.$store.dispatch('deletetype2A', data)
                                                                   .then((response) => {
-                                                                   // console.log('delete done1',response.data);
-                                                                   // this.$events.fire('refreshcsticket');
+                                                                    console.log(' delete success'); 
+                                                                     me.$events.fire('refreshcsticket');
                                                                     })
                                                                   .catch((error) => {});
                                                           }, 
@@ -174,8 +197,8 @@ export default
                                               confirmButtonClass: 'btn btn-success',  cancelButtonClass: 'btn btn-danger',
                                               allowOutsideClick: false
                                             }).then(  function() {    me.$store.dispatch('deletetype2A', data)
-                                                                    .then((response) => {//console.log('delete done2',response.data);
-                                                                                         //this.$events.fire('refreshcsticket');
+                                                                    .then((response) => {console.log(' delete success'); 
+                                                                     me.$events.fire('refreshcsticket');
                                                                                        })
                                                                     .catch((error) => {});
                                                                      

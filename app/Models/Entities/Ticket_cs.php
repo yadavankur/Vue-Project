@@ -72,7 +72,7 @@ class Ticket_cs extends BaseModel
     public function ttype2a()
     {
         //return $this->belongsTo(tickettype1::class, 'ticket_no', 'ticket_no')->where('active', 1);
-        return $this->hasMany(tickettype2::class, 'ticket_no', 'ticket_no')->where('active', 1);
+        return $this->hasMany(tickettype2::class, 'ticket_no', 'ticket_no')->where('active', 1)->with('auserid','tstatus','agroupid');
     }
     public function tstatus()
     {

@@ -29,7 +29,7 @@
                           <ticket-type1></ticket-type1>
                           <ticket-type1crud></ticket-type1crud>
                     </div>
-                    <div class="col-md-6" v-if="selectedTicketType == 'TYPE2A'">
+                    <div class="col-md-6" v-if="selectedTicketType == 'Credit Note'">
                         <ticket-type2A></ticket-type2A>  
                         <ticket-type2Acrud></ticket-type2Acrud>
                     </div>

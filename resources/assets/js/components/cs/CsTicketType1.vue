@@ -45,7 +45,8 @@ import Vue from 'vue';
 import { mapGetters, mapState} from 'vuex'
 import PermissionCustomActions from './CsTicketType1CustomActions.vue'
 
-
+    import modal from 'vue-strap/src/Modal'
+    import input from 'vue-strap/src/Input'
 
 export default 
 {    computed: 
@@ -138,8 +139,11 @@ export default
                         cancelButtonClass: 'btn btn-danger',
                         allowOutsideClick: false
                     }).then(function() {
-                        me.$store.dispatch('deletetype1', data.data)
-                            .then((response) => {})
+                      me.$store.dispatch('deletetype1', data.data)
+                            .then((response) => {
+                               console.log(' delete success'); 
+                                 this.$events.fire('refreshcsticket');
+                            })
                             .catch((error) => {});
                     }, function (dismiss) {
                     });
