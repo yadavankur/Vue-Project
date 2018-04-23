@@ -406,6 +406,7 @@
                     this.formData.QUOTE_ID=this.csticketActivityData.QUOTE_ID;
                     this.formData.CUST_NAME=this.csticketActivityData.CUST_NAME;
                     this.formData.ORDER_ID=this.csticketActivityData.UDF1;
+                    this.formData.PRICE=this.csticketActivityData.QUOTE_VERS;
                     
                    if(this.csticketActivityData.location) 
                    { var bb =this.csticketActivityData.location.id; bb= String(bb).trim(); 

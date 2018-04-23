@@ -54,6 +54,8 @@ import PermissionCustomActions from './Type2A/CsTicketType2ACustomActions.vue'
 import jsPDF from 'jspdf'
 import modal from 'vue-strap/src/Modal'
 import input from 'vue-strap/src/Input'
+import imgurl from '../../../img/logo.png'
+
 
 export default 
 {    computed: 
@@ -133,20 +135,31 @@ export default
                       return;
                     }
               }, //onclickEdit finish
-             onClickPdf() 
-              { //console.log('delete clicked');
-                     var doc = new jsPDF();
-                             doc.text(10, 50, 'CREDIT NOTE');
-                            doc.text(20, 20, 'Ticket Number'); doc.text(60, 20, this.csticket[0].ticket_no);
-                            doc.text(20, 30, 'Approving User'); doc.text(60, 30, this.csticket[0].auserid.name);
-                             doc.text(20, 40, 'Status');  doc.text(60, 40, this.csticket[0].tstatus.STATUS);
-                              doc.text(20, 50, 'Comment'); doc.text(60, 50, this.csticket[0].comment);
-                         //   doc.addPage();
-                          //  doc.text(20, 50, 'Do you like that?');
-                       //doc.text(this.csticket[0].comment, 1, 1);
-                      doc.save('Credit Note.pdf')
-              },
+              onClickPdf() 
+              {       var img = new Image();
+                      img.src = imgurl;  var cstkt=this.csticket[0];
+                      console.log('this.cstickt[0]=',cstkt);
+                     
+                      var doc = new jsPDF();
+                         img.onload = function()
+                         {
+                           doc.addImage(img,  'png', 5, 5, 40, 10);
+                        doc.setFontSize(6);  
+                         doc.text("Dowell Windows Pty Ltd.", 10, 20);
+                            doc.text("ABN 78 004 069 523", 10, 22);
+                     
+                        doc.setFontSize(20); 
+                           doc.text(80, 10, "CREDIT NOTE");
 
+                           doc.setFontSize(15); doc.text(90, 30, cstkt.comment);
+                            doc.text(30, 20, 'Ticket Number'); doc.text(60, 20, cstkt.ticket_no);
+                            doc.text(30, 30, 'Approving User'); doc.text(60, 30, cstkt.auserid.name);
+                            doc.text(30, 40, 'Status');  doc.text(60, 40, cstkt.tstatus.STATUS);
+                             doc.text(30, 50, 'Comment'); doc.text(60, 50, cstkt.comment);
+                             //-------------------------------
+                           doc.save('Test.pdf');
+                          };
+              },
              onClickDel()
               {   if(this.selectedTicketttype1.length > 0) 
                      {    
