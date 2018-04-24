@@ -42,7 +42,8 @@ class TicketCsRepository extends BaseRepository
         $ticketcs->GROUP_ID = $request->input('group1.id');   //allocated group id
         $ticketcs->CONTACT_PERSON = $request->input('CONTACT_PERSON');  
         $ticketcs->CONTACT_EMAIL = $request->input('CONTACT_EMAIL'); 
-        $ticketcs->CONTACT_PHONE = $request->input('CONTACT_PHONE');    
+        $ticketcs->CONTACT_PHONE = $request->input('CONTACT_PHONE');  
+        $ticketcs->PRICE = $request->input('PRICE');   
         
         $ticketcs->managed_user_id = $request->input('user2.id'); //managed user id
         $ticketcs->user_id = $request->input('group2.id');   //managed user group
@@ -99,6 +100,10 @@ class TicketCsRepository extends BaseRepository
 
         
         $query = $this->model->orderBy($sortBy, $sortDirection) 
+        //->leftjoin('V_V6_QUOTE_ITEM', function($join) {
+         //   $join->on('V_V6_QUOTE_ITEM.QUOTE_ID', '=', 'ticket_cs.QUOTE_ID');
+        //    $join->on('V_V6_QUOTE_ITEM.QUOTE_VERS_STOP', '=', 'ticket_cs.PRICE');
+       // })
         ->where('active',1)
         ->with('ttype')
         ->with('ttype1')
@@ -109,8 +114,11 @@ class TicketCsRepository extends BaseRepository
         ->with('auserid')
         ->with('buserid')
         ->with('agroupid')
+       // ->with('items')
         ->with('bgroupid')
-       // ->with('v6items')
+        ->with('v6items')
+        ->with('bomfinish')
+        ->with('bomcomponent')
         ->with('location');
 
        // $salesOrderNumber = trim($search['salesOrderNumber']);

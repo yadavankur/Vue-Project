@@ -36,25 +36,40 @@ class Ticket_cs extends BaseModel
         ->join('V_V6_CONTACT', 'V_V6_CONTACT.CONTACT_ID', '=', 'V_V6_QUOTE.SHIP_TO_CONTACT_ID', 'left outer')
         ->join('V_V6_ADDR', 'V_V6_ADDR.ADDR_ID', '=', 'V_V6_QUOTE.DEL_ADDR_ID', 'left outer')
         ->join('V_V6_STATUS', 'V_V6_STATUS.STATUS_ID', '=', 'V_V6_QUOTE.STATUS_ID', 'left outer')
-       // ->join('V_V6_QUOTE_ITEM', 'V_V6_QUOTE_ITEM.QUOTE_ID', '=', 'V_V6_QUOTE.QUOTE_ID', 'left outer')
+       // ->leftjoin('V_V6_QUOTE_ITEM', function($join) {
+          //  $join->on('V_V6_QUOTE_ITEM.QUOTE_ID', '=', 'V_V6_QUOTE.QUOTE_ID');
+          //  $join->on('V_V6_QUOTE_ITEM.QUOTE_VERS_STOP', '=', 'V_V6_QUOTE.QUOTE_VERS');
+       // })
         ->with('cash_rec')
         ->with('activity_logs')
         ;
     }
     public function v6items()
     {
-       // return $this->hasMany(Ticket_cs::class, 'QUOTE_ID', 'QUOTE_ID')->where('active',1);
-       // return $this->belongsTo(V6QuoteItem::class, 'QUOTE_ID', 'QUOTE_ID')
-       // return $this->hasMany(V6QuoteItem::class, 'QUOTE_ID', 'QUOTE_ID' AND 'QUOTE_VERS_STOP','QUOTE_VERS')
-      //  return $this->hasMany(V6QuoteItem::class, 'QUOTE_ID', 'QUOTE_ID')
-      // ->join('V_V6_QUOTE', 'V_V6_QUOTE.QUOTE_VERS','=', 'V_V6_QUOTE_ITEM.QUOTE_VERS_STOP', 'left outer')
-       // ->where('QUOTE_VERS_STOP','QUOTE_VERS');
-      //  return $this->hasMany(V6QuoteItem::class, 'QUOTE_VERS_STOP','QUOTE_VERS')
-       // ->where('QUOTE_ID', 'QUOTE_ID');
-        //->where('V_V6_QUOTE_ITEM.QTE_POS'); 
-     
-        //->join('V_V6_BOM_FILL', 'V_V6_BOM_FILL.QUOTE_ITEM_ID', '=', 'V_V6_QUOTE_ITEM.QUOTE_ITEM_ID', 'left outer')
-       // ;
+       return $this->hasMany(V6Quote::class, 'QUOTE_ID', 'QUOTE_ID')
+       ->leftjoin('V_V6_QUOTE_ITEM', function($join) 
+            {   $join->on('V_V6_QUOTE_ITEM.QUOTE_ID', '=', 'V_V6_QUOTE.QUOTE_ID');
+                $join->on('V_V6_QUOTE_ITEM.QUOTE_VERS_STOP', '=', 'V_V6_QUOTE.QUOTE_VERS');
+            })  ;
+       // ->join('V_V6_BOM_EXTN', 'V_V6_BOM_EXTN.QUOTE_ITEM_ID', '=', 'V_V6_QUOTE_ITEM.QUOTE_ITEM_ID');
+    }
+    public function bomfinish()
+    {
+       return $this->hasMany(V6Quote::class, 'QUOTE_ID', 'QUOTE_ID')
+       ->leftjoin('V_V6_QUOTE_ITEM', function($join) 
+            {   $join->on('V_V6_QUOTE_ITEM.QUOTE_ID', '=', 'V_V6_QUOTE.QUOTE_ID');
+                $join->on('V_V6_QUOTE_ITEM.QUOTE_VERS_STOP', '=', 'V_V6_QUOTE.QUOTE_VERS');
+            })  //;
+        ->join('V_V6_BOM_EXTN', 'V_V6_BOM_EXTN.QUOTE_ITEM_ID', '=', 'V_V6_QUOTE_ITEM.QUOTE_ITEM_ID');
+    }
+    public function bomcomponent()
+    {
+       return $this->hasMany(V6Quote::class, 'QUOTE_ID', 'QUOTE_ID')
+       ->leftjoin('V_V6_QUOTE_ITEM', function($join) 
+            {   $join->on('V_V6_QUOTE_ITEM.QUOTE_ID', '=', 'V_V6_QUOTE.QUOTE_ID');
+                $join->on('V_V6_QUOTE_ITEM.QUOTE_VERS_STOP', '=', 'V_V6_QUOTE.QUOTE_VERS');
+            })  //;
+        ->join('V_V6_BOM_COMP', 'V_V6_BOM_COMP.QUOTE_ITEM_ID', '=', 'V_V6_QUOTE_ITEM.QUOTE_ITEM_ID');
     }
     public function location()
     {
@@ -107,5 +122,17 @@ class Ticket_cs extends BaseModel
     {
         return $this->belongsTo(Group::class, 'user_id', 'id')->where('active', 1);
                                                       //column name in ticket_cs table//then column name in status table
+                                                      //->where('PRICE','QUOTE_VERS_STOP')
+    }
+
+    public function items() {
+       // return $this->belongsTo(V6QuoteItem::class, 'QUOTE_ID', 'QUOTE_ID')->where('QUOTE_VERS_STOP',$this->PRICE);
+     //  return $this->hasMany(tickettype1::class, 'ticket_no', 'ticket_no')->where('active', 1);
+       // return $this->belongsTo(V6QuoteItem::class,'QUOTE_ID', 'QUOTE_ID')->whereRaw('V_V6_QUOTE_ITEM.QUOTE_VERS_STOP = ticket_cs.PRICE');
+      //  return $this->hasMany(V6QuoteItem::class, 'QUOTE_ID', 'QUOTE_ID')->whereRaw('V_V6_QUOTE_ITEM.QUOTE_VERS_STOP=ticket_cs.PRICE');
+      //  return $this->hasMany(V6QuoteItem::class, 'QUOTE_ID', 'QUOTE_ID')->whereRaw('[V_V6_QUOTE_ITEM].[QUOTE_VERS_STOP] = [ticket_cs].[PRICE]');
+       return $this->hasMany(V6QuoteItem::class, 'QUOTE_ID', 'QUOTE_ID')->where('QUOTE_VERS_STOP', \DB::raw("ticket_cs.PRICE as PRICE"));
+    //    return $this->hasMany(V6QuoteItem::class, 'QUOTE_ID', 'QUOTE_ID')->where('QUOTE_VERS_STOP', 4);  //---working
+      //  return $this->belongsTo(ticketstatus::class, 'status', 'id')->where('active', 1);
     }
 }

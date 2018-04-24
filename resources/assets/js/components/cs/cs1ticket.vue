@@ -19,7 +19,9 @@
                     </div>
                     <div class="col-md-6" v-if="selectedTicket">
                          <order-info></order-info>
+                         <v6items></v6items>
                          <order-history-summary></order-history-summary>
+                           <bomfinish></bomfinish> <bomcomponent></bomcomponent>
                       
                     </div>
 
@@ -79,6 +81,9 @@
     import AttachmentInfo from './CsTicketAttachmentInfo.vue'
     import OrderInfo from './OrderInfoincs.vue'
     import OrderHistorySummary from './OrderHistorySummary.vue'
+    import V6Items from './V6Items.vue'
+    import bomfinish from './bomfinish.vue'
+    import bomcomponent from './bomcomponents.vue'
     import CsTicketType1 from './CsTicketType1.vue'
     import CsTicketType1Crud from './CsTicketType1Crud.vue'
     import CsTicketType2ACrud from './Type2A/CsTicketType2ACrud.vue'
@@ -109,7 +114,7 @@
                       'csticket-crud-modal': CsTicketCrudModal,
                       'csticket-list-table': CsTicketListTable,
                       'order-info': OrderInfo,
-                      'order-history-summary': OrderHistorySummary,
+                      'order-history-summary': OrderHistorySummary, 'v6items':V6Items,'bomfinish':bomfinish,'bomcomponent':bomcomponent,
                       'email-booking-info': EmailBookingInfo,
                       'ticket-type1': CsTicketType1,'ticket-type1crud': CsTicketType1Crud,
                       'ticket-type2A': CsTicketType2A,'ticket-type2Acrud': CsTicketType2ACrud,
