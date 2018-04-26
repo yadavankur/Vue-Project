@@ -40,6 +40,7 @@
                     </div>
                     <div class="col-md-6" v-if="selectedTicketType == 'TYPE3'">
                     <ticket-type3></ticket-type3>
+                    <ticket-type3crud></ticket-type3crud>
                     </div>
                       <div class="col-md-6" v-if="selectedTicketType == 'TYPE4'">
                     <ticket-type4></ticket-type4>
@@ -87,6 +88,7 @@
     import CsTicketType1 from './CsTicketType1.vue'
     import CsTicketType1Crud from './CsTicketType1Crud.vue'
     import CsTicketType2ACrud from './Type2A/CsTicketType2ACrud.vue'
+    import CsTicketType3Crud from './Type3/CsTicketType3Crud.vue'
     import CsTicketType2A from './CsTicketType2A.vue'
     import CsTicketType2B from './CsTicketType2B.vue'
     import CsTicketType3 from './CsTicketType3.vue'
@@ -119,7 +121,7 @@
                       'ticket-type1': CsTicketType1,'ticket-type1crud': CsTicketType1Crud,
                       'ticket-type2A': CsTicketType2A,'ticket-type2Acrud': CsTicketType2ACrud,
                         'ticket-type2B': CsTicketType2B,
-                         'ticket-type3': CsTicketType3,
+                         'ticket-type3': CsTicketType3,'ticket-type3crud': CsTicketType3Crud,
                          'ticket-type4': CsTicketType4,
                          'ticket-type5': CsTicketType5,
                          'ticket-type6': CsTicketType6,

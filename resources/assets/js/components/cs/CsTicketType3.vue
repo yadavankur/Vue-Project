@@ -3,7 +3,7 @@
     <div class="app-row">
         <div class="panel panel-primary">
             <div class="panel-heading">
-              <a class="accordion-toggle" data-toggle="collapse"  href="#csticketinfoo"> TYPE3:Modification- Short Delivery Advice(SDA)</a>
+              <a class="accordion-toggle" data-toggle="collapse"  href="#csticketinfoo"> TYPE3:Modification- Rectification Report</a>
               <span class="pull-right"> <button class="btn btn-success btn-sm" @click.prevent="onClickNew">NEW</button> </span>
             </div>
             <div id="csticketinfoo" class="panel-collapse collapse in table-responsive">
@@ -58,7 +58,7 @@ export default
                                    name: '',  title: '',  id: ''
                                };
                 let payload = { isShow: true, data: {action: 'Add', data: formData} };
-                this.$store.dispatch('setCsTicketShowModal', payload)  //----triggers this in store--with empty data and opens new popup for adding
+                this.$store.dispatch('setCsTicketType3ShowModal', payload)  //----triggers this in store--with empty data and opens new popup for adding
               },
           }
 }
