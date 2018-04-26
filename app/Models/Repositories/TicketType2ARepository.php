@@ -10,13 +10,9 @@ use Illuminate\Support\Facades\Auth;
 class TicketType2ARepository extends BaseRepository
 {
     public function model() {  return 'App\Models\Entities\tickettype2';   }
-    public function getTicketType1Table($request)
-    {
-       // $ticketcs->QUOTE_ID = $request->input('QUOTE_ID'); 
+    public function getTicketType1Table($request)  //not used
+    {  
         $qi = $request->input('ticket_no'); 
-       // return $this->model->all()->toArray();
-
-      // $q1=33;
        return $this->model->where('active',1)->where('ticket_no', $qi)->get()->keyBy('id')->toArray();
       
     }

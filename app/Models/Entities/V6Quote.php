@@ -86,4 +86,6 @@ class V6Quote extends Model
     public function location() {
         return $this->belongsTo(Location::class, 'QUOTE_NUM_PREF', 'abbreviation')->where('active',1)->with('services');
     }
+
+
 }

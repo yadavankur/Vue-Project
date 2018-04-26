@@ -26,15 +26,9 @@ class V6BomExtnRepository extends BaseRepository
         $search = '';
         $itemNo = '';
         if ($filter)
-        {
-            $itemNo = $filter['itemNo'];
-            $search = $filter['filterText'];
-        }
+        {   $itemNo = $filter['itemNo'];  $search = $filter['filterText'];   }
 
-        $query = $this->model->select([
-            'V_V6_QUOTE_ITEM.QTE_POS',
-            'V_V6_BOM_EXTN.*',
-        ])
+        $query = $this->model->select([ 'V_V6_QUOTE_ITEM.QTE_POS','V_V6_BOM_EXTN.*',  ])
             ->join('V_V6_QUOTE_ITEM', 'V_V6_BOM_EXTN.QUOTE_ITEM_ID', '=', 'V_V6_QUOTE_ITEM.QUOTE_ITEM_ID')
             ->join('V_V6_QUOTE', function($join) {
                 $join->on('V_V6_QUOTE.QUOTE_ID', '=', 'V_V6_QUOTE_ITEM.QUOTE_ID');
@@ -45,9 +39,7 @@ class V6BomExtnRepository extends BaseRepository
             ->where('V_V6_QUOTE.UDF1', $orderId)
             ->orderBy($sortBy, $sortDirection);
 
-        if ($itemNo) {
-            $query->where('V_V6_QUOTE_ITEM.QTE_POS', $itemNo);
-        }
+        if ($itemNo) { $query->where('V_V6_QUOTE_ITEM.QTE_POS', $itemNo);  }
 
         if ($search) {
             $like = "%{$search}%";

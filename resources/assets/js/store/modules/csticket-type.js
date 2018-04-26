@@ -9,6 +9,7 @@ export default
              //modalForm: {  state: null, }, 
              csticketType1data:null,showFormType1:false,
              csticketType2Adata:null,showFormType2A:false,
+             csticketType3data:null,showFormType3:false,
          },
 getters: {    tickettypetablegetter: state => state.tickettypetable },
 mutations: 
@@ -58,6 +59,12 @@ mutations:
         console.log('/store/cstickettype.js-SET_CSTICKETTYPE2A_SHOW_MODAL state=', state);
         state.showFormType2A = payload.data.isShow;
         state.csticketType2Adata = payload.data.data;
+    },
+    [types.SET_CSTICKETTYPE3_SHOW_MODAL] (state, payload) 
+    {   console.log('/store/cstickettype.js-SET_CSTICKETTYPE3_SHOW_MODAL payload=', payload.data);
+        console.log('/store/cstickettype.js-SET_CSTICKETTYPE3_SHOW_MODAL state=', state);
+        state.showFormType3 = payload.data.isShow;
+        state.csticketType3data = payload.data.data;
     },
     [types.GET_TICKET_TYPE1_TABLE] (state, payload) //-----this is for refresh
     {  console.log('csticket-type.js-types.GET_TICKET_TYPE1_TABLE payload=', payload.csType1perTicket);
@@ -307,6 +314,11 @@ updatetype: ({dispatch}, formData) =>
             {   commit({  type: types.UPDATE_TICKET_TYPE2A_FAILURE, errors: body  });
                 console.error('csticket-type2.js---updateType2Failure body.error=', body.error);
                 if(body.error) {  dispatch('showErrorNotification', body.error);  }
+            },
+            //=====================type2a finished
+            setCsTicketType3ShowModal:({commit,dispatch}, data) => 
+            { commit({ type: types.SET_CSTICKETTYPE3_SHOW_MODAL, data: data });    
+            // dispatch('getLastTicket');
             },
 //=========================================
     }//actions finished
