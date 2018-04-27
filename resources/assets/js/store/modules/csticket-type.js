@@ -4,12 +4,12 @@ import * as types from './../../mutation-types';
 
 export default 
 { state: {  tickettypetable: null,  
-            showTypeCrudPopup: false,  typeData: null,showTypeCrudPopup1: false,csType1perTicket:false,
-            csType2AperTicket:false,
+            showTypeCrudPopup: false,  typeData: null,showTypeCrudPopup1: false,
+           
              //modalForm: {  state: null, }, 
-             csticketType1data:null,showFormType1:false,
-             csticketType2Adata:null,showFormType2A:false,
-             csticketType3data:null,showFormType3:false,
+             csticketType1data:null,showFormType1:false,csType1perTicket:false,
+             csticketType2Adata:null,showFormType2A:false, csType2AperTicket:false,
+             csticketType3data:null,showFormType3:false, csType3perTicket:false,
          },
 getters: {    tickettypetablegetter: state => state.tickettypetable },
 mutations: 
@@ -34,18 +34,27 @@ mutations:
     [types.ADD_TICKET_TYPE1_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE1_FAILURE payload=', payload); },
     [types.ADD_TICKET_TYPE2A_SUCCESS] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE2A_SUCCESS payload=', payload); },
     [types.ADD_TICKET_TYPE2A_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE2A_FAILURE payload=', payload); },
+    [types.ADD_TICKET_TYPE3_SUCCESS] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE3_SUCCESS payload=', payload); },
+    [types.ADD_TICKET_TYPE3_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE3_FAILURE payload=', payload); },
+    
     [types.UPDATE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE_SUCCESS payload=', payload); },
     [types.UPDATE_TICKET_TYPE_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE_FAILURE payload=', payload); },
+    [types.UPDATE_TICKET_TYPE1_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE1_SUCCESS payload=', payload); },
+    [types.UPDATE_TICKET_TYPE1_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE1_FAILURE payload=', payload); },
+    [types.UPDATE_TICKET_TYPE2A_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE2A_SUCCESS payload=', payload); },
+    [types.UPDATE_TICKET_TYPE2A_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE2A_FAILURE payload=', payload); },
+    [types.UPDATE_TICKET_TYPE3_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE3_SUCCESS payload=', payload); },
+    [types.UPDATE_TICKET_TYPE3_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE3_FAILURE payload=', payload); },
+
     [types.DELETE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE_SUCCESS payload=', payload); },
     [types.DELETE_TICKET_TYPE_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE_FAILURE payload=', payload); },
     [types.DELETE_TICKET_TYPE1_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE1_SUCCESS payload=', payload); },
     [types.DELETE_TICKET_TYPE1_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE1_FAILURE payload=', payload); },
-    [types.UPDATE_TICKET_TYPE1_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE1_SUCCESS payload=', payload); },
-    [types.UPDATE_TICKET_TYPE1_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE1_FAILURE payload=', payload); },
     [types.DELETE_TICKET_TYPE2A_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE2A_SUCCESS payload=', payload); },
     [types.DELETE_TICKET_TYPE2A_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE2A_FAILURE payload=', payload); },
-    [types.UPDATE_TICKET_TYPE2A_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE2A_SUCCESS payload=', payload); },
-    [types.UPDATE_TICKET_TYPE2A_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE2A_FAILURE payload=', payload); },
+    [types.DELETE_TICKET_TYPE3_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE3_SUCCESS payload=', payload); },
+    [types.DELETE_TICKET_TYPE3_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE3_FAILURE payload=', payload); },
+   
 
     //--------------------------ticket type crud----
     [types.SET_CSTICKETTYPE1_SHOW_MODAL] (state, payload) 
@@ -76,7 +85,12 @@ mutations:
     {  console.log('csticket-type.js-types.GET_TICKET_TYPE2A_TABLE payload=', payload.csType2AperTicket);
        console.log('csticket-type.js-types.GET_TICKET_TYPE2A_TABLE state=', state);
        state.csType2AperTicket = payload.csType2AperTicket;  //---state takes it from here--gives to getter
-                                                    //then getter takes it and gives it back to vue file
+    },
+    [types.GET_TICKET_TYPE3_TABLE] (state, payload) //-----this is for refresh
+    {  console.log('csticket-type.js-types.GET_TICKET_TYPE3_TABLE payload=', payload.csType3perTicket);
+       console.log('csticket-type.js-types.GET_TICKET_TYPE3_TABLE state=', state);
+       state.csType3perTicket = payload.csType3perTicket;  
+                                                   
     },
 
     //----------------------------
@@ -315,11 +329,81 @@ updatetype: ({dispatch}, formData) =>
                 console.error('csticket-type2.js---updateType2Failure body.error=', body.error);
                 if(body.error) {  dispatch('showErrorNotification', body.error);  }
             },
-            //=====================type2a finished
+            //=====================type2a finished--------type3 begin---------
             setCsTicketType3ShowModal:({commit,dispatch}, data) => 
             { commit({ type: types.SET_CSTICKETTYPE3_SHOW_MODAL, data: data });    
             // dispatch('getLastTicket');
             },
+            cstype3add: ({dispatch}, formData) => 
+            {  return new Promise((resolve, reject) => 
+              {  console.log('csticket-type.js-- cstype1add-- formData=', formData);
+                 Vue.http.post(api.addcstype3, formData)
+                 .then(response => { dispatch('addtype3Success', response.body);  resolve();   })
+                 .catch(response => { dispatch('addtype3Failure', response.body); reject();   });
+        
+              })
+            },
+           addtype3Success: ({commit, dispatch}, body) => 
+            {   console.log('csticket-type.js---addtype3Success body=', body);
+                commit({   type: types.ADD_TICKET_TYPE3_SUCCESS, state: body.state   });
+                dispatch('showSuccessNotification', 'TYPE3 has been added.');   
+                dispatch('gettickettype3table',body.gett1);
+               // dispatch('gettickettypetable');
+            },
+          addtype3Failure: ({commit, dispatch}, body) => 
+           {   commit({  type: types.ADD_TICKET_TYPE3_FAILURE, errors: body  });
+               console.error('csticket-type.js---addtype3Failure body.error=', body.error);
+               if(body.error) {  dispatch('showErrorNotification', body.error);  }
+           },
+          gettickettype3table: ({commit, dispatch},dataItem) =>// 
+           {  return new Promise((resolve, reject) => 
+                   {  
+                   Vue.http.post(api.gettickettype3tableapi,dataItem)
+                   .then(response => {    
+                                   commit({type: types.GET_TICKET_TYPE3_TABLE, csType3perTicket: response.body });
+                                   resolve(response);
+                       }) 
+                   .catch(error => {    reject(error); });
+                   });
+           },
+           deletetype3: ({dispatch}, formData) => 
+           {   return new Promise((resolve, reject) => 
+               {    Vue.http.post(api.deletetype3, formData)
+                .then(response => {  dispatch('deletetype3Success', response.body); resolve(); })
+               .catch(response => { dispatch('deletetype3Failure', response.body);  reject(); });
+               })
+           },
+          deletetype3Success: ({commit, dispatch}, body) => 
+           {   commit({ type: types.DELETE_TICKET_TYPE3_SUCCESS, state: body });
+               dispatch('showSuccessNotification', 'TYPE3 has been deleted.');
+            
+               dispatch('gettickettype3table',body.gett1);  //----get back new result with modified values
+           },
+          deletetype3Failure: ({commit, dispatch}, body) => 
+           {   commit({   type: types.DELETE_TICKET_TYPE3_FAILURE, errors: body  });
+               if(body.error) {  dispatch('showErrorNotification', body.error);  }
+           },
+           updatetype3: ({dispatch}, formData) => 
+           {  return new Promise((resolve, reject) => 
+               {  console.log('csticket-type1.js-- update-- formData=', formData);
+                   Vue.http.post(api.updatetype3, formData)
+                       .then(response => { dispatch('updateType3Success', response.body);  resolve();   })
+                       .catch(response => { dispatch('updateType3Failure', response.body); reject();   });
+                   
+               })
+           },
+           updateType3Success: ({commit, dispatch}, body) => 
+           {   console.log('csticket-type2.js---updatetype2Success body=', body);
+               commit({   type: types.UPDATE_TICKET_TYPE3_SUCCESS, state: body.state   });
+               dispatch('showSuccessNotification', 'TYPE3 has been updated.');   
+               dispatch('gettickettype3table',body.gett1); 
+           },
+           updateType3Failure: ({commit, dispatch}, body) => 
+           {   commit({  type: types.UPDATE_TICKET_TYPE3_FAILURE, errors: body  });
+               console.error('csticket-type2.js---updateType3Failure body.error=', body.error);
+               if(body.error) {  dispatch('showErrorNotification', body.error);  }
+           },
+
 //=========================================
     }//actions finished
 

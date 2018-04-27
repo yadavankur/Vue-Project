@@ -399,4 +399,9 @@ export const getticketcnstatustableapi = apiDomain + '/csticket/getticketcnstatu
 export const addcscnstatus = apiDomain + '/csticket/addcnstatustickettable';
 export const updatecnstatus = apiDomain + '/csticket/updatecnstatus';
 export const deletecnstatus = apiDomain + '/csticket/deletecnstatus';
+//---------------
+export const addcstype3 = apiDomain + '/csticket/addtype3tickettable';
+export const gettickettype3tableapi = apiDomain + '/csticket/gettype3tickettable';
+export const deletetype3 = apiDomain + '/csticket/deletetype3';
+export const updatetype3 = apiDomain + '/csticket/updatetype3';
 
