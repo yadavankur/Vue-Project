@@ -2,9 +2,7 @@
     <div id="permission-list">
         <div class="main">
             <div class="container">
-            
                 <csticket-crud-modal></csticket-crud-modal>
-               
                 <div class="row">
                     <div class="col-md-12"> <csticket-list-search></csticket-list-search> </div>
                     <div class="col-md-12">
@@ -21,12 +19,10 @@
                          <order-info></order-info>
                          <v6items></v6items>
                          <order-history-summary></order-history-summary>
-                           <bomfinish></bomfinish> <bomcomponent></bomcomponent>
+                         <!--  <bomfinish></bomfinish> <bomcomponent></bomcomponent> -->
                       
                     </div>
 
-
-                    
                     <div class="col-md-6" v-if="selectedTicketType == 'TYPE1'">
                           <ticket-type1></ticket-type1>
                           <ticket-type1crud></ticket-type1crud>

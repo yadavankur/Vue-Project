@@ -108,12 +108,12 @@ export default
                      else{
                           console.log('this.selectedTicketttype1.length>0',this.selectedTicketttype1);
                           if(this.csType1perTicket) console.log('csType1perTicket=',this.csType1perTicket);
-                          this.$store.dispatch('showErrorNotification', 'Rectification Report is already added to this Ticket !');
+                          this.$store.dispatch('showErrorNotification', 'Credit Note is already added to this Ticket !');
                           return;
                      }
                 } else if (this.csType1perTicket && this.csType1perTicket[0].ttype2a.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                      {  console.log('inside 2nd-this.csType1perTicket',this.csType1perTicket);
-                        this.$store.dispatch('showErrorNotification', 'Rectification Report is already added to this Ticket !');
+                        this.$store.dispatch('showErrorNotification', 'Credit Note is already added to this Ticket !');
                         return;
                      }
                 else {this.$store.dispatch('setCsTicketType2AShowModal', payload)  //----triggers this in store--with empty data and opens new popup for adding
@@ -131,7 +131,7 @@ export default
                   else if (this.csType1perTicket && this.csType1perTicket[0].ttype2a.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
                     {   this.$store.dispatch('setCsTicketType2AShowModal', payload)    }
                   else 
-                    { this.$store.dispatch('showErrorNotification', 'Please add Rectification Report to this Ticket !');
+                    { this.$store.dispatch('showErrorNotification', 'Please add Credit Note to this Ticket !');
                       return;
                     }
               }, //onclickEdit finish
@@ -177,7 +177,7 @@ export default
                             let swal = this.$swal;  let me = this;
                             this.$swal({
                                       title: 'Are you sure?',
-                                      text: 'You will not be able to recover this Rectification Report!',
+                                      text: 'You will not be able to recover this Credit Note!',
                                       type: 'warning',   showCancelButton: true,
                                       confirmButtonColor: '#3085d6',   cancelButtonColor: '#d33',
                                       confirmButtonText: 'Yes',  cancelButtonText: 'cancel',
@@ -203,7 +203,7 @@ export default
                                     let swal = this.$swal;     let me = this;
                                     this.$swal({
                                               title: 'Are you sure?',
-                                              text: 'You will not be able to recover this Rectification Report!',
+                                              text: 'You will not be able to recover this Credit Note!',
                                               type: 'warning',  showCancelButton: true,
                                               confirmButtonColor: '#3085d6',   cancelButtonColor: '#d33',
                                               confirmButtonText: 'Yes',   cancelButtonText: 'cancel',

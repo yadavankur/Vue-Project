@@ -28,6 +28,7 @@
                         </tr> 
                         <tr> <div><label >Error Caused by: ( Please tick box below)</label></div></tr>
                         <tr> <td colspan="3">
+                          <Checkbox v-model="formData.builderorcustomer">Builder Or Customer</Checkbox>
                            <Checkbox v-model="formData.factory">Factory</Checkbox>
                            <Checkbox v-model="formData.service">Service</Checkbox>
                            <Checkbox v-model="formData.customerservice">Customer Service</Checkbox>
@@ -66,28 +67,25 @@
     import input from 'vue-strap/src/Input'
     export default 
     {   computed: 
-           { ...mapState({ showFormType3: state => state.cstickettype.showFormType3,//---------add---6
-                           type3Data: state=> state.cstickettype.csticketType3data,  
+           { ...mapState({  showFormType3: state => state.cstickettype.showFormType3,//---------add---6
+                            type3Data: state=> state.cstickettype.csticketType3data,  
                             selectedTicket: state => state.cstkt.selectedTicket,
                             cascadeUserOptions: state => state.cstkt.useraspgroup.groupNodes,
-                        ticketcnstatustable: state => state.csticketcnstatus.ticketcnstatustable,
-                        selectedTicketttype1: state => state.cstkt.selectedTicket.ttype2a,
-                        csType1perTicket: state => state.cstickettype.csType2AperTicket,
+                            ticketcnstatustable: state => state.csticketcnstatus.ticketcnstatustable,
+                            selectedTicketttype1: state => state.cstkt.selectedTicket.ttype3,
+                            csType1perTicket: state => state.cstickettype.csType3perTicket,
                         }), 
-                      //  cascadeUserOptions() {  console.log('this.cascadeUserOptions1=',this.cascadeUserOptions1);
-                        //      return this.cascadeUserOptions1
-                          //    },
-                        csticket() {  console.log('/2a/- this.selectedTicketttype1=',this.selectedTicketttype1); 
+                        csticket() {  console.log('/t3/- this.selectedTicketttype3=',this.selectedTicketttype1); 
                         if (this.csType1perTicket )  
                               { 
                                 if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
-                                {     console.log('/2a/ this.csType1perTicket[0].ttype1', this.csType1perTicket[0].ttype2a);
-                                      return this.csType1perTicket[0].ttype2a;
+                                {     console.log('/3t/ this.csType1perTicket[0].ttype3', this.csType1perTicket[0].ttype3);
+                                      return this.csType1perTicket[0].ttype3;
                                 }
                                 else  return this.selectedTicketttype1;
                               } 
                         else if (this.selectedTicketttype1)  
-                            {   console.log('this.selectedTicketttype1=',this.selectedTicketttype1); 
+                            {   console.log('this.selectedTicketttype3=',this.selectedTicketttype1); 
                                 return this.selectedTicketttype1;
                             } 
                         else return null; 
@@ -96,15 +94,13 @@
        data ()  {  return {  title: '',  formData: {     id: '', comment: '', 
                             price: '', description: '', ticket_no: '', status_id: '' } ,statusOptions: [] ,
                             cascade_group_user:[]   }   },
-       created() {  console.log('cs/cstickettype1crud.vue-- Component created.')  
-                                    
+       created() {  console.log('cs/cstickettype1crud.vue-- Component created.')      
                     this.collectCnStatusOptions(this.ticketcnstatustable); //to collect cn status options for dropdown
                   },
        components: {  'custom-modal': modal, 'bs-input': input,  },
        mounted() { console.log('cs/cstickettype1crud.vue--- Component mounted. typeData=', this.type2Data) },
        methods: 
-           {    
-                    collectCnStatusOptions(statuses) 
+           {        collectCnStatusOptions(statuses) 
                      {  console.log('CNstatuscrud-- statuses=',statuses);
                         let options = [];
                         for (let status in statuses) 
@@ -122,73 +118,88 @@
                                  this.formData.user = {id: selectedData[selectedData.length-1].value, name: selectedData[selectedData.length-1].label};
                                 }
                             },
-
-
-               OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
-                { console.log('2Acrud.vue-----OnSave_click this.formdata',this.formData);
-                  let payload = {  isShow: false,  data: this.formData, };
-                  if (this.type2Data.action === 'Add')// add new state
-                     {   console.log('add--formdata----',this.formData);
-                          if (  this.isEmpty(this.formData.price) )
-                            { this.$store.dispatch('showErrorNotification', 'Please provie price !');   return;  }
-                            if (  this.formData.status_id === "" )
-                            {  this.$store.dispatch('showErrorNotification', 'Please select status_id '); return;  }
-                           // if (  this.isEmpty(this.formData.group) || this.isEmpty(this.formData.user)  )
-                           // {      this.$store.dispatch('showErrorNotification', 'Please select user !');
-                           //     return;
-                           // }
-                         
-                         this.$store.dispatch('setCsTicketType2AShowModal', payload); //---to disable popup
-                       this.$store.dispatch('cstype2Aadd', this.formData)
-                        .then((response) => {   console.log(' save success'); 
+                    OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
+                    {   console.log('3crud.vue-----OnSave_click this.formdata',this.formData);
+                        let payload = {  isShow: false,  data: this.formData, };
+                        if (this.type3Data.action === 'Add')// add new state
+                        {   console.log('add--formdata----',this.formData);
+                              //if (  this.isEmpty(this.formData.price) )
+                              //  { this.$store.dispatch('showErrorNotification', 'Please provie price !');   return;  }
+                               // if (  this.formData.status_id === "" )
+                               // {  this.$store.dispatch('showErrorNotification', 'Please select status_id '); return;  }
+                        
+                            this.$store.dispatch('setCsTicketType3ShowModal', payload); //---to disable popup
+                            this.$store.dispatch('cstype3add', this.formData)
+                            .then((response) => {   console.log(' save success'); 
                                                 this.$events.fire('refreshcsticket');
                                             }).catch((error) => {console.log('save error');});
-                     } 
-                  else if (this.type2Data.action === 'Edit')// update
-                   { this.$store.dispatch('setCsTicketType2AShowModal', payload);  
-                   console.log(' payload=',payload); 
-                      this.$store.dispatch('updatetype2A', this.formData)
-                        .then((response) => { console.log(' edit success');  this.$events.fire('refreshcsticket');})     
-                        .catch((error) => {});
-                   }
-                  else  {     }// error
-                },
-               onClose() {  console.log('cs/cstickettype2Acrud.vue------onClose');
+                        } 
+                      else if (this.type3Data.action === 'Edit')// update
+                        { this.$store.dispatch('setCsTicketType3ShowModal', payload);  
+                          console.log(' payload=',payload); 
+                          this.$store.dispatch('updatetype3', this.formData)
+                          .then((response) => { console.log(' edit success');  this.$events.fire('refreshcsticket');})     
+                          .catch((error) => {});
+                        }
+                      else  {     }// error
+                    },
+               onClose() {  console.log('cs/cstickettype3crud.vue------onClose');
                            let payload = {   isShow: false,   data: this.formData,   };
-                           this.$store.dispatch('setCsTicketType2AShowModal', payload);
+                           this.$store.dispatch('setCsTicketType3ShowModal', payload);
                            this.resetFormData();
                         },
                resetFormData() {  this.formData = { id: '', price: '',  user:{id:'', name:''}, group :{id:'', name:''}, status_id: '', 
                                   comment: '', reason: ''  };this.cascade_group_user=[]; 
                                 }
-
-           },
-           watch: {  type2Data() 
-                      {  console.log('cs/cstickettype1crud.vue-++++++ type2Data changed =', this.type2Data);
-                         if (this.type2Data && this.type2Data.action === 'Add')  //this opens a form
-                            {   this.resetFormData();   this.title = 'Add new Credit Note';  
-                                console.log('cs/cstickettype1crud.vue--+++form is open now_just before save is pressed');
+           }, //actions finish
+           watch: {  type3Data() 
+                      {  console.log('3crud/type3Data changed =', this.type3Data);
+                         if (this.type3Data && this.type3Data.action === 'Add')  //this opens a form
+                            {   this.resetFormData();   this.title = 'Add new Rectification Report';  
+                                console.log('cs/3crud.vue--+++form open -just before save is pressed');
                                 this.formData.ticket_no = this.selectedTicket.ticket_no;
-                                console.log('cs/cstickettype1crud.vue--ticket_no', this.selectedTicket.ticket_no);
+                                console.log('cs/3crud.vue--ticket_no', this.selectedTicket.ticket_no);
                             }
-                          else if (this.type2Data && this.type2Data.action === 'Edit')
-                           {   this.resetFormData();  this.title = 'Editing Credit Note';
+                         else if (this.type3Data && this.type3Data.action === 'Edit')
+                           {   this.resetFormData();  this.title = 'Editing Rectification Report';
                                console.log('cs/cstickettype1crud.vue--ticket_no', this.csticket);
                                this.formData.id = this.csticket[0].id;
-                                this.formData.price = this.csticket[0].amount;
-                                this.formData.reason = this.csticket[0].aaa;
+                             
+                               this.formData.reason = this.csticket[0].aaa;
                                this.formData.comment = this.csticket[0].comment;
                                this.formData.ticket_no = this.csticket[0].ticket_no;
 
+                                this.formData.issues = this.csticket[0].issues;
+                                this.formData.officeuse = this.csticket[0].officeuse;
                                this.formData.group = {  id : this.csticket[0].agroupid.id,
                                                          name: this.csticket[0].agroupid.name
                                                      };
-                                this.formData.user = { id : this.csticket[0].auserid.id,
+                               this.formData.user = { id : this.csticket[0].auserid.id,
                                                 name: this.csticket[0].name,
                                             };
-                                this.cascade_group_user.push(this.formData.group.id);
-                                this.cascade_group_user.push(this.formData.user.id);
-                                 this.formData.status_id = this.csticket[0].tstatus? this.csticket[0].tstatus.id : '';
+                               this.cascade_group_user.push(this.formData.group.id);
+                               this.cascade_group_user.push(this.formData.user.id);
+                               this.formData.status_id = this.csticket[0].tstatus? this.csticket[0].tstatus.id : '';
+
+                                if(this.csticket[0].builderorcustomer==1) this.formData.builderorcustomer=true 
+                                    else this.formData.builderorcustomer=false;
+                               if(this.csticket[0].service==1) this.formData.service=true 
+                                    else this.formData.service=false;
+                               if(this.csticket[0].factory==1) this.formData.factory=true 
+                                    else this.formData.factory=false;
+                                if(this.csticket[0].customerservice==1) this.formData.customerservice=true 
+                                    else this.formData.customerservice=false;
+                                if(this.csticket[0].sales==1) this.formData.sales=true 
+                                    else this.formData.sales=false;
+                                if(this.csticket[0].estimating==1) this.formData.estimating=true 
+                                    else this.formData.estimating=false;
+                                if(this.csticket[0].transport==1) this.formData.transport=true 
+                                    else this.formData.transport=false;
+                                if(this.csticket[0].supplier==1) this.formData.supplier=true 
+                                    else this.formData.supplier=false;
+                                if(this.csticket[0].other==1) this.formData.other=true 
+                                    else this.formData.other=false;
+
                            }
                        }
                }
