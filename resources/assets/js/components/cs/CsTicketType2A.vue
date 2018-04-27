@@ -50,7 +50,7 @@
 <script>
 import Vue from 'vue';
 import { mapGetters, mapState} from 'vuex'
-import PermissionCustomActions from './Type2A/CsTicketType2ACustomActions.vue'
+//import PermissionCustomActions from './Type2A/CsTicketType2ACustomActions.vue'
 import jsPDF from 'jspdf'
 import modal from 'vue-strap/src/Modal'
 import input from 'vue-strap/src/Input'
