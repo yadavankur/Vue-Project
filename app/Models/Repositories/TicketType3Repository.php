@@ -7,7 +7,7 @@ use App\Models\Entities\tickettype3;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
-class TicketType2ARepository extends BaseRepository
+class TicketType3Repository extends BaseRepository
 {
     public function model() {  return 'App\Models\Entities\tickettype3';   }
     public function getTicketType3Table($request) //not used
@@ -18,7 +18,7 @@ class TicketType2ARepository extends BaseRepository
     }
 
     public function addTicketType3Table($request)
-    {   $tickettype1 =  new tickettype2(); 
+    {   $tickettype1 =  new tickettype3(); 
         $tickettype1->ticket_no = $request->input('ticket_no');     
         $tickettype1->amount = $request->input('price');  
         $tickettype1->aa = $request->input('status_id');  
@@ -26,6 +26,19 @@ class TicketType2ARepository extends BaseRepository
         $tickettype1->aaa = $request->input('reason');  
         $tickettype1->bb = $request->input('user.id'); //managed user id
         $tickettype1->cc = $request->input('group.id');   //managed user group
+        if($request->input('builderorcustomer')) $tickettype1->builderorcustomer = $request->input('builderorcustomer');
+       if($request->input('factory')) $tickettype1->factory = $request->input('factory'); 
+       if($request->input('service')) $tickettype1->service = $request->input('service'); 
+       if($request->input('customerservice')) $tickettype1->customerservice = $request->input('customerservice'); 
+       if($request->input('sales')) $tickettype1->sales = $request->input('sales'); 
+        if($request->input('estimating')) $tickettype1->estimating = $request->input('estimating'); 
+       if($request->input('transport')) $tickettype1->transport = $request->input('transport'); 
+        if($request->input('supplier')) $tickettype1->supplier = $request->input('supplier'); 
+       if($request->input('other')) $tickettype1->other = $request->input('other'); 
+
+        $tickettype1->issues = $request->input('issues'); 
+        $tickettype1->officeuse = $request->input('officeuse'); 
+      
         $tickettype1->save();
         return $tickettype1;
     }
@@ -42,7 +55,30 @@ class TicketType2ARepository extends BaseRepository
      $ttt->aaa = $request->input('reason');  
      $ttt->bb = $request->input('user.id'); //managed user id
      $ttt->cc = $request->input('group.id');   //managed user group
-       $ttt->comment = $request->input('comment');  $ttt->save();  return $ttt;
+       $ttt->comment = $request->input('comment');  
+      // if($request->input('builderorcustomer')) 
+        $ttt->builderorcustomer = $request->input('builderorcustomer');
+      // if($request->input('factory'))  
+       $ttt->factory = $request->input('factory'); 
+      //if($request->input('service'))  
+       $ttt->service = $request->input('service'); 
+       //if($request->input('customerservice'))  
+       $ttt->customerservice = $request->input('customerservice'); 
+      // if($request->input('sales')) 
+        $ttt->sales = $request->input('sales'); 
+      //  if($request->input('estimating'))
+         $ttt->estimating = $request->input('estimating'); 
+      // if($request->input('transport'))
+        $ttt->transport = $request->input('transport'); 
+       // if($request->input('supplier')) 
+         $ttt->supplier = $request->input('supplier'); 
+       //if($request->input('other')) 
+        $ttt->other = $request->input('other'); 
+
+        $ttt->issues = $request->input('issues'); 
+        $ttt->officeuse = $request->input('officeuse'); 
+       
+       $ttt->save();  return $ttt;
     }
 
 

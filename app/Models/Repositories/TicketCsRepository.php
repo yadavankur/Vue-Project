@@ -108,6 +108,7 @@ class TicketCsRepository extends BaseRepository
         ->with('ttype')
         ->with('ttype1')
         ->with('ttype2a')
+        ->with('ttype3')
         ->with('tstatus')
         ->with('v6quotee')
         ->with('userid')
@@ -117,8 +118,8 @@ class TicketCsRepository extends BaseRepository
        // ->with('items')
         ->with('bgroupid')
         ->with('v6items')
-        ->with('bomfinish')
-        ->with('bomcomponent')
+        //->with('bomfinish')
+        //->with('bomcomponent')
         ->with('location');
 
        // $salesOrderNumber = trim($search['salesOrderNumber']);
@@ -217,6 +218,12 @@ class TicketCsRepository extends BaseRepository
     {   
         $qi = $request->input('ticket_no'); 
        return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype2a')->get()->toArray();
+     
+    }
+    public function gettype3ticket($request)
+    {   
+        $qi = $request->input('ticket_no'); 
+       return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype3')->get()->toArray();
      
     }
 
