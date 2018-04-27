@@ -72,37 +72,28 @@ class Ticket_cs extends BaseModel
         ->join('V_V6_BOM_COMP', 'V_V6_BOM_COMP.QUOTE_ITEM_ID', '=', 'V_V6_QUOTE_ITEM.QUOTE_ITEM_ID');
     }
     public function location()
-    {
-        return $this->belongsTo(Location::class, 'location_id', 'id')->where('active', 1);
+    {  return $this->belongsTo(Location::class, 'location_id', 'id')->where('active', 1);
     }
     public function ttype()
-    {
-        return $this->belongsTo(tickettype::class, 'ticket_type_id', 'id')->where('active', 1);
+    {  return $this->belongsTo(tickettype::class, 'ticket_type_id', 'id')->where('active', 1);
     }
     public function ttype1()
-    {
-        //return $this->belongsTo(tickettype1::class, 'ticket_no', 'ticket_no')->where('active', 1);
-        return $this->hasMany(tickettype1::class, 'ticket_no', 'ticket_no')->where('active', 1);
+    {   return $this->hasMany(tickettype1::class, 'ticket_no', 'ticket_no')->where('active', 1);
     }
     public function ttype2a()
-    {
-        //return $this->belongsTo(tickettype1::class, 'ticket_no', 'ticket_no')->where('active', 1);
-        return $this->hasMany(tickettype2::class, 'ticket_no', 'ticket_no')->where('active', 1)->with('auserid','tstatus','agroupid');
+    {  return $this->hasMany(tickettype2::class, 'ticket_no', 'ticket_no')->where('active', 1)->with('auserid','tstatus','agroupid');
+    }
+    public function ttype3()
+    {  return $this->hasMany(tickettype3::class, 'ticket_no', 'ticket_no')->where('active', 1)->with('auserid','tstatus','agroupid');
     }
     public function tstatus()
-    {
-        return $this->belongsTo(ticketstatus::class, 'status', 'id')->where('active', 1);
-                             //column name in ticket_cs table//then column name in status table
+    {  return $this->belongsTo(ticketstatus::class, 'status', 'id')->where('active', 1);
     }
     public function userid()
     {
         return $this->belongsTo(user::class, 'user_id', 'id')->where('active', 1);
                                     //column name in ticket_cs table//then column name in status table
     }
-
-  //  public function loccaation()
-  //  { return $this->belongsTo(location::class, 'location_id', 'id'); }
-
     public function auserid() //allocated user_id
     {
         return $this->belongsTo(user::class, 'allocated_user_id', 'id')->where('active', 1);

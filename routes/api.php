@@ -381,5 +381,10 @@ Route::get('/csticket/tickettype1pagination', 'Tickettype1Controller@getByPagina
     Route::post('/csticket/addcnstatustickettable', 'TicketcnstatusController@addTicketCnStatusTable');
     Route::post('/csticket/updatecnstatus', 'TicketcnstatusController@updateTicketCnStatusTable');
     Route::post('/csticket/deletecnstatus', 'TicketcnstatusController@deleteTicketCnStatusTable');
+
+    Route::post('/csticket/addtype3tickettable', 'Tickettype3Controller@addTicketType3Table');
+    Route::post('/csticket/gettype3tickettable', 'TicketCsController@gettype3ticket');
+    Route::post('/csticket/deletetype3', 'Tickettype3Controller@deleteTicketType3');
+    Route::post('/csticket/updatetype3', 'Tickettype3Controller@updateTicketType3');
     
 });
