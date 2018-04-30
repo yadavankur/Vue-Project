@@ -34,7 +34,7 @@
                     <div class="col-md-6" v-if="selectedTicketType == 'TYPE2B'">
                     <ticket-type2B></ticket-type2B>
                     </div>
-                    <div class="col-md-6" v-if="selectedTicketType == 'TYPE3'">
+                    <div class="col-md-6" v-if="selectedTicketType == 'Rectification Report'">
                     <ticket-type3></ticket-type3>
                     <ticket-type3crud></ticket-type3crud>
                     </div>

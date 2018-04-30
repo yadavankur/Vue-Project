@@ -270,7 +270,7 @@ updatetype: ({dispatch}, formData) =>
             addtype2ASuccess: ({commit, dispatch}, body) => 
              {   console.log('csticket-type.js---addtype2ASuccess body=', body);
                  commit({   type: types.ADD_TICKET_TYPE2A_SUCCESS, state: body.state   });
-                 dispatch('showSuccessNotification', 'TYPE2A has been added.');   
+                 dispatch('showSuccessNotification', 'Credit Report has been added.');   
                  dispatch('gettickettype2Atable',body.gett1);
                 // dispatch('gettickettypetable');
              },
@@ -301,7 +301,7 @@ updatetype: ({dispatch}, formData) =>
             },
            deletetype2ASuccess: ({commit, dispatch}, body) => 
             {   commit({ type: types.DELETE_TICKET_TYPE2A_SUCCESS, state: body });
-                dispatch('showSuccessNotification', 'TYPE1 has been deleted.');
+                dispatch('showSuccessNotification', 'Credit Report has been deleted.');
              
                 dispatch('gettickettype2Atable',body.gett1);  //----get back new result with modified values
             },
@@ -321,7 +321,7 @@ updatetype: ({dispatch}, formData) =>
             updateType2ASuccess: ({commit, dispatch}, body) => 
             {   console.log('csticket-type2.js---updatetype2Success body=', body);
                 commit({   type: types.UPDATE_TICKET_TYPE2A_SUCCESS, state: body.state   });
-                dispatch('showSuccessNotification', 'TYPE2 has been updated.');   
+                dispatch('showSuccessNotification', 'Credit Report has been updated.');   
                 dispatch('gettickettype2Atable',body.gett1); 
             },
             updateType2AFailure: ({commit, dispatch}, body) => 
@@ -346,7 +346,7 @@ updatetype: ({dispatch}, formData) =>
            addtype3Success: ({commit, dispatch}, body) => 
             {   console.log('csticket-type.js---addtype3Success body=', body);
                 commit({   type: types.ADD_TICKET_TYPE3_SUCCESS, state: body.state   });
-                dispatch('showSuccessNotification', 'TYPE3 has been added.');   
+                dispatch('showSuccessNotification', 'Rectification Report has been added.');   
                 dispatch('gettickettype3table',body.gett1);
                // dispatch('gettickettypetable');
             },
@@ -375,7 +375,7 @@ updatetype: ({dispatch}, formData) =>
            },
           deletetype3Success: ({commit, dispatch}, body) => 
            {   commit({ type: types.DELETE_TICKET_TYPE3_SUCCESS, state: body });
-               dispatch('showSuccessNotification', 'TYPE3 has been deleted.');
+               dispatch('showSuccessNotification', 'Rectification Report has been deleted.');
             
                dispatch('gettickettype3table',body.gett1);  //----get back new result with modified values
            },
@@ -393,14 +393,14 @@ updatetype: ({dispatch}, formData) =>
                })
            },
            updateType3Success: ({commit, dispatch}, body) => 
-           {   console.log('csticket-type2.js---updatetype2Success body=', body);
+           {   console.log('csticket-type3.js---updatetype2Success body=', body);
                commit({   type: types.UPDATE_TICKET_TYPE3_SUCCESS, state: body.state   });
-               dispatch('showSuccessNotification', 'TYPE3 has been updated.');   
+               dispatch('showSuccessNotification', 'Rectification Report has been updated.');   
                dispatch('gettickettype3table',body.gett1); 
            },
            updateType3Failure: ({commit, dispatch}, body) => 
            {   commit({  type: types.UPDATE_TICKET_TYPE3_FAILURE, errors: body  });
-               console.error('csticket-type2.js---updateType3Failure body.error=', body.error);
+               console.error('csticket-type3.js---updateType3Failure body.error=', body.error);
                if(body.error) {  dispatch('showErrorNotification', body.error);  }
            },
 
