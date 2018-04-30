@@ -46,37 +46,25 @@ class TicketType3Repository extends BaseRepository
 
     public function updateTicketType3Table($request)
     {
-        $ttt =  $this->model->findOrFail($request->input('id'));  
-     //   $ttt->price = $request->input('price');
+     $ttt =  $this->model->findOrFail($request->input('id'));  
      $ttt->ticket_no = $request->input('ticket_no');     
-   //  $ttt->amount = $request->input('price');  
      $ttt->aa = $request->input('status_id');  
      $ttt->comment = $request->input('comment');  
      $ttt->aaa = $request->input('reason');  
      $ttt->bb = $request->input('user.id'); //managed user id
      $ttt->cc = $request->input('group.id');   //managed user group
-       $ttt->comment = $request->input('comment');  
-      // if($request->input('builderorcustomer')) 
-        $ttt->builderorcustomer = $request->input('builderorcustomer');
-      // if($request->input('factory'))  
-       $ttt->factory = $request->input('factory'); 
-      //if($request->input('service'))  
-       $ttt->service = $request->input('service'); 
-       //if($request->input('customerservice'))  
-       $ttt->customerservice = $request->input('customerservice'); 
-      // if($request->input('sales')) 
-        $ttt->sales = $request->input('sales'); 
-      //  if($request->input('estimating'))
-         $ttt->estimating = $request->input('estimating'); 
-      // if($request->input('transport'))
-        $ttt->transport = $request->input('transport'); 
-       // if($request->input('supplier')) 
-         $ttt->supplier = $request->input('supplier'); 
-       //if($request->input('other')) 
-        $ttt->other = $request->input('other'); 
-
-        $ttt->issues = $request->input('issues'); 
-        $ttt->officeuse = $request->input('officeuse'); 
+     $ttt->comment = $request->input('comment');  
+     $ttt->builderorcustomer = $request->input('builderorcustomer');
+     $ttt->factory = $request->input('factory'); 
+     $ttt->service = $request->input('service'); 
+     $ttt->customerservice = $request->input('customerservice'); 
+     $ttt->sales = $request->input('sales'); 
+     $ttt->estimating = $request->input('estimating'); 
+     $ttt->transport = $request->input('transport'); 
+     $ttt->supplier = $request->input('supplier'); 
+     $ttt->other = $request->input('other'); 
+     $ttt->issues = $request->input('issues'); 
+     $ttt->officeuse = $request->input('officeuse'); 
        
        $ttt->save();  return $ttt;
     }
