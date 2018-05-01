@@ -403,6 +403,13 @@ updatetype: ({dispatch}, formData) =>
                console.error('csticket-type3.js---updateType3Failure body.error=', body.error);
                if(body.error) {  dispatch('showErrorNotification', body.error);  }
            },
+//---------------------------type3 finished(rectification report)---type4- pickup docket start
+            //=====================type2a finished--------type3 begin---------
+            setCsTicketType4ShowModal:({commit,dispatch}, data) => 
+            { commit({ type: types.SET_CSTICKETTYPE4_SHOW_MODAL, data: data });    
+            // dispatch('getLastTicket');
+            },
+
 
 //=========================================
     }//actions finished
