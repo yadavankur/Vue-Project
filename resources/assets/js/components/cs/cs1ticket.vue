@@ -85,6 +85,7 @@
     import CsTicketType1Crud from './CsTicketType1Crud.vue'
     import CsTicketType2ACrud from './Type2A/CsTicketType2ACrud.vue'
     import CsTicketType3Crud from './Type3/CsTicketType3Crud.vue'
+    import CsTicketType4Crud from './Type4/CsTicketType4Crud.vue'
     import CsTicketType2A from './CsTicketType2A.vue'
     import CsTicketType2B from './CsTicketType2B.vue'
     import CsTicketType3 from './CsTicketType3.vue'
@@ -112,18 +113,18 @@
                       'csticket-crud-modal': CsTicketCrudModal,
                       'csticket-list-table': CsTicketListTable,
                       'order-info': OrderInfo,
-                      'order-history-summary': OrderHistorySummary, 'v6items':V6Items,'bomfinish':bomfinish,'bomcomponent':bomcomponent,
-                      'email-booking-info': EmailBookingInfo,
-                      'ticket-type1': CsTicketType1,'ticket-type1crud': CsTicketType1Crud,
-                      'ticket-type2A': CsTicketType2A,'ticket-type2Acrud': CsTicketType2ACrud,
+                       'order-history-summary': OrderHistorySummary, 'v6items':V6Items,'bomfinish':bomfinish,'bomcomponent':bomcomponent,
+                       'email-booking-info': EmailBookingInfo,
+                       'ticket-type1': CsTicketType1,'ticket-type1crud': CsTicketType1Crud,
+                       'ticket-type2A': CsTicketType2A,'ticket-type2Acrud': CsTicketType2ACrud,
                         'ticket-type2B': CsTicketType2B,
-                         'ticket-type3': CsTicketType3,'ticket-type3crud': CsTicketType3Crud,
-                         'ticket-type4': CsTicketType4,
-                         'ticket-type5': CsTicketType5,
-                         'ticket-type6': CsTicketType6,
-                         'ticket-type7': CsTicketType7,
-                         'ticket-type8': CsTicketType8,
-                         'ticket-type9': CsTicketType9,
+                        'ticket-type3': CsTicketType3,'ticket-type3crud': CsTicketType3Crud,
+                        'ticket-type4': CsTicketType4,'ticket-type4crud': CsTicketType4Crud,
+                        'ticket-type5': CsTicketType5,
+                        'ticket-type6': CsTicketType6,
+                        'ticket-type7': CsTicketType7,
+                        'ticket-type8': CsTicketType8,
+                        'ticket-type9': CsTicketType9,
             
                     },
         mounted() { console.log('/cs/cs1ticket - vue Component mounted.'); },
