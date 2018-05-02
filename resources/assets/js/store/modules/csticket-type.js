@@ -10,6 +10,7 @@ export default
              csticketType1data:null,showFormType1:false,csType1perTicket:false,
              csticketType2Adata:null,showFormType2A:false, csType2AperTicket:false,
              csticketType3data:null,showFormType3:false, csType3perTicket:false,
+             csticketType4data:null,showFormType4:false, csType4perTicket:false,
          },
 getters: {    tickettypetablegetter: state => state.tickettypetable },
 mutations: 
@@ -36,6 +37,8 @@ mutations:
     [types.ADD_TICKET_TYPE2A_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE2A_FAILURE payload=', payload); },
     [types.ADD_TICKET_TYPE3_SUCCESS] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE3_SUCCESS payload=', payload); },
     [types.ADD_TICKET_TYPE3_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE3_FAILURE payload=', payload); },
+    [types.ADD_TICKET_TYPE4_SUCCESS] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE3_SUCCESS payload=', payload); },
+    [types.ADD_TICKET_TYPE4_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE3_FAILURE payload=', payload); },
     
     [types.UPDATE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE_SUCCESS payload=', payload); },
     [types.UPDATE_TICKET_TYPE_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE_FAILURE payload=', payload); },
@@ -45,6 +48,8 @@ mutations:
     [types.UPDATE_TICKET_TYPE2A_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE2A_FAILURE payload=', payload); },
     [types.UPDATE_TICKET_TYPE3_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE3_SUCCESS payload=', payload); },
     [types.UPDATE_TICKET_TYPE3_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE3_FAILURE payload=', payload); },
+    [types.UPDATE_TICKET_TYPE4_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE3_SUCCESS payload=', payload); },
+    [types.UPDATE_TICKET_TYPE4_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE3_FAILURE payload=', payload); },
 
     [types.DELETE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE_SUCCESS payload=', payload); },
     [types.DELETE_TICKET_TYPE_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE_FAILURE payload=', payload); },
@@ -54,6 +59,8 @@ mutations:
     [types.DELETE_TICKET_TYPE2A_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE2A_FAILURE payload=', payload); },
     [types.DELETE_TICKET_TYPE3_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE3_SUCCESS payload=', payload); },
     [types.DELETE_TICKET_TYPE3_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE3_FAILURE payload=', payload); },
+    [types.DELETE_TICKET_TYPE4_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE3_SUCCESS payload=', payload); },
+    [types.DELETE_TICKET_TYPE4_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE3_FAILURE payload=', payload); },
    
 
     //--------------------------ticket type crud----
@@ -74,6 +81,12 @@ mutations:
         console.log('/store/cstickettype.js-SET_CSTICKETTYPE3_SHOW_MODAL state=', state);
         state.showFormType3 = payload.data.isShow;
         state.csticketType3data = payload.data.data;
+    },
+    [types.SET_CSTICKETTYPE4_SHOW_MODAL] (state, payload) 
+    {   console.log('/store/cstickettype.js-SET_CSTICKETTYPE4_SHOW_MODAL payload=', payload.data);
+        console.log('/store/cstickettype.js-SET_CSTICKETTYPE4_SHOW_MODAL state=', state);
+        state.showFormType4 = payload.data.isShow;
+        state.csticketType4data = payload.data.data;
     },
     [types.GET_TICKET_TYPE1_TABLE] (state, payload) //-----this is for refresh
     {  console.log('csticket-type.js-types.GET_TICKET_TYPE1_TABLE payload=', payload.csType1perTicket);

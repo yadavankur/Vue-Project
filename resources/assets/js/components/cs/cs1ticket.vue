@@ -40,6 +40,7 @@
                     </div>
                       <div class="col-md-6" v-if="selectedTicketType == 'TYPE4'">
                     <ticket-type4></ticket-type4>
+                    <ticket-type4crud></ticket-type4crud>
                     </div>
                       <div class="col-md-6" v-if="selectedTicketType == 'TYPE5'">
                     <ticket-type5></ticket-type5>

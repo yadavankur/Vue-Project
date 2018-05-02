@@ -224,14 +224,12 @@
                          
                         })
                         .catch((error) => { console.error('/csticket/crud.vue--useraspergroupscascade error=', error);  });
-                     
                  },
         components: { 'custom-modal': modal, 'bs-input': input,   },
         mounted() { console.log('/cs/crud.vue---CustomModal Component mounted. permissionData=', this.permissionData)  },
         methods: 
            {                  
                onChangeType(val) { console.log('/OL/cscrud---onChangeType val=',val);    },
-               
                collectTypeOptions(types) 
                      {  console.log('/cs/cscrud---collectTypeOptions types=',types);
                         let options = [];
@@ -239,8 +237,6 @@
                          { options.push({value: types[type].id, label: types[type].ticket_type});  }
                            this.typeOptions = options;
                      },
- 
-
                onChangeStatus(val) { console.log('/OL/cscrud---onStatusLocation val=',val);    },
                collectStatusOptions(statuses) 
                      {  console.log('/OL/cscrud---setOrderStatusOptions statuses=',statuses);
@@ -250,11 +246,8 @@
                            this.statusOptions = options;
                      },
                
-               
                OnSave() 
                 {  console.log('/cs/cscrud-----OnSave_click');
-
-                   
                     let payload = {  isShow: false,  data: this.formData, };
                     if (this.csticketActivityData.action === 'Add')// add new state
                        {    console.log('/cs/crud-----inside add');
@@ -273,7 +266,6 @@
                                .then((response) => {  console.log(' save success'); 
                                                       this.$events.fire('refreshcsticket');
                                                     })
-                               
                               .catch((error) => {console.log('save error');});
                         } 
                        else if (this.csticketActivityData.action === 'Edit')// add new state
