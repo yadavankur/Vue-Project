@@ -24,27 +24,44 @@
                         </td>
                       
                     </tr> 
-                    <tr> <div><label >Error Caused by: ( Please tick box below)</label></div></tr>
-                    <tr> <td >
-                            <div class="form-group"><div><label for="status">ITEM</label></div>
-                                <Select clearable filterable v-model="formData.items_id"
+                    <tr> <div><label >Select Items to be picked: </label></div></tr>
+                    <tr> <td colspan="2" >
+                           <div><label for="status">ITEM-1</label></div>
+                                <Select clearable filterable v-model="formData.item1_id"
                                        size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
                                     <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
                                </Select>
-                            </div>
+                           
                         </td>
-                     </tr>
-                    <div v-if="formData.items_id != null">
-                     <tr> <td >
-                            <div class="form-group"><div ><label for="status">ITEM2</label></div>
-                                <Select clearable filterable v-model="formData.items_id"
+                          <td colspan="2">
+                            <bs-input label="Notes (if any)" type="text" required  :maxlength="255" :icon="true" v-model="formData.reason"></bs-input>
+                        </td>
+                    </tr>
+                  <tr>
+                    <div v-if="formData.item1_id > 0">
+                   <tr> <td colspan="2" >
+                           <div><label for="status">ITEM-1</label></div>
+                                <Select clearable filterable v-model="formData.item2_id"
                                        size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
                                     <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
                                </Select>
-                            </div>
+                           
                         </td>
-                     </tr>
-                     </div>
+
+                    </tr>
+                    </div>
+                    <div v-if="formData.item2_id > 0">
+                       <tr> <td colspan="2" >
+                           <div><label for="status">ITEM-1</label></div>
+                                <Select clearable filterable v-model="formData.item2_id"
+                                       size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
+                                    <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
+                               </Select>
+                            
+                        </td>
+
+                    </tr>
+                    </div>
                     <tr>
                         <td colspan="3">
                             <bs-input label="Issues To Be Addressed" type="textarea" :maxlength="400" required :icon="true" v-model="formData.issues"></bs-input>
@@ -97,18 +114,14 @@
                              } 
                             else return null; 
                         },  
-                     /*   itemoptions()
-                        { console.log('/itemoptions-v6items',this.selectedTicket.v6items);
-                        statuses = this.selectedTicket.v6items;
-                          let options = [];
-                        for (let status in statuses) 
-                         { options.push({value: statuses[status].id, label: statuses[status].STATUS});  }
-                           this.statusOptions1 = options;
-                           console.log('/itemoptions-v6items-options',this.statusOptions1);
+                       itemlen()
+                        { console.log('this.selectedTicket.v6items.length=',this.selectedTicket.v6items.length);
+                        return this.selectedTicket.v6items.length;
+                        
                         },
-                        */
+                        
             },
-       data ()  {  return {  title: '',  formData: {     id: '', comment: '', 
+       data ()  {  return {  title: '',  formData: {     id: '', comment: '', item1_id : '', item2_id : '',
                             price: '', description: '', ticket_no: '', status_id: '' } ,statusOptions: [] ,
                             cascade_group_user:[]   }   },
        created() {  console.log('cs/cstickettype1crud.vue-- Component created.')      
@@ -175,7 +188,7 @@
                            this.resetFormData();
                         },
                resetFormData() {  this.formData = { id: '', price: '',  user:{id:'', name:''}, group :{id:'', name:''}, status_id: '', 
-                                  comment: '', reason: ''  };this.cascade_group_user=[]; 
+                                  comment: '', reason: '' , item1_id: '', item2_id: '' };this.cascade_group_user=[]; 
                                 }
            }, //actions finish
            watch: {  type3Data() 
