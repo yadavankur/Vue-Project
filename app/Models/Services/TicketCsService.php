@@ -29,6 +29,8 @@ class TicketCsService extends BaseService
         {   return $this->ticketCsRepository->gettype2Aticket($request);}
         public function gettype3ticket( $request)
         {   return $this->ticketCsRepository->gettype3ticket($request);}
+        public function gettype4ticket( $request)
+        {   return $this->ticketCsRepository->gettype4ticket($request);}
 
 
 }

@@ -62,8 +62,8 @@ export default
 {    computed: 
         { ...mapGetters({    }),
           ...mapState({ user: state => state.authUser,
-                        selectedTicketttype1: state => state.cstkt.selectedTicket.ttype3,
-                        csType1perTicket: state => state.cstickettype.csType3perTicket,
+                        selectedTicketttype1: state => state.cstkt.selectedTicket.ttype4,
+                        csType1perTicket: state => state.cstickettype.csType4perTicket,
                         selectedTicket: state => state.cstkt.selectedTicket,
                       }),
           selectedTicket1(){  //console.log('/2a/- this.selectedTicket=',this.selectedTicket);
@@ -76,62 +76,17 @@ export default
                                // console.log('/2a/ this.csType1perTicket[0].ttype1=',this.csType1perTicket[0].ttype2a);
                                 if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
                                   {    
-                                      let aa="";
-                                       if(this.csType1perTicket[0].ttype3.length==1)
-                                       {  if(this.csType1perTicket[0].ttype3[0].builderorcustomer==1) aa=aa+"builderorcustomer"+" ";
-                                          if(this.csType1perTicket[0].ttype3[0].factory==1) aa=aa+"Factory"+" ";
-                                          if(this.csType1perTicket[0].ttype3[0].service==1) aa=aa+"Service"+" ";
-                                          if(this.csType1perTicket[0].ttype3[0].customerservice==1) aa=aa+"CustomerService"+" ";
-                                          if(this.csType1perTicket[0].ttype3[0].sales==1) aa=aa+"Sales"+" ";
-                                          if(this.csType1perTicket[0].ttype3[0].estimating==1) aa=aa+"Estimating"+" ";
-                                          if(this.csType1perTicket[0].ttype3[0].transport==1) aa=aa+"Transport"+" ";
-                                          if(this.csType1perTicket[0].ttype3[0].supplier==1) aa=aa+"Supplier"+" ";
-                                          if(this.csType1perTicket[0].ttype3[0].other==1) aa=aa+"Other"+" ";
-                                         //  if(this.selectedTicketttype1.service) aa=aa+"Service";
-                                          this.csType1perTicket[0].ttype3[0].errorcausedby=aa;
-                                       }
-                                     console.log('/3/this.csType1perTicket[0].ttype3 inside1', this.csType1perTicket[0].ttype3);
-                                      return this.csType1perTicket[0].ttype3;
+                                            return this.csType1perTicket[0].ttype4;
                                   }
                                 else  {
                                         console.log('/3/this.selectedTicketttype1 inside returned', this.selectedTicketttype1);
-                                        let aa="";
-                                        // if(this.selectedTicketttype1.length==1)
-                                        if(this.selectedTicketttype1.length==1)
-                                            { 
-                                                  if(this.selectedTicketttype1[0].builderorcustomer==1) aa=aa+"Builder/Customer\r\n "+"\n"; 
-                                                  if(this.selectedTicketttype1[0].factory==1) aa=aa+"Factory <br/>"+"\n";
-                                                  if(this.selectedTicketttype1[0].service==1) aa=aa+"Service"+"\n\r";
-                                                  if(this.selectedTicketttype1[0].customerservice==1) aa=aa+"CustomerService \n"+"\n";
-                                                  if(this.selectedTicketttype1[0].sales==1) aa=aa+"Sales"+" ";
-                                                  if(this.selectedTicketttype1[0].estimating==1) aa=aa+"Estimating"+"\n";
-                                                  if(this.selectedTicketttype1[0].transport==1) aa=aa+"Transport"+"\n";
-                                                  if(this.selectedTicketttype1[0].supplier==1) aa=aa+"Supplier"+"\n";
-                                                  if(this.selectedTicketttype1[0].other==1) aa=aa+"Other"+"\n";
-                                          //  if(this.selectedTicketttype1.service) aa=aa+"Service";
-                                                this.selectedTicketttype1[0].errorcausedby=aa;
-                                            }
+                                        
                                             return this.selectedTicketttype1;
                                       }
                               } 
                         else if (this.selectedTicketttype1)  
                             {   console.log('this.selectedTicketttype1 returned outside=',this.selectedTicketttype1); 
-                                var aa="";
-                                 console.log('this.selectedTicketttype1.length=',this.selectedTicketttype1.length); 
-                                if(this.selectedTicketttype1.length==1)
-                                { if(this.selectedTicketttype1[0].builderorcustomer==1) aa=aa+"Builder/Customer"+" ";    
-                                  if(this.selectedTicketttype1[0].factory==1) aa=aa+"Factory"+" ";
-                                      if(this.selectedTicketttype1[0].service==1) aa=aa+"Service"+" ";
-                                      if(this.selectedTicketttype1[0].customerservice==1) aa=aa+"CustomerService"+" ";
-                                      if(this.selectedTicketttype1[0].sales==1) aa=aa+"Sales"+" ";
-                                      if(this.selectedTicketttype1[0].estimating==1) aa=aa+"Service"+" ";
-                                      if(this.selectedTicketttype1[0].transport==1) aa=aa+"Transport"+" ";
-                                      if(this.selectedTicketttype1[0].supplier==1) aa=aa+"Supplier"+" ";
-                                      if(this.selectedTicketttype1[0].other==1) aa=aa+"Other"+" ";
-                                  //  if(this.selectedTicketttype1.service) aa=aa+"Service";
-                                    console.log('issuecause=',aa); 
-                                  this.selectedTicketttype1[0].errorcausedby=aa;
-                                }
+                                
                                
                                 console.log('this.selectedTicketttype1 returned outside=',this.selectedTicketttype1); 
                                 return this.selectedTicketttype1;
@@ -154,7 +109,7 @@ export default
                                };
                 let payload = { isShow: true, data: {action: 'Add', data: formData,index: 0} };
                 if(this.selectedTicketttype1.length > 0) 
-                {   if (this.csType1perTicket && this.csType1perTicket[0].ttype3.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                {   if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                      {  console.log('inside 1st--deletion done--this.csType1perTicket',this.csType1perTicket);
                         this.$store.dispatch('setCsTicketType4ShowModal', payload)
                      }
@@ -164,7 +119,7 @@ export default
                           this.$store.dispatch('showErrorNotification', 'Pickup Docket is already added to this Ticket !');
                           return;
                      }
-                } else if (this.csType1perTicket && this.csType1perTicket[0].ttype3.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                } else if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                      {  console.log('inside 2nd-this.csType4perTicket',this.csType1perTicket);
                         this.$store.dispatch('showErrorNotification', 'Pickup Docket is already added to this Ticket !');
                         return;
@@ -178,11 +133,11 @@ export default
                   let payload = { isShow: true, data: {action: 'Edit' } };  // data: formData,index: 0} };
                   console.log('cs/type3.vue-onClickEdit payload=',payload);
                   if(this.selectedTicketttype1.length > 0) 
-                    {    if (this.csType1perTicket && this.csType1perTicket[0].ttype3.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                    {    if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                             { this.$store.dispatch('showErrorNotification', 'Nothing to Edit!');}
                           else {this.$store.dispatch('setCsTicketType3ShowModal', payload)}
                     } 
-                  else if (this.csType1perTicket && this.csType1perTicket[0].ttype3.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
+                  else if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
                     {   this.$store.dispatch('setCsTicketType3ShowModal', payload)    }
                   else 
                     { this.$store.dispatch('showErrorNotification', 'Please add Rectification Report to this Ticket !');
@@ -217,7 +172,7 @@ export default
              onClickDel()
               {   if(this.selectedTicketttype1.length > 0) 
                      {    
-                         if (this.csType1perTicket && this.csType1perTicket[0].ttype3.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                         if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                           { console.log('already deleted--this.csType1perTicket',this.csType1perTicket);
                             this.$store.dispatch('showErrorNotification', 'Whats this-- Pls add something !');
                             return;
@@ -250,7 +205,7 @@ export default
                                 
                                    
                             }
-                       } else if(this.csType1perTicket && this.csType1perTicket[0].ttype3.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
+                       } else if(this.csType1perTicket && this.csType1perTicket[0].ttype4.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
                                 {   let data=this.csticket[0];
                                     let payload = { isShow: true, data: data   };
                                     console.log('delete 2nd- payload',payload );

@@ -226,6 +226,12 @@ class TicketCsRepository extends BaseRepository
        return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype3')->get()->toArray();
      
     }
+    public function gettype4ticket($request)
+    {   
+        $qi = $request->input('ticket_no'); 
+       return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype4')->get()->toArray();
+     
+    }
 
 
 

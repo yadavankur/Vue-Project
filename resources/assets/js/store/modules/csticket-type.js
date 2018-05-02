@@ -105,6 +105,12 @@ mutations:
        state.csType3perTicket = payload.csType3perTicket;  
                                                    
     },
+    [types.GET_TICKET_TYPE4_TABLE] (state, payload) //-----this is for refresh
+    {  console.log('csticket-type.js-types.GET_TICKET_TYPE4_TABLE payload=', payload.csType4perTicket);
+       console.log('csticket-type.js-types.GET_TICKET_TYPE4_TABLE state=', state);
+       state.csType3perTicket = payload.csType4perTicket;  
+                                                   
+    },
 
     //----------------------------
 

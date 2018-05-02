@@ -1,7 +1,9 @@
 <?php
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 
 use App\Models\Entities\Log;
-//use App\Models\Services\TicketStatusService;
 use App\Models\Services\TicketType4Service;
 use App\Models\Services\UserService;
 use Exception;
@@ -14,14 +16,11 @@ class Tickettype4Controller extends Controller
     {   $this->TicketType4Service = $TicketType4Service;   $this->userService = $userService;  }
 //------------------------------------------------------------
     public function getTicketType4Table(Request $request)
-    //public function displaycs()
     {    try {   $user = JWTAuth::parseToken()->authenticate(); // 1) first get user from token to check validation
                // $this->validate($request, $rules);         
                 $gett1= $this->TicketType4Service->getTicketType4Table($request);
                // $gett1= $this->ticketcsService->displaycs();// 2) get all states
                  return response()->json(['gett1' => $gett1, ]);
-                // return response()->json($gett1);
-               //  return $gett1;
              } catch (Exception $e) 
              { return response()->json(['error' => $e->getMessage()], 500); }
     }
