@@ -33,43 +33,29 @@
                                </Select>
                            
                         </td>
-                          <td colspan="2">
-                            <bs-input label="Notes (if any)" type="text" required  :maxlength="255" :icon="true" v-model="formData.reason"></bs-input>
-                        </td>
+                    
                     </tr>
-                  <tr>
-                    <div v-if="formData.item1_id > 0">
-                   <tr> <td colspan="2" >
-                           <div><label for="status">ITEM-1</label></div>
-                                <Select clearable filterable v-model="formData.item2_id"
-                                       size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
-                                    <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
-                               </Select>
-                           
-                        </td>
-
-                    </tr>
-                    </div>
-                    <div v-if="formData.item2_id > 0">
-                       <tr> <td colspan="2" >
-                           <div><label for="status">ITEM-1</label></div>
-                                <Select clearable filterable v-model="formData.item2_id"
-                                       size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
-                                    <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
-                               </Select>
-                            
-                        </td>
-
-                    </tr>
-                    </div>
-                    <tr>
-                        <td colspan="3">
-                            <bs-input label="Issues To Be Addressed" type="textarea" :maxlength="400" required :icon="true" v-model="formData.issues"></bs-input>
-                        </td>                    
-                    </tr> 
-                  <td colspan="3">
-                            <bs-input label="Office user only(Scoper)" type="textarea" :maxlength="400" required :icon="true" v-model="formData.officeuse"></bs-input>
-                        </td>                    
+              
+                  <tr><td ><div v-if="formData.item1_id > 0">
+                              <div><label for="status">ITEM-2</label></div>
+                                        <Select clearable filterable v-model="formData.item2_id"
+                                            size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
+                                            <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
+                                    </Select>
+                            </div>
+                         </td>
+                     </tr> 
+                    <tr><td ><div v-if="formData.item2_id > 0">
+                                    <div><label for="status">ITEM-3</label></div>
+                                            <Select clearable filterable v-model="formData.item2_id"
+                                                size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
+                                                <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
+                                        </Select>
+                        
+                                </div>
+                                </td>
+                             </tr> 
+                          
                  
              
               </tbody>
