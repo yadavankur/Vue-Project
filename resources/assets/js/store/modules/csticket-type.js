@@ -342,7 +342,7 @@ updatetype: ({dispatch}, formData) =>
                 console.error('csticket-type2.js---updateType2Failure body.error=', body.error);
                 if(body.error) {  dispatch('showErrorNotification', body.error);  }
             },
-            //=====================type2a finished--------type3 begin---------
+     //=====================type2a finished--------type3 begin---------
             setCsTicketType3ShowModal:({commit,dispatch}, data) => 
             { commit({ type: types.SET_CSTICKETTYPE3_SHOW_MODAL, data: data });    
             // dispatch('getLastTicket');
@@ -422,6 +422,38 @@ updatetype: ({dispatch}, formData) =>
             { commit({ type: types.SET_CSTICKETTYPE4_SHOW_MODAL, data: data });    
             // dispatch('getLastTicket');
             },
+            cstype4add: ({dispatch}, formData) => 
+            {  return new Promise((resolve, reject) => 
+              {  console.log('csticket-type.js-- cstype1add-- formData=', formData);
+                 Vue.http.post(api.addcstype4, formData)
+                 .then(response => { dispatch('addtype4Success', response.body);  resolve();   })
+                 .catch(response => { dispatch('addtype4Failure', response.body); reject();   });
+        
+              })
+            },
+           addtype4Success: ({commit, dispatch}, body) => 
+            {   console.log('csticket-type.js---addtype4Success body=', body);
+                commit({   type: types.ADD_TICKET_TYPE4_SUCCESS, state: body.state   });
+                dispatch('showSuccessNotification', 'Rectification Report has been added.');   
+                dispatch('gettickettype4table',body.gett1);
+               // dispatch('gettickettypetable');
+            },
+          addtype4Failure: ({commit, dispatch}, body) => 
+           {   commit({  type: types.ADD_TICKET_TYPE4_FAILURE, errors: body  });
+               console.error('csticket-type.js---addtype4Failure body.error=', body.error);
+               if(body.error) {  dispatch('showErrorNotification', body.error);  }
+           },
+          gettickettype4table: ({commit, dispatch},dataItem) =>// 
+           {  return new Promise((resolve, reject) => 
+                   {  
+                   Vue.http.post(api.gettickettype4tableapi,dataItem)
+                   .then(response => {    
+                                   commit({type: types.GET_TICKET_TYPE4_TABLE, csType4perTicket: response.body });
+                                   resolve(response);
+                       }) 
+                   .catch(error => {    reject(error); });
+                   });
+           },
 
 
 //=========================================

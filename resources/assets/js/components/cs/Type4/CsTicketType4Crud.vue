@@ -26,37 +26,26 @@
                     </tr> 
                     <tr> <div><label >Select Items to be picked: </label></div></tr>
                     <tr> <td colspan="2" >
-                           <div><label for="status">ITEM-1</label></div>
+                           <div><label for="status">ITEM</label></div>
                                 <Select clearable filterable v-model="formData.item1_id"
                                        size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
-                                    <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
+                                    <Option v-for="item in itemOptions" :value="item.label" :key="item" :label="item.label">{{ item.label }}</Option>
                                </Select>
                            
                         </td>
                     
                     </tr>
               
-                  <tr><td ><div v-if="formData.item1_id > 0">
-                              <div><label for="status">ITEM-2</label></div>
-                                        <Select clearable filterable v-model="formData.item2_id"
-                                            size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
-                                            <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
-                                    </Select>
-                            </div>
-                         </td>
-                     </tr> 
-                    <tr><td ><div v-if="formData.item2_id > 0">
-                                    <div><label for="status">ITEM-3</label></div>
-                                            <Select clearable filterable v-model="formData.item2_id"
-                                                size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
-                                                <Option v-for="item in itemOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
-                                        </Select>
-                        
-                                </div>
-                                </td>
-                             </tr> 
-                          
-                 
+                <div v-for="find in formData.finds ">
+                                    <div><label for="status">ITEM</label></div>
+                                <Select clearable filterable v-model="find.label"
+                                       size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
+                                    <Option v-for="item in itemOptions" :value="item.label" :key="item" :label="item.label">{{ item.label }}</Option>
+                               </Select>
+                </div>
+                <button @click="addFind">
+                    add Item
+                </button>
              
               </tbody>
               </table>
@@ -77,12 +66,12 @@
     export default 
     {   computed: 
            { ...mapState({  showFormType4: state => state.cstickettype.showFormType4,//---------add---6
-                            type3Data: state=> state.cstickettype.csticketType3data,  
+                            type4Data: state=> state.cstickettype.csticketType4data,  
                             selectedTicket: state => state.cstkt.selectedTicket,
                             cascadeUserOptions: state => state.cstkt.useraspgroup.groupNodes,
                             ticketcnstatustable: state => state.csticketcnstatus.ticketcnstatustable,
-                            selectedTicketttype1: state => state.cstkt.selectedTicket.ttype3,
-                            csType1perTicket: state => state.cstickettype.csType3perTicket,
+                            selectedTicketttype1: state => state.cstkt.selectedTicket.ttype4,
+                            csType1perTicket: state => state.cstickettype.csType4perTicket,
                             v6itemstable: state => state.cstkt.selectedTicket.v6items,
                         }), 
                     csticket() 
@@ -107,9 +96,9 @@
                         },
                         
             },
-       data ()  {  return {  title: '',  formData: {     id: '', comment: '', item1_id : '', item2_id : '',
-                            price: '', description: '', ticket_no: '', status_id: '' } ,statusOptions: [] ,
-                            cascade_group_user:[]   }   },
+       data ()  {  return {  title: '',  formData: {     id: '', comment: '', item1_id : '', item2_id : '', allitems : '',
+                            price: '', description: '', ticket_no: '', status_id: '', finds: [], find: '' } ,statusOptions: [] ,
+                            cascade_group_user:[] , finds: []   }   },
        created() {  console.log('cs/cstickettype1crud.vue-- Component created.')      
                     this.collectCnStatusOptions(this.ticketcnstatustable); //to collect cn status options for dropdown
                     this.collectItemOptions(this.v6itemstable);
@@ -117,14 +106,25 @@
        components: {  'custom-modal': modal, 'bs-input': input,  },
        mounted() { console.log('cs/cstickettype1crud.vue--- Component mounted. typeData=', this.type2Data) },
        methods: 
-           {        collectCnStatusOptions(statuses) 
+           {   
+               
+               addFind: function () {   let len= this.selectedTicket.v6items.length;
+                                        let findslen=Object.keys(this.formData.finds).length;
+                                        console.log('items len=',len);
+                                        console.log('finds len=', findslen);
+                                        if(findslen<=len-2)
+                                        this.formData.finds.push({ label: '' }); 
+                                        else this.$store.dispatch('showErrorNotification', 'enough of that- thats the total no of items!');  
+                                    },
+               
+                collectCnStatusOptions(statuses) 
                      {  console.log('Type4Crud--- statuses=',statuses);
                         let options = [];
                         for (let status in statuses) 
                          { options.push({value: statuses[status].id, label: statuses[status].STATUS});  }
                            this.statusOptions = options;
                      },
-                     collectItemOptions(statuses) 
+                collectItemOptions(statuses) 
                      {  console.log('Type4Crud--- Items=',statuses);
                         let options = [];
                       //  for (let status in statuses) 
@@ -135,19 +135,24 @@
                            this.itemOptions = options;
                             console.log('Type4Crud--- ItemOptions=',this.itemOptions);
                      },
-                    onChangeStatus(val) { console.log('Type4Crud-onStatusChange val=',val);    },
-                     onChangeItems(val) { console.log('Type4Cruds=-onItemsChange val=',val);    },
-                    handleUserChange1 (value, selectedData) //----change user
+                onChangeStatus(val) { console.log('Type4Crud-onStatusChange val=',val);    },
+                onChangeItems(val, selectedData) { 
+                                      console.log('Type4Cruds=-onItemsChange val=',val); 
+                                      console.log('Type4Cruds=-onItemsChange selecteddata=',selectedData); 
+                                      this.formData.allitems = this.formData.allitems+"."+val ; 
+                                       console.log('Type4Cruds=-onItemsChange allitems=',this.formData.allitems); 
+                                    },
+                handleUserChange1 (value, selectedData) //----change user
                             {  console.log('/csticket/crud.vue--handleUserChange value=', value);
                                 console.log('/csticket/crud.vue--handleUserChange selectedData=', selectedData);
                                 this.formData.user = {id:'', name:''};
                                this.formData.group = {id:'', name:''};
                                 if (selectedData.length > 0)
                                 {  this.formData.group = {id: selectedData[0].value, name: selectedData[0].label};
-                                 this.formData.user = {id: selectedData[selectedData.length-1].value, name: selectedData[selectedData.length-1].label};
+                                   this.formData.user = {id: selectedData[selectedData.length-1].value, name: selectedData[selectedData.length-1].label};
                                 }
                             },
-                    OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
+                OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
                     {   console.log('3crud.vue-----OnSave_click this.formdata',this.formData);
                         let payload = {  isShow: false,  data: this.formData, };
                         if (this.type4Data.action === 'Add')// add new state
@@ -173,17 +178,17 @@
                            this.$store.dispatch('setCsTicketType4ShowModal', payload);
                            this.resetFormData();
                         },
-               resetFormData() {  this.formData = { id: '', price: '',  user:{id:'', name:''}, group :{id:'', name:''}, status_id: '', 
-                                  comment: '', reason: '' , item1_id: '', item2_id: '' };this.cascade_group_user=[]; 
+               resetFormData() {  this.formData = { id: '', allitems: '', price: '',  user:{id:'', name:''}, group :{id:'', name:''}, status_id: '', 
+                                  comment: '', reason: '' , item1_id: '', item2_id: '', find: '', finds : []  };this.cascade_group_user=[]; 
                                 }
            }, //actions finish
-           watch: {  type3Data() 
-                      {  console.log('3crud/type3Data changed =', this.type3Data);
-                         if (this.type3Data && this.type3Data.action === 'Add')  //this opens a form
-                            {   this.resetFormData();   this.title = 'Add new Rectification Report';  
-                                console.log('cs/3crud.vue--+++form open -just before save is pressed');
+           watch: {  type4Data() 
+                      {  console.log('4crud/type4Data changed =', this.type4Data);
+                         if (this.type4Data && this.type4Data.action === 'Add')  //this opens a form
+                            {   this.resetFormData();   this.title = 'Add new Pickup Docket';  
+                                console.log('cs/4crud.vue--+++form open -just before save is pressed');
                                 this.formData.ticket_no = this.selectedTicket.ticket_no;
-                                console.log('cs/3crud.vue--ticket_no', this.selectedTicket.ticket_no);
+                                console.log('cs/4crud.vue--ticket_no', this.selectedTicket.ticket_no);
                             }
                          else if (this.type3Data && this.type3Data.action === 'Edit')
                            {   this.resetFormData();  this.title = 'Editing Rectification Report';
