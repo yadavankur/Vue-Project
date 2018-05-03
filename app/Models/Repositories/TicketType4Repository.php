@@ -37,27 +37,17 @@ class TicketType4Repository extends BaseRepository
 
     public function updateTicketType4Table($request)
     {
-     $ttt =  $this->model->findOrFail($request->input('id'));  
-     $ttt->ticket_no = $request->input('ticket_no');     
-     $ttt->aa = $request->input('status_id');  
-     $ttt->comment = $request->input('comment');  
-     $ttt->aaa = $request->input('reason');  
-     $ttt->bb = $request->input('user.id'); //managed user id
-     $ttt->cc = $request->input('group.id');   //managed user group
-     $ttt->comment = $request->input('comment');  
-     $ttt->builderorcustomer = $request->input('builderorcustomer');
-     $ttt->factory = $request->input('factory'); 
-     $ttt->service = $request->input('service'); 
-     $ttt->customerservice = $request->input('customerservice'); 
-     $ttt->sales = $request->input('sales'); 
-     $ttt->estimating = $request->input('estimating'); 
-     $ttt->transport = $request->input('transport'); 
-     $ttt->supplier = $request->input('supplier'); 
-     $ttt->other = $request->input('other'); 
-     $ttt->issues = $request->input('issues'); 
-     $ttt->officeuse = $request->input('officeuse'); 
+     $tickettype1 =  $this->model->findOrFail($request->input('id'));  
+     $tickettype1->ticket_no = $request->input('ticket_no');     
+     $tickettype1->amount = $request->input('price');  
+     $tickettype1->aa = $request->input('status_id');  
+     $tickettype1->comment = $request->input('comment');  
+     $tickettype1->aaa = $request->input('allitems2'); //all items
+     $tickettype1->bb = $request->input('user.id'); //managed user id
+     $tickettype1->cc = $request->input('group.id');   //managed user group
+     $tickettype1->bbb = $request->input('item1_id');
        
-       $ttt->save();  return $ttt;
+       $tickettype1->save();  return $tickettype1;
     }
 
 

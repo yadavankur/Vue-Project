@@ -136,7 +136,7 @@ export default
                   else if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
                     {   this.$store.dispatch('setCsTicketType4ShowModal', payload)    }
                   else 
-                    { this.$store.dispatch('showErrorNotification', 'Please add Rectification Report to this Ticket !');
+                    { this.$store.dispatch('showErrorNotification', 'Please add Pickup Docket to this Ticket !');
                       return;
                     }
               }, //onclickEdit finish
@@ -182,7 +182,7 @@ export default
                             let swal = this.$swal;  let me = this;
                             this.$swal({
                                       title: 'Are you sure?',
-                                      text: 'You will not be able to recover this Rectification Report!',
+                                      text: 'You will not be able to recover this Pickup Docket!',
                                       type: 'warning',   showCancelButton: true,
                                       confirmButtonColor: '#3085d6',   cancelButtonColor: '#d33',
                                       confirmButtonText: 'Yes',  cancelButtonText: 'cancel',
@@ -208,7 +208,7 @@ export default
                                     let swal = this.$swal;     let me = this;
                                     this.$swal({
                                               title: 'Are you sure?',
-                                              text: 'You will not be able to recover this Rectification Report!',
+                                              text: 'You will not be able to recover this Pickup Docket!',
                                               type: 'warning',  showCancelButton: true,
                                               confirmButtonColor: '#3085d6',   cancelButtonColor: '#d33',
                                               confirmButtonText: 'Yes',   cancelButtonText: 'cancel',

@@ -477,6 +477,26 @@ updatetype: ({dispatch}, formData) =>
            {   commit({   type: types.DELETE_TICKET_TYPE4_FAILURE, errors: body  });
                if(body.error) {  dispatch('showErrorNotification', body.error);  }
            },
+           updatetype4: ({dispatch}, formData) => 
+           {  return new Promise((resolve, reject) => 
+               {  console.log('csticket-type4.js-- update-- formData=', formData);
+                   Vue.http.post(api.updatetype4, formData)
+                       .then(response => { dispatch('updateType4Success', response.body);  resolve();   })
+                       .catch(response => { dispatch('updateType4Failure', response.body); reject();   });
+                   
+               })
+           },
+           updateType4Success: ({commit, dispatch}, body) => 
+           {   console.log('csticket-type3.js---updatetype2Success body=', body);
+               commit({   type: types.UPDATE_TICKET_TYPE4_SUCCESS, state: body.state   });
+               dispatch('showSuccessNotification', 'Pickup Docket has been updated.');   
+               dispatch('gettickettype4table',body.gett1); 
+           },
+           updateType4Failure: ({commit, dispatch}, body) => 
+           {   commit({  type: types.UPDATE_TICKET_TYPE4_FAILURE, errors: body  });
+               console.error('csticket-type4.js---updateType4Failure body.error=', body.error);
+               if(body.error) {  dispatch('showErrorNotification', body.error);  }
+           },
 
 
 //=========================================

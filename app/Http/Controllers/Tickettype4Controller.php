@@ -56,7 +56,7 @@ try {
 //-----------------delete
 public function deleteTicketType4(Request $request)
 {
-    $rules = [ 'id'  =>  'required',   ];
+    $rules = [ 'id'  =>  'required' ];
     try {  $user = JWTAuth::parseToken()->authenticate();    $this->validate($request, $rules);
            $gett1 = $this->TicketType4Service->deleteTicketType4Table($request);
           // $this->TicketTypeService->LogEntity($gett1, 'success', __CLASS__ . '::' .__FUNCTION__);

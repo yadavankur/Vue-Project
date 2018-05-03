@@ -230,6 +230,7 @@
                                 console.log('aaa=',abc1);    
                                 var abc2= abc1.split("#");
                                 console.log('abc2.length=',abc2.length);
+                                if(abc2.length>1){
                                 console.log('abc2[2]=',abc2[2]);
                                 var abc3=abc2[2].split("||");
                                 console.log('abc3[0]=',abc3[0]);
@@ -238,6 +239,15 @@
                                 console.log('abc3.length=',abc3.length);
                                  for ( let j=1;j<abc3.length;j++)
                                 this.formData.finds.push({ label: abc3[j] }); 
+                                }else{
+                                       console.log('abc2[0]=',abc2[0]);
+                                var abc3=abc2[0].split("||");
+                                console.log('abc3[0]=',abc3[0]);
+                                console.log('abc3.length=',abc3.length);
+                                 for ( let j=1;j<abc3.length;j++)
+                                this.formData.finds.push({ label: abc3[j] }); 
+                                    
+                                }
                                  //this.formData.finds.push({ label: abc3[2] }); 
 
                       
