@@ -14,7 +14,7 @@
               <table class="table table-hover table-striped table-responsive table-bordered table-condensed">
                
                 <tbody>
-                      <tr><td>Credit Note ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
+                      <tr><td>Pickup Docket ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
                       <tr><td>Ticket No</td><td colspan="2"> {{csticket[0] ? csticket[0].ticket_no: '' }}</td></tr>
                       <tr><td>Items to be Picked</td><td colspan="2"> {{csticket[0] ? csticket[0].aaa: '' }}</td></tr>
                       <tr><td>Status</td><td colspan="2"> {{csticket[0] ? csticket[0].tstatus.STATUS: '' }}</td></tr>                      

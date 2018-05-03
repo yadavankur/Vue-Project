@@ -38,11 +38,11 @@
                     <ticket-type3></ticket-type3>
                     <ticket-type3crud></ticket-type3crud>
                     </div>
-                      <div class="col-md-6" v-if="selectedTicketType == 'TYPE4'">
+                      <div class="col-md-6" v-if="selectedTicketType == 'Pickup Docket'">
                     <ticket-type4></ticket-type4>
                     <ticket-type4crud></ticket-type4crud>
                     </div>
-                      <div class="col-md-6" v-if="selectedTicketType == 'TYPE5'">
+                      <div class="col-md-6" v-if="selectedTicketType == 'SDA'">
                     <ticket-type5></ticket-type5>
                     </div>
                       <div class="col-md-6" v-if="selectedTicketType == 'TYPE6'">
