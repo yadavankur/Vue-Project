@@ -109,6 +109,7 @@ class TicketCsRepository extends BaseRepository
         ->with('ttype1')
         ->with('ttype2a')
         ->with('ttype3')
+        ->with('ttype4')
         ->with('tstatus')
         ->with('v6quotee')
         ->with('userid')

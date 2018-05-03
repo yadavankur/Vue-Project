@@ -23,9 +23,11 @@ class TicketType4Repository extends BaseRepository
         $tickettype1->amount = $request->input('price');  
         $tickettype1->aa = $request->input('status_id');  
         $tickettype1->comment = $request->input('comment');  
-        $tickettype1->aaa = $request->input('reason');  
+        $tickettype1->aaa = $request->input('allitems2'); //all items
         $tickettype1->bb = $request->input('user.id'); //managed user id
         $tickettype1->cc = $request->input('group.id');   //managed user group
+        $tickettype1->bbb = $request->input('item1_id');
+
      
       
         $tickettype1->save();

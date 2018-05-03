@@ -16,11 +16,8 @@
                 <tbody>
                       <tr><td>Credit Note ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
                       <tr><td>Ticket No</td><td colspan="2"> {{csticket[0] ? csticket[0].ticket_no: '' }}</td></tr>
-                      <tr><td>Error Caused By</td><td colspan="2"> {{csticket[0] ? csticket[0].errorcausedby : '' }}</td></tr>
-                      <tr><td>Issues</td><td colspan="2"> {{csticket[0] ? csticket[0].issues: '' }}</td></tr>
-                      <tr><td>OfficeUse(Scoper)</td><td colspan="2"> {{csticket[0] ? csticket[0].officeuse: '' }}</td></tr>
-                      <tr><td>Status</td><td colspan="2"> {{csticket[0] ? csticket[0].tstatus.STATUS: '' }}</td></tr>
-                      
+                      <tr><td>Items to be Picked</td><td colspan="2"> {{csticket[0] ? csticket[0].aaa: '' }}</td></tr>
+                      <tr><td>Status</td><td colspan="2"> {{csticket[0] ? csticket[0].tstatus.STATUS: '' }}</td></tr>                      
                       <tr><td>Approving User : Group </td>
                         <td>{{ csticket[0] ? csticket[0].auserid.name : '' }}</td>
                         <td>{{ csticket[0] ? csticket[0].agroupid.name : '' }}</td>
@@ -128,17 +125,16 @@ export default
                 }
              }, //onclicknew finish
               onClickEdit() 
-              {   console.log('cs/cstickettype3.vue-onClickNew');
-                 // let formData = {   ticket_no: '',ticket_type_id: '',QUOTE_ID: '',ORDER_ID: '', location_id: '',  name: '',  title: '',  id: ''  };
-                  let payload = { isShow: true, data: {action: 'Edit' } };  // data: formData,index: 0} };
+              {   console.log('cs/cstickettype4.vue-onClickNew');
+                  let payload = { isShow: true, data: {action: 'Edit' } };  
                   console.log('cs/type3.vue-onClickEdit payload=',payload);
                   if(this.selectedTicketttype1.length > 0) 
                     {    if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                             { this.$store.dispatch('showErrorNotification', 'Nothing to Edit!');}
-                          else {this.$store.dispatch('setCsTicketType3ShowModal', payload)}
+                          else {this.$store.dispatch('setCsTicketType4ShowModal', payload)}
                     } 
                   else if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
-                    {   this.$store.dispatch('setCsTicketType3ShowModal', payload)    }
+                    {   this.$store.dispatch('setCsTicketType4ShowModal', payload)    }
                   else 
                     { this.$store.dispatch('showErrorNotification', 'Please add Rectification Report to this Ticket !');
                       return;
@@ -163,7 +159,7 @@ export default
                            doc.setFontSize(15); doc.text(90, 30, cstkt.comment);
                             doc.text(30, 20, 'Ticket Number'); doc.text(60, 20, cstkt.ticket_no);
                             doc.text(30, 30, 'Approving User'); doc.text(60, 30, cstkt.auserid.name);
-                            doc.text(30, 40, 'Status');  doc.text(60, 40, cstkt.tstatus.STATUS);
+                        //    doc.text(30, 40, 'Status');  doc.text(60, 40, cstkt.tstatus.STATUS);
                              doc.text(30, 50, 'Comment'); doc.text(60, 50, cstkt.comment);
                              //-------------------------------
                            doc.save('Test.pdf');
@@ -192,7 +188,7 @@ export default
                                       confirmButtonText: 'Yes',  cancelButtonText: 'cancel',
                                       confirmButtonClass: 'btn btn-success', cancelButtonClass: 'btn btn-danger',
                                       allowOutsideClick: false
-                                     }).then(  function() {    me.$store.dispatch('deletetype3', data)
+                                     }).then(  function() {    me.$store.dispatch('deletetype4', data)
                                                                   .then((response) => {
                                                                     console.log(' delete success'); 
                                                                      me.$events.fire('refreshcsticket');
@@ -218,7 +214,7 @@ export default
                                               confirmButtonText: 'Yes',   cancelButtonText: 'cancel',
                                               confirmButtonClass: 'btn btn-success',  cancelButtonClass: 'btn btn-danger',
                                               allowOutsideClick: false
-                                            }).then(  function() {    me.$store.dispatch('deletetype3', data)
+                                            }).then(  function() {    me.$store.dispatch('deletetype4', data)
                                                                     .then((response) => {console.log(' delete success'); 
                                                                      me.$events.fire('refreshcsticket');
                                                                                        })

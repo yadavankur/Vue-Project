@@ -108,7 +108,7 @@ mutations:
     [types.GET_TICKET_TYPE4_TABLE] (state, payload) //-----this is for refresh
     {  console.log('csticket-type.js-types.GET_TICKET_TYPE4_TABLE payload=', payload.csType4perTicket);
        console.log('csticket-type.js-types.GET_TICKET_TYPE4_TABLE state=', state);
-       state.csType3perTicket = payload.csType4perTicket;  
+       state.csType4perTicket = payload.csType4perTicket;  
                                                    
     },
 
@@ -440,7 +440,7 @@ updatetype: ({dispatch}, formData) =>
            addtype4Success: ({commit, dispatch}, body) => 
             {   console.log('csticket-type.js---addtype4Success body=', body);
                 commit({   type: types.ADD_TICKET_TYPE4_SUCCESS, state: body.state   });
-                dispatch('showSuccessNotification', 'Rectification Report has been added.');   
+                dispatch('showSuccessNotification', 'Pickup Docket has been added.');   
                 dispatch('gettickettype4table',body.gett1);
                // dispatch('gettickettypetable');
             },
@@ -459,6 +459,23 @@ updatetype: ({dispatch}, formData) =>
                        }) 
                    .catch(error => {    reject(error); });
                    });
+           },
+           deletetype4: ({dispatch}, formData) => 
+           {   return new Promise((resolve, reject) => 
+               {    Vue.http.post(api.deletetype4, formData)
+                .then(response => {  dispatch('deletetype4Success', response.body); resolve(); })
+               .catch(response => { dispatch('deletetype4Failure', response.body);  reject(); });
+               })
+           },
+          deletetype4Success: ({commit, dispatch}, body) => 
+           {   commit({ type: types.DELETE_TICKET_TYPE4_SUCCESS, state: body });
+               dispatch('showSuccessNotification', 'Pickup Docket has been deleted.');
+            
+               dispatch('gettickettype4table',body.gett1);  //----get back new result with modified values
+           },
+          deletetype4Failure: ({commit, dispatch}, body) => 
+           {   commit({   type: types.DELETE_TICKET_TYPE4_FAILURE, errors: body  });
+               if(body.error) {  dispatch('showErrorNotification', body.error);  }
            },
 
 

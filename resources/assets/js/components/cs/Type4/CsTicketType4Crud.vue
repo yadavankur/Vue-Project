@@ -75,16 +75,16 @@
                             v6itemstable: state => state.cstkt.selectedTicket.v6items,
                         }), 
                     csticket() 
-                        {  console.log('/t3/- this.selectedTicketttype3=',this.selectedTicketttype1); 
+                        {  console.log('/t4/- this.selectedTicketttype4=',this.selectedTicketttype1); 
                            if (this.csType1perTicket )  
                               { if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
-                                   {  console.log('/3t/ this.csType1perTicket[0].ttype3', this.csType1perTicket[0].ttype3);
-                                      return this.csType1perTicket[0].ttype3;
+                                   {  console.log('/3t/ this.csType1perTicket[0].ttype4', this.csType1perTicket[0].ttype4);
+                                      return this.csType1perTicket[0].ttype4;
                                    }
                                  else  return this.selectedTicketttype1;
                               } 
                             else if (this.selectedTicketttype1)  
-                             {   console.log('this.selectedTicketttype3=',this.selectedTicketttype1); 
+                             {   console.log('this.selectedTicketttype4=',this.selectedTicketttype1); 
                                 return this.selectedTicketttype1;
                              } 
                             else return null; 
@@ -97,7 +97,7 @@
                         
             },
        data ()  {  return {  title: '',  formData: {     id: '', comment: '', item1_id : '', item2_id : '', allitems : '',
-                            price: '', description: '', ticket_no: '', status_id: '', finds: [], find: '' } ,statusOptions: [] ,
+                            price: '', description: '', ticket_no: '', status_id: '', finds: [], find: '' , allitems2: ''} ,statusOptions: [] ,
                             cascade_group_user:[] , finds: []   }   },
        created() {  console.log('cs/cstickettype1crud.vue-- Component created.')      
                     this.collectCnStatusOptions(this.ticketcnstatustable); //to collect cn status options for dropdown
@@ -153,16 +153,29 @@
                                 }
                             },
                 OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
-                    {   console.log('3crud.vue-----OnSave_click this.formdata',this.formData);
+                    {   console.log('add--formdata.finds----',this.formData.finds);
+                           // var allitems1= ` 1.${this.formData.item1_id}`; 
+                           var allitems1 = '';
+                              if(this.formData.item1_id != '') allitems1= `#${this.formData.item1_id}#`;
+                               
+                              for (let i=0;i<= this.formData.finds.length-1; i++) 
+                                {  if (this.formData.finds[i].label != '')
+                                     allitems1= allitems1+`||`+ this.formData.finds[i].label;                          
+                                }
+                          console.log('allitems1=',allitems1);
+                          this.formData.allitems2=allitems1;
+                          console.log('3crud.vue-----OnSave_click this.formdata',this.formData);
                         let payload = {  isShow: false,  data: this.formData, };
                         if (this.type4Data.action === 'Add')// add new state
                         {   console.log('add--formdata----',this.formData);
+
+                           
                               
-                            this.$store.dispatch('setCsTicketType4ShowModal', payload); //---to disable popup
-                            this.$store.dispatch('cstype4add', this.formData)
-                            .then((response) => {   console.log(' save success'); 
-                                                this.$events.fire('refreshcsticket');
-                                            }).catch((error) => {console.log('save error');});
+                           this.$store.dispatch('setCsTicketType4ShowModal', payload); //---to disable popup
+                           this.$store.dispatch('cstype4add', this.formData)
+                           .then((response) => {   console.log(' save success'); 
+                                               this.$events.fire('refreshcsticket');
+                                          }).catch((error) => {console.log('save error');});
                         } 
                       else if (this.type4Data.action === 'Edit')// update
                         { this.$store.dispatch('setCsTicketType4ShowModal', payload);  
@@ -179,7 +192,7 @@
                            this.resetFormData();
                         },
                resetFormData() {  this.formData = { id: '', allitems: '', price: '',  user:{id:'', name:''}, group :{id:'', name:''}, status_id: '', 
-                                  comment: '', reason: '' , item1_id: '', item2_id: '', find: '', finds : []  };this.cascade_group_user=[]; 
+                                  comment: '', reason: '' , item1_id: '', item2_id: '', find: '', finds : [], allitems2: ''  };this.cascade_group_user=[]; 
                                 }
            }, //actions finish
            watch: {  type4Data() 
@@ -190,12 +203,12 @@
                                 this.formData.ticket_no = this.selectedTicket.ticket_no;
                                 console.log('cs/4crud.vue--ticket_no', this.selectedTicket.ticket_no);
                             }
-                         else if (this.type3Data && this.type3Data.action === 'Edit')
-                           {   this.resetFormData();  this.title = 'Editing Rectification Report';
+                         else if (this.type4Data && this.type4Data.action === 'Edit')
+                           {   this.resetFormData();  this.title = 'Editing Pickup Docket';
                                console.log('cs/cstickettype1crud.vue--ticket_no', this.csticket);
                                this.formData.id = this.csticket[0].id;
                              
-                               this.formData.reason = this.csticket[0].aaa;
+                           
                                this.formData.comment = this.csticket[0].comment;
                                this.formData.ticket_no = this.csticket[0].ticket_no;
 
@@ -210,6 +223,22 @@
                                this.cascade_group_user.push(this.formData.group.id);
                                this.cascade_group_user.push(this.formData.user.id);
                                this.formData.status_id = this.csticket[0].tstatus? this.csticket[0].tstatus.id : '';
+                               this.formData.item1_id = this.csticket[0].bbb? this.csticket[0].bbb : '';
+                                var abc = [];
+                                var abc1=this.csticket[0].aaa? this.csticket[0].aaa : '';
+
+                                console.log('aaa=',abc1);    
+                                var abc2= abc1.split("#");
+                                console.log('abc2.length=',abc2.length);
+                                console.log('abc2[2]=',abc2[2]);
+                                var abc3=abc2[2].split("||");
+                                console.log('abc3[0]=',abc3[0]);
+                                console.log('abc3[1]=',abc3[1]);
+                                console.log('abc3[2]=',abc3[2]);
+                                console.log('abc3.length=',abc3.length);
+                                 for ( let j=1;j<abc3.length;j++)
+                                this.formData.finds.push({ label: abc3[j] }); 
+                                 //this.formData.finds.push({ label: abc3[2] }); 
 
                       
 
