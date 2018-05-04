@@ -135,6 +135,7 @@ let routes = [
                     { path: '/csttype', component: Csttype,  meta: { requiresAuth: true }},
                     { path: '/cststatus', component: CsStatus,  meta: { requiresAuth: true }},
                     { path: '/cstcnstatus', component: CsCnStatus,  meta: { requiresAuth: true }},
+                    { path: '/errortype', component: CsErrorType,  meta: { requiresAuth: true }},
                     
                 ]
             },
