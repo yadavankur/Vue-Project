@@ -75,6 +75,7 @@ import Csticket from './components/cs/Cs1ticket.vue'
 import Csttype from './components/cs/csttype/CsTicketType.vue'
 import CsStatus from './components/cs/csstatus/CsTicketStatus.vue'
 import CsCnStatus from './components/cs/cnstatus/CsCnTicketStatus.vue'
+import CsErrorType from './components/cs/errortype/CsErrorType.vue'
 
 let routes = [
     { path: '/login', component: LoginView, name: 'login', meta: { requiresGuest: true } },
