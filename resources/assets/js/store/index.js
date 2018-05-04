@@ -58,6 +58,8 @@ import csticketcomments from "./modules/cstickets-comments"
 
 import csticketcnstatus from "./modules/csticket-cnstatus"
 
+import csticketerror from "./modules/csticket-error"
+
 
 Vue.use(Vuex);
 
@@ -75,7 +77,7 @@ export default new Vuex.Store({
        // state,
         cstkt,
         csticket,
-        csticketstatus, csticketcnstatus,
+        csticketstatus, csticketcnstatus,csticketerror,
         cstickettype,
         csticketcomments,
         new2,
