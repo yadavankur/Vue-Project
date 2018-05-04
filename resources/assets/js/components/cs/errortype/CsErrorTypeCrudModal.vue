@@ -9,6 +9,12 @@
                     <bs-input label="STATUS" type="text" required  :maxlength="255" :icon="true" v-model="formData.STATUS"></bs-input>
                     <bs-input label="Comment" type="textarea" :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
                 </div>
+                           <div class="form-group"><div><label for="status">TYPE</label></div>
+                                <Select clearable filterable v-model="formData.ticket_type_id"
+                                        @on-change="onChangeType"  placeholder="Please select a Type..."   >
+                                    <Option v-for="item in typeOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
+                                </Select>
+                            </div>
             </div>
             <div slot="modal-footer" class="modal-footer">
                 <button type="button" class="btn btn-success" @click="onClose">Cancel</button>
@@ -28,12 +34,28 @@
                           statusData: state=> state.csticketcnstatus.cnstatusData,  
                         }),   
             },
-       data ()  {  return {  title: '',  formData: {     id: '',    STATUS: '',   comment: '', }    }   },
-       created() {  console.log('/cs/csstatus/CsStatusCrudModal.vue---- created.')  },
+       data ()  {  return {  title: '',  formData: {     id: '',    STATUS: '',   comment: '', },typeOptions: []     }   },
+       created() 
+        {   console.log('/components/settings/tab/TabCrudModal.vue--CustomModal Component created.')
+            this.$store.dispatch('gettickettypetable')  // get page list
+                .then((response) => 
+                {   console.log('/components/settings/tab/TabCrudModal.vue--created getPageOptions success=', response);
+                    this.collectTypeOptions(response.data);
+                })
+                .catch((error) => { console.error('/components/settings/tab/TabCrudModal.vue---getPageOptions error=', error); });
+        },
        components: {  'custom-modal': modal, 'bs-input': input,  },
        mounted() { console.log('/cs/csstatus/CsStatusCrudModal.vue--- mounted. statusData=', this.statusData) },
        methods: 
            {
+                collectTypeOptions(types) 
+                     {  console.log('/cs/cscrud---collectTypeOptions types=',types);
+                        let options = [];
+                        for (let type in types) 
+                         { options.push({value: types[type].id, label: types[type].ticket_type});  }
+                           this.typeOptions = options;
+                     },
+               onChangeType(val) { console.log('CNstatuscrud-- statuses=-onStatusLocation val=',val);    },
                OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
                 { console.log('/cs/csstatus/CsStatusCrudModal.vue----OnSave_click'); //-------add----9
                   let payload = {  isShow: false,  data: this.formData, }; //isshow false after save pressed
@@ -61,7 +83,7 @@
            watch: {  statusData() 
                       {  console.log('/cs/csstatus/CsStatusCrudModal.vue-+++++++ statusData changed =', this.statusData);
                          if (this.statusData && this.statusData.action === 'Add')  ////---------add---7
-                            {   this.resetFormData();   this.title = 'Adding New Status';  
+                            {   this.resetFormData();   this.title = 'Adding New Error Type';  
                                 console.log('/cs/csstatus/CsStatusCrudModal.vue-+++add form is open now_just before save is pressed');
                             }
                           else if (this.statusData && this.statusData.action === 'Edit')//-----edit 7
