@@ -54,6 +54,8 @@ class CreateTickettype4sTable extends Migration
             $table->string('ccc')->nullable();
             $table->string('ddd')->nullable();
             $table->string('eee')->nullable();
+            $table->boolean('boola')->default(false);
+            $table->boolean('boolb')->default(false);
         });
     }
 

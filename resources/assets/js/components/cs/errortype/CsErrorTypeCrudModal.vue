@@ -5,16 +5,17 @@
                 <h4 class="modal-title"> {{ title }} </h4>
             </div>
             <div slot="modal-body" class="modal-body">
-                <div class="form-group">
-                    <bs-input label="STATUS" type="text" required  :maxlength="255" :icon="true" v-model="formData.STATUS"></bs-input>
-                    <bs-input label="Comment" type="textarea" :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
-                </div>
-                           <div class="form-group"><div><label for="status">TYPE</label></div>
+                   <div class="form-group"><div><label for="status">Ticket Type</label></div>
                                 <Select clearable filterable v-model="formData.ticket_type_id"
                                         @on-change="onChangeType"  placeholder="Please select a Type..."   >
                                     <Option v-for="item in typeOptions" :value="item.value" :key="item" :label="item.label">{{ item.label }}</Option>
                                 </Select>
                             </div>
+                <div class="form-group">
+                    <bs-input label="Error Code" type="text" required  :maxlength="255" :icon="true" v-model="formData.STATUS"></bs-input>
+                    <bs-input label="Comment" type="textarea" :maxlength="255" :icon="true" v-model="formData.comment"></bs-input>
+                </div>
+                        
             </div>
             <div slot="modal-footer" class="modal-footer">
                 <button type="button" class="btn btn-success" @click="onClose">Cancel</button>
