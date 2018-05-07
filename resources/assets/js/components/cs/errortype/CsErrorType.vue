@@ -14,17 +14,17 @@
     import TestCrudModal from './CsErrorTypeCrudModal.vue'
 export default 
     {   data () { return {   }  },
-        computed:  { ...mapGetters({ ticketstatus: 'ticketcnstatustablegetter',  }), ...mapState({    }),  },
+        computed:  { ...mapGetters({ ticketstatus: 'ticketerrortypetablegetter',  }), ...mapState({    }),  },
         created() 
             {//console.log('components/New1/NewView1.vue-hehe=', stateNodes1);
-              console.log('cs/csstatus/csticketstatus.vue- Component created.');
-              this.$store.dispatch('getticketcnstatustable')
-                .then((response) => { console.log('cs/csstatus/csticketstatus.vue-- created response=', response);  })
-                .catch((error) => { console.error('cs/csstatus/csticketstatus.vue-- created error=', error);   });
+              console.log('errortype.vue- Component created.');
+              this.$store.dispatch('getticketerrortypetable')
+                .then((response) => { console.log('errortype.vue-- created response=', response);  })
+                .catch((error) => { console.error('errortype.vue-- created error=', error);   });
             },
         components: { 'test-crud-modal': TestCrudModal, 'test-list-view': TestListView,  },
-        updated() { console.log('cs/csstatus/csticketstatus.vue--- Component updated.')   },
-        mounted() { console.log('cs/csstatus/csticketstatus.vue--- Component mounted.')  },
+        updated() { console.log('errortype.vue.vue--- Component updated.')   },
+        mounted() { console.log('errortype.vue--- Component mounted.')  },
     }
 
     </script>

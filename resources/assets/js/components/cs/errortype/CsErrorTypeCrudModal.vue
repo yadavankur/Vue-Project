@@ -31,8 +31,8 @@
     import input from 'vue-strap/src/Input'
     export default 
     {  computed: 
-           { ...mapState({ showPopup: state => state.csticketcnstatus.showPopup,//---------add---6
-                          statusData: state=> state.csticketcnstatus.cnstatusData,  
+           { ...mapState({ showPopup: state => state.csticketerror.showPopup,//---------add---6
+                          errortypeData: state=> state.csticketerror.errortypeData,  
                         }),   
             },
        data ()  {  return {  title: '',  formData: {     id: '',    STATUS: '',   comment: '', },typeOptions: []     }   },
@@ -46,7 +46,7 @@
                 .catch((error) => { console.error('/components/settings/tab/TabCrudModal.vue---getPageOptions error=', error); });
         },
        components: {  'custom-modal': modal, 'bs-input': input,  },
-       mounted() { console.log('/cs/csstatus/CsStatusCrudModal.vue--- mounted. statusData=', this.statusData) },
+       mounted() { console.log('/cs/csstatus/CsStatusCrudModal.vue--- mounted. statusData=', this.errortypeData) },
        methods: 
            {
                 collectTypeOptions(types) 
@@ -60,40 +60,45 @@
                OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
                 { console.log('/cs/csstatus/CsStatusCrudModal.vue----OnSave_click'); //-------add----9
                   let payload = {  isShow: false,  data: this.formData, }; //isshow false after save pressed
-                  if (this.statusData.action === 'Add')// add new state
-                     { this.$store.dispatch('cscnstatusshowpopup', payload); //this is to disable popup after save pressed ie  isshow- false
-                       this.$store.dispatch('cscnstatusadd', this.formData) //--add-10--send the status form fields to store file
+                  if (this.errortypeData.action === 'Add')// add new state
+                     { this.$store.dispatch('cserrortypeshowpopup', payload); //this is to disable popup after save pressed ie  isshow- false
+                       this.$store.dispatch('cserrortypeadd', this.formData) //--add-10--send the status form fields to store file
                         .then((response) => {})     .catch((error) => {});
                      } 
-                  else if (this.statusData.action === 'Edit')// edit---8
+                  else if (this.errortypeData.action === 'Edit')// edit---8
                    { 
-                       this.$store.dispatch('cscnstatusshowpopup', payload);  
-                       this.$store.dispatch('updatecnstatus', this.formData)
+                       this.$store.dispatch('cserrortypeshowpopup', payload);  
+                       this.$store.dispatch('cserrortypeupdate', this.formData)
                         .then((response) => {})     .catch((error) => {});
                    }
                   else  {     }// error
                 },
                onClose() {  console.log('/cs/csstatus/CsStatusCrudModal.vue-----onClose'); ////---------add---8
                            let payload = {   isShow: false,   data: this.formData,   };
-                           this.$store.dispatch('cscnstatusshowpopup', payload);
+                           this.$store.dispatch('cserrortypeshowpopup', payload);
                            this.resetFormData();
                         },
                resetFormData() {  this.formData = { id: '',  STATUS: '',  comment: ''  }; }
 
            },
-           watch: {  statusData() 
+           watch: {  errortypeData() 
                       {  console.log('/cs/csstatus/CsStatusCrudModal.vue-+++++++ statusData changed =', this.statusData);
-                         if (this.statusData && this.statusData.action === 'Add')  ////---------add---7
+                         if (this.errortypeData && this.errortypeData.action === 'Add')  ////---------add---7
                             {   this.resetFormData();   this.title = 'Adding New Error Type';  
                                 console.log('/cs/csstatus/CsStatusCrudModal.vue-+++add form is open now_just before save is pressed');
                             }
-                          else if (this.statusData && this.statusData.action === 'Edit')//-----edit 7
+                          else if (this.errortypeData && this.errortypeData.action === 'Edit')//-----edit 7
                            {   this.resetFormData();  
-                               this.title = 'Editing the STATUS';
-                               console.log('/cs/csstatus/CsStatusCrudModal.vue-+++edit form is open now_just before save is pressed');
-                               this.formData.id = this.statusData.data.id;
-                               this.formData.STATUS = this.statusData.data.STATUS;
-                               this.formData.comment = this.statusData.data.comment;
+                               this.title = 'Editing the ERROR CODE';
+                               console.log('error--++edit form is open now_just before save is pressed');
+                               this.formData.id = this.errortypeData.data.id;
+                               this.formData.STATUS = this.errortypeData.data.errorcode;
+ console.log('error--++edit form ithis.errortypeData.data.ticket_type_id', this.errortypeData.data);
+
+                               this.formData.ticket_type_id = this.errortypeData.data.ttype.id;
+                                 console.log('error--++edit form this.formData.ticket_type_id', this.formData.ticket_type_id);
+                              // this.csticketActivityData.data.ttype? this.csticketActivityData.data.ttype.id : '';
+                               this.formData.comment = this.errortypeData.data.comment;
                            }
                        }
                }
