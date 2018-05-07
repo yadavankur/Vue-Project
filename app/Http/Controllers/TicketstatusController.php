@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Entities\Log;
 use App\Models\Services\TicketStatusService;
 use App\Models\Services\UserService;
-use App\Models\Services\Testb1Service;
+
 use Exception;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -15,10 +15,10 @@ class TicketstatusController extends Controller
 {
     //
     protected $TicketStatusService; protected $userService; 
-    public function __construct( UserService $userService, TicketStatusService $TicketStatusService,Testb1Service $testb1Service)
+    public function __construct( UserService $userService, TicketStatusService $TicketStatusService)
     {   $this->TicketStatusService = $TicketStatusService;   
         $this->userService = $userService; 
-        $this->testb1Service = $testb1Service;  
+       
     }
 
     public function getTicketStatusTable(Request $request)
