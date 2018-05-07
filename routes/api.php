@@ -396,5 +396,10 @@ Route::get('/csticket/tickettype1pagination', 'Tickettype1Controller@getByPagina
     Route::post('/csticket/addticketerrortype', 'TicketerrortypeController@addTicketErrortype');
     Route::post('/csticket/updateticketerrortype', 'TicketerrortypeController@updateTicketErrortype');
     Route::post('/csticket/deleteticketerrortype', 'TicketerrortypeController@deleteTicketErrortype');
+
+    Route::post('/csticket/addtype5tickettable', 'Tickettype5Controller@addTicketType5Table');
+    Route::post('/csticket/gettype5tickettable', 'TicketCsController@gettype5ticket');
+    Route::post('/csticket/deletetype5', 'Tickettype5Controller@deleteTicketType5');
+    Route::post('/csticket/updatetype5', 'Tickettype5Controller@updateTicketType5');
     
 });
