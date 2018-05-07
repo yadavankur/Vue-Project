@@ -59,7 +59,7 @@ export default
 {    computed: 
         { ...mapGetters({    }),
           ...mapState({ user: state => state.authUser,
-                        selectedTicketttype1: state => state.cstkt.selectedTicket.ttype5,
+                        selectedTicketttype1: state => state.cstkt.selectedTicket.ttype4,
                         csType1perTicket: state => state.cstickettype.csType4perTicket,
                         selectedTicket: state => state.cstkt.selectedTicket,
                       }),
