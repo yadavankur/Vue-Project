@@ -14,23 +14,27 @@ class TicketErrorTypeRepository extends BaseRepository
     public function getTicketErrorTypeTable()
     {
       
-        return $this->model->where('active',1)->get()->keyBy('id')->toArray();
+        return $this->model->where('active',1)->with('ttype')->get()->keyBy('id')->toArray();
        
     }
 
     public function addTicketErrorTypeTable($request)
-    {   $TicketCnStatus =  new TicketCnStatus();    
-        $TicketCnStatus->STATUS = $request->input('STATUS');  
-        $TicketCnStatus->comment = $request->input('comment');   
-        $TicketCnStatus->save();
-        return $TicketCnStatus;
+    {   $ticketerrortype =  new ticketerrortype();    
+        $ticketerrortype->errorcode = $request->input('STATUS');  
+        $ticketerrortype->comment = $request->input('comment');   
+        $ticketerrortype->ticket_type_id = $request->input('ticket_type_id');   
+        $ticketerrortype->save(); 
+        return $ticketerrortype;
     }
 
 
     public function updateTicketErrorTypeTable($request)
     {
-        $ttt =  $this->model->findOrFail($request->input('id'));  $ttt->STATUS = $request->input('STATUS');
-       $ttt->comment = $request->input('comment');  $ttt->save();  return $ttt;
+        $ttt =  $this->model->findOrFail($request->input('id')); 
+        $ttt->errorcode = $request->input('STATUS');  
+        $ttt->comment = $request->input('comment');   
+        $ttt->ticket_type_id = $request->input('ticket_type_id'); 
+        $ttt->save();  return $ttt;
     }
 
 

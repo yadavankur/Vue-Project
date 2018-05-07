@@ -15,10 +15,10 @@ class TicketcnstatusController extends Controller
 {
     //
     protected $TicketCnStatusService; protected $userService; 
-    public function __construct( UserService $userService, TicketCnStatusService $TicketCnStatusService,Testb1Service $testb1Service)
+    public function __construct( UserService $userService, TicketCnStatusService $TicketCnStatusService)
     {   $this->TicketCnStatusService = $TicketCnStatusService;   
         $this->userService = $userService; 
-        $this->testb1Service = $testb1Service;  
+       
     }
 
     public function getTicketCnStatusTable(Request $request)
