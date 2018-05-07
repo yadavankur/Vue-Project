@@ -110,6 +110,7 @@ class TicketCsRepository extends BaseRepository
         ->with('ttype2a')
         ->with('ttype3')
         ->with('ttype4')
+        ->with('ttype5')
         ->with('tstatus')
         ->with('v6quotee')
         ->with('userid')
@@ -228,10 +229,12 @@ class TicketCsRepository extends BaseRepository
      
     }
     public function gettype4ticket($request)
-    {   
-        $qi = $request->input('ticket_no'); 
+    {  $qi = $request->input('ticket_no'); 
        return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype4')->get()->toArray();
-     
+    }
+    public function gettype5ticket($request)
+    {  $qi = $request->input('ticket_no'); 
+       return $this->model->where('active',1)->where('ticket_no', $qi)->with('ttype5')->get()->toArray();
     }
 
 

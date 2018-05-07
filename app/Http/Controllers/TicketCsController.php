@@ -158,6 +158,13 @@ public function addfile(Request $request)
                 } catch (Exception $e) 
                 { return response()->json(['error' => $e->getMessage()], 500); }
         }
+        public function gettype5ticket(Request $request)
+        {    try {   $user = JWTAuth::parseToken()->authenticate(); 
+                    $gett1= $this->ticketcsService->gettype5ticket($request);
+                    return response()->json($gett1);
+                } catch (Exception $e) 
+                { return response()->json(['error' => $e->getMessage()], 500); }
+        }
 
     
 }
