@@ -415,5 +415,10 @@ export const adderrortype = apiDomain + '/csticket/addticketerrortype';
 export const updateerrortype = apiDomain + '/csticket/updateticketerrortype';
 export const deleteerrortype = apiDomain + '/csticket/deleteticketerrortype';
 
+export const addcstype5 = apiDomain + '/csticket/addtype5tickettable';
+export const gettickettype5tableapi = apiDomain + '/csticket/gettype5tickettable';
+export const deletetype5 = apiDomain + '/csticket/deletetype5';
+export const updatetype5 = apiDomain + '/csticket/updatetype5';
+
 
 

@@ -11,6 +11,7 @@ export default
              csticketType2Adata:null,showFormType2A:false, csType2AperTicket:false,
              csticketType3data:null,showFormType3:false, csType3perTicket:false,
              csticketType4data:null,showFormType4:false, csType4perTicket:false,
+             csticketType5data:null,showFormType5:false, csType5perTicket:false,
          },
 getters: {    tickettypetablegetter: state => state.tickettypetable },
 mutations: 
@@ -39,6 +40,8 @@ mutations:
     [types.ADD_TICKET_TYPE3_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE3_FAILURE payload=', payload); },
     [types.ADD_TICKET_TYPE4_SUCCESS] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE3_SUCCESS payload=', payload); },
     [types.ADD_TICKET_TYPE4_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE3_FAILURE payload=', payload); },
+    [types.ADD_TICKET_TYPE5_SUCCESS] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE5_SUCCESS payload=', payload); },
+    [types.ADD_TICKET_TYPE5_FAILURE] (state, payload) {console.log('cstickettype.js-types.ADD_TICKET_TYPE5_FAILURE payload=', payload); },
     
     [types.UPDATE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE_SUCCESS payload=', payload); },
     [types.UPDATE_TICKET_TYPE_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE_FAILURE payload=', payload); },
@@ -50,6 +53,8 @@ mutations:
     [types.UPDATE_TICKET_TYPE3_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE3_FAILURE payload=', payload); },
     [types.UPDATE_TICKET_TYPE4_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE3_SUCCESS payload=', payload); },
     [types.UPDATE_TICKET_TYPE4_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE3_FAILURE payload=', payload); },
+    [types.UPDATE_TICKET_TYPE5_SUCCESS] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE5_SUCCESS payload=', payload); },
+    [types.UPDATE_TICKET_TYPE5_FAILURE] (state, payload) {console.log('cstickettype.js-types.UPDATE_TICKET_TYPE5_FAILURE payload=', payload); },
 
     [types.DELETE_TICKET_TYPE_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE_SUCCESS payload=', payload); },
     [types.DELETE_TICKET_TYPE_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE_FAILURE payload=', payload); },
@@ -61,6 +66,8 @@ mutations:
     [types.DELETE_TICKET_TYPE3_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE3_FAILURE payload=', payload); },
     [types.DELETE_TICKET_TYPE4_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE3_SUCCESS payload=', payload); },
     [types.DELETE_TICKET_TYPE4_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE3_FAILURE payload=', payload); },
+    [types.DELETE_TICKET_TYPE5_SUCCESS] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE5_SUCCESS payload=', payload); },
+    [types.DELETE_TICKET_TYPE5_FAILURE] (state, payload) {console.log('cstickettype.js-types.DELETE_TICKET_TYPE5_FAILURE payload=', payload); },
    
 
     //--------------------------ticket type crud----
@@ -88,6 +95,12 @@ mutations:
         state.showFormType4 = payload.data.isShow;
         state.csticketType4data = payload.data.data;
     },
+    [types.SET_CSTICKETTYPE5_SHOW_MODAL] (state, payload) 
+    {   console.log('/store/cstickettype.js-SET_CSTICKETTYPE5_SHOW_MODAL payload=', payload.data);
+        console.log('/store/cstickettype.js-SET_CSTICKETTYPE5_SHOW_MODAL state=', state);
+        state.showFormType5 = payload.data.isShow;
+        state.csticketType5data = payload.data.data;
+    },
     [types.GET_TICKET_TYPE1_TABLE] (state, payload) //-----this is for refresh
     {  console.log('csticket-type.js-types.GET_TICKET_TYPE1_TABLE payload=', payload.csType1perTicket);
        console.log('csticket-type.js-types.GET_TICKET_TYPE1_TABLE state=', state);
@@ -109,6 +122,12 @@ mutations:
     {  console.log('csticket-type.js-types.GET_TICKET_TYPE4_TABLE payload=', payload.csType4perTicket);
        console.log('csticket-type.js-types.GET_TICKET_TYPE4_TABLE state=', state);
        state.csType4perTicket = payload.csType4perTicket;  
+                                                   
+    },
+    [types.GET_TICKET_TYPE5_TABLE] (state, payload) //-----this is for refresh
+    {  console.log('csticket-type.js-types.GET_TICKET_TYPE5_TABLE payload=', payload.csType5perTicket);
+       console.log('csticket-type.js-types.GET_TICKET_TYPE5_TABLE state=', state);
+       state.csType5perTicket = payload.csType5perTicket;  
                                                    
     },
 
@@ -497,7 +516,43 @@ updatetype: ({dispatch}, formData) =>
                console.error('csticket-type4.js---updateType4Failure body.error=', body.error);
                if(body.error) {  dispatch('showErrorNotification', body.error);  }
            },
+//-----------------------------type4 finished----------------
+setCsTicketType5ShowModal:({commit,dispatch}, data) => 
+{ commit({ type: types.SET_CSTICKETTYPE5_SHOW_MODAL, data: data });    
+// dispatch('getLastTicket');
+},
+cstype5add: ({dispatch}, formData) => 
+{  return new Promise((resolve, reject) => 
+  {  console.log('csticket-type.js-- cstype1add-- formData=', formData);
+     Vue.http.post(api.addcstype5, formData)
+     .then(response => { dispatch('addtype5Success', response.body);  resolve();   })
+     .catch(response => { dispatch('addtype5Failure', response.body); reject();   });
 
+  })
+},
+addtype5Success: ({commit, dispatch}, body) => 
+{   console.log('csticket-type.js---addtype5Success body=', body);
+    commit({   type: types.ADD_TICKET_TYPE5_SUCCESS, state: body.state   });
+    dispatch('showSuccessNotification', 'Pickup Docket has been added.');   
+    dispatch('gettickettype5table',body.gett1);
+
+},
+addtype5Failure: ({commit, dispatch}, body) => 
+{   commit({  type: types.ADD_TICKET_TYPE5_FAILURE, errors: body  });
+   console.error('csticket-type.js---addtype4Failure body.error=', body.error);
+   if(body.error) {  dispatch('showErrorNotification', body.error);  }
+},
+gettickettype5table: ({commit, dispatch},dataItem) =>// 
+{  return new Promise((resolve, reject) => 
+       {  
+       Vue.http.post(api.gettickettype5tableapi,dataItem)
+       .then(response => {    
+                       commit({type: types.GET_TICKET_TYPE4_TABLE, csType5perTicket: response.body });
+                       resolve(response);
+           }) 
+       .catch(error => {    reject(error); });
+       });
+},
 
 //=========================================
     }//actions finished
