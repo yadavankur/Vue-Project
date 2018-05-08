@@ -108,7 +108,7 @@ export default
                 if(this.selectedTicketttype1.length > 0) 
                 {   if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                      {  console.log('inside 1st--deletion done--this.csType1perTicket',this.csType1perTicket);
-                        this.$store.dispatch('setCsTicketType4ShowModal', payload)
+                        this.$store.dispatch('setCsTicketType5ShowModal', payload)
                      }
                      else{
                           console.log('this.selectedTicketttype1.length>0',this.selectedTicketttype1);
@@ -121,7 +121,7 @@ export default
                         this.$store.dispatch('showErrorNotification', 'Pickup Docket is already added to this Ticket !');
                         return;
                      }
-                else {this.$store.dispatch('setCsTicketType4ShowModal', payload)  //----triggers this in store--with empty data and opens new popup for adding
+                else {this.$store.dispatch('setCsTicketType5ShowModal', payload)  //----triggers this in store--with empty data and opens new popup for adding
                 }
              }, //onclicknew finish
               onClickEdit() 
@@ -131,10 +131,10 @@ export default
                   if(this.selectedTicketttype1.length > 0) 
                     {    if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                             { this.$store.dispatch('showErrorNotification', 'Nothing to Edit!');}
-                          else {this.$store.dispatch('setCsTicketType4ShowModal', payload)}
+                          else {this.$store.dispatch('setCsTicketType5ShowModal', payload)}
                     } 
                   else if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
-                    {   this.$store.dispatch('setCsTicketType4ShowModal', payload)    }
+                    {   this.$store.dispatch('setCsTicketType5ShowModal', payload)    }
                   else 
                     { this.$store.dispatch('showErrorNotification', 'Please add Pickup Docket to this Ticket !');
                       return;

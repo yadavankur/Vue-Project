@@ -70,7 +70,7 @@
                      'permission-custom-filter-bar': PermissionCustomFilterBar,
                    },
         created() {             this.$store.dispatch('getticketcnstatustable'); //to get credit note status--used /type2A/crud   
-                              // this.$store.dispatch('useraspergroupscascade');
+                               this.$store.dispatch('getticketerrortypetable');
         },
         data () 
            { return {   paginationPath: '',
