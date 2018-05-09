@@ -14,15 +14,19 @@
               <table class="table table-hover table-striped table-responsive table-bordered table-condensed">
                
                 <tbody>
-                      <tr><td>Credit Note ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
+                      <tr><td>SDA ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
+                         <div v-for="find in itemOptions ">
+                        <tr><td>sdfsdfsdf</td><td colspan="2"> {{ find ? find.label : '' }}</td></tr>
+                      
+                        </div>
                       <tr><td>Ticket No</td><td colspan="2"> {{csticket[0] ? csticket[0].ticket_no: '' }}</td></tr>
-                      <tr><td>Items to be Picked</td><td colspan="2"> {{csticket[0] ? csticket[0].aaa: '' }}</td></tr>
-                      <tr><td>Status</td><td colspan="2"> {{csticket[0] ? csticket[0].tstatus.STATUS: '' }}</td></tr>                      
-                      <tr><td>Approving User : Group </td>
-                        <td>{{ csticket[0] ? csticket[0].auserid.name : '' }}</td>
-                        <td>{{ csticket[0] ? csticket[0].agroupid.name : '' }}</td>
-                      </tr>
+                      <tr><td>Items</td><td colspan="2"> {{csticket[0] ? csticket[0].aaa: '' }}</td></tr>
+                       <tr><td>Errors</td><td colspan="2"> {{csticket[0] ? csticket[0].bbb: '' }}</td></tr>
+                       <tr><td>Notes</td><td colspan="2"> {{csticket[0] ? csticket[0].ccc: '' }}</td></tr>
                      <tr><td>Comments</td><td colspan="2"> {{ csticket[0] ? csticket[0].comment : '' }}</td></tr>
+                  
+                 
+
                     <tr><td>Created By/ Updated By </td>
                         <td>{{ csticket[0] ? csticket[0].created_by.name : '' }}</td>
                         <td>{{ csticket[0] ? csticket[0].updated_by.name : '' }}</td>
@@ -59,9 +63,10 @@ export default
 {    computed: 
         { ...mapGetters({    }),
           ...mapState({ user: state => state.authUser,
-                        selectedTicketttype1: state => state.cstkt.selectedTicket.ttype4,
-                        csType1perTicket: state => state.cstickettype.csType4perTicket,
+                        selectedTicketttype1: state => state.cstkt.selectedTicket.ttype5,
+                        csType1perTicket: state => state.cstickettype.csType5perTicket,
                         selectedTicket: state => state.cstkt.selectedTicket,
+                         v6itemstable: state => state.cstkt.selectedTicket.v6items,
                       }),
           selectedTicket1(){  //console.log('/2a/- this.selectedTicket=',this.selectedTicket);
                               return this.selectedTicket; 
@@ -72,19 +77,14 @@ export default
                                 //console.log('/2a/ this.selectedTicketttype1=',this.selectedTicketttype1); 
                                // console.log('/2a/ this.csType1perTicket[0].ttype1=',this.csType1perTicket[0].ttype2a);
                                 if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
-                                  {    
-                                            return this.csType1perTicket[0].ttype4;
+                                  {  return this.csType1perTicket[0].ttype5;
                                   }
-                                else  {
-                                        console.log('/3/this.selectedTicketttype1 inside returned', this.selectedTicketttype1);
-                                        
-                                            return this.selectedTicketttype1;
+                                else  {   console.log('/3/this.selectedTicketttype1 inside returned', this.selectedTicketttype1);
+                                          return this.selectedTicketttype1;
                                       }
                               } 
                         else if (this.selectedTicketttype1)  
                             {   console.log('this.selectedTicketttype1 returned outside=',this.selectedTicketttype1); 
-                                
-                               
                                 console.log('this.selectedTicketttype1 returned outside=',this.selectedTicketttype1); 
                                 return this.selectedTicketttype1;
                             } 
@@ -93,20 +93,33 @@ export default
         }, //computed finish
 
     created() {   console.log('cs/cstickettype1.vue-in created-.this.csticket', this.selectedTicket); 
+                    this.collectItemOptions(this.v6itemstable);
               },
     data () {  return {    }   },
     components: {       },
     updated() {   console.log('cs/cstickettype1.vue-in updated-.this.selectedorder', this.selectedTicketttype1); 
               },
     methods: 
-          { onClickNew() 
-              { console.log('cs/cstickettype4.vue-onClickNew');
+          { collectItemOptions(statuses) 
+                     {  console.log('Type5Crud--- Items=',statuses);
+                        let options = [];
+                        for (let i=0;i< statuses.length; i++) 
+                         { var ss=statuses[i];
+                             options.push({value: ss.QTE_POS, label: ss.FRA_CODE});  
+                         }
+                           this.itemOptions = options;
+                            console.log('Type5Crud--- ItemOptions=',this.itemOptions);
+                     },
+            
+            
+            onClickNew() 
+              { console.log('cs/cstickettype5.vue-onClickNew');
                 let formData = {   ticket_no: '',ticket_type_id: '',QUOTE_ID: '',ORDER_ID: '',
                                    location_id: '',  name: '',  title: '',  id: ''
                                };
                 let payload = { isShow: true, data: {action: 'Add', data: formData,index: 0} };
                 if(this.selectedTicketttype1.length > 0) 
-                {   if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                {   if (this.csType1perTicket && this.csType1perTicket[0].ttype5.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                      {  console.log('inside 1st--deletion done--this.csType1perTicket',this.csType1perTicket);
                         this.$store.dispatch('setCsTicketType5ShowModal', payload)
                      }
@@ -116,8 +129,8 @@ export default
                           this.$store.dispatch('showErrorNotification', 'Pickup Docket is already added to this Ticket !');
                           return;
                      }
-                } else if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
-                     {  console.log('inside 2nd-this.csType4perTicket',this.csType1perTicket);
+                } else if (this.csType1perTicket && this.csType1perTicket[0].ttype5.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                     {  console.log('inside 2nd-this.csttype5perTicket',this.csType1perTicket);
                         this.$store.dispatch('showErrorNotification', 'Pickup Docket is already added to this Ticket !');
                         return;
                      }
@@ -125,15 +138,15 @@ export default
                 }
              }, //onclicknew finish
               onClickEdit() 
-              {   console.log('cs/cstickettype4.vue-onClickNew');
+              {   console.log('cs/cstickettype5.vue-onClickNew');
                   let payload = { isShow: true, data: {action: 'Edit' } };  
                   console.log('cs/type3.vue-onClickEdit payload=',payload);
                   if(this.selectedTicketttype1.length > 0) 
-                    {    if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                    {    if (this.csType1perTicket && this.csType1perTicket[0].ttype5.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                             { this.$store.dispatch('showErrorNotification', 'Nothing to Edit!');}
                           else {this.$store.dispatch('setCsTicketType5ShowModal', payload)}
                     } 
-                  else if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
+                  else if (this.csType1perTicket && this.csType1perTicket[0].ttype5.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
                     {   this.$store.dispatch('setCsTicketType5ShowModal', payload)    }
                   else 
                     { this.$store.dispatch('showErrorNotification', 'Please add Pickup Docket to this Ticket !');
@@ -168,7 +181,7 @@ export default
              onClickDel()
               {   if(this.selectedTicketttype1.length > 0) 
                      {    
-                         if (this.csType1perTicket && this.csType1perTicket[0].ttype4.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
+                         if (this.csType1perTicket && this.csType1perTicket[0].ttype5.length === 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no )  
                           { console.log('already deleted--this.csType1perTicket',this.csType1perTicket);
                             this.$store.dispatch('showErrorNotification', 'Whats this-- Pls add something !');
                             return;
@@ -188,7 +201,7 @@ export default
                                       confirmButtonText: 'Yes',  cancelButtonText: 'cancel',
                                       confirmButtonClass: 'btn btn-success', cancelButtonClass: 'btn btn-danger',
                                       allowOutsideClick: false
-                                     }).then(  function() {    me.$store.dispatch('deletetype4', data)
+                                     }).then(  function() {    me.$store.dispatch('deletetype5', data)
                                                                   .then((response) => {
                                                                     console.log(' delete success'); 
                                                                      me.$events.fire('refreshcsticket');
@@ -201,7 +214,7 @@ export default
                                 
                                    
                             }
-                       } else if(this.csType1perTicket && this.csType1perTicket[0].ttype4.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
+                       } else if(this.csType1perTicket && this.csType1perTicket[0].ttype5.length > 0 && this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no ) 
                                 {   let data=this.csticket[0];
                                     let payload = { isShow: true, data: data   };
                                     console.log('delete 2nd- payload',payload );
@@ -214,7 +227,7 @@ export default
                                               confirmButtonText: 'Yes',   cancelButtonText: 'cancel',
                                               confirmButtonClass: 'btn btn-success',  cancelButtonClass: 'btn btn-danger',
                                               allowOutsideClick: false
-                                            }).then(  function() {    me.$store.dispatch('deletetype4', data)
+                                            }).then(  function() {    me.$store.dispatch('deletettype5', data)
                                                                     .then((response) => {console.log(' delete success'); 
                                                                      me.$events.fire('refreshcsticket');
                                                                                        })

@@ -547,11 +547,48 @@ gettickettype5table: ({commit, dispatch},dataItem) =>//
        {  
        Vue.http.post(api.gettickettype5tableapi,dataItem)
        .then(response => {    
-                       commit({type: types.GET_TICKET_TYPE4_TABLE, csType5perTicket: response.body });
+                       commit({type: types.GET_TICKET_TYPE5_TABLE, csType5perTicket: response.body });
                        resolve(response);
            }) 
        .catch(error => {    reject(error); });
        });
+},
+deletetype5: ({dispatch}, formData) => 
+{   return new Promise((resolve, reject) => 
+    {    Vue.http.post(api.deletetype5, formData)
+     .then(response => {  dispatch('deletetype5Success', response.body); resolve(); })
+    .catch(response => { dispatch('deletetype5Failure', response.body);  reject(); });
+    })
+},
+deletetype5Success: ({commit, dispatch}, body) => 
+{   commit({ type: types.DELETE_TICKET_TYPE5_SUCCESS, state: body });
+    dispatch('showSuccessNotification', 'Pickup Docket has been deleted.');
+ 
+    dispatch('gettickettype5table',body.gett1);  //----get back new result with modified values
+},
+deletetype5Failure: ({commit, dispatch}, body) => 
+{   commit({   type: types.DELETE_TICKET_TYPE5_FAILURE, errors: body  });
+    if(body.error) {  dispatch('showErrorNotification', body.error);  }
+},
+updatetype5: ({dispatch}, formData) => 
+{  return new Promise((resolve, reject) => 
+    {  console.log('csticket-type5.js-- update-- formData=', formData);
+        Vue.http.post(api.updatetype5, formData)
+            .then(response => { dispatch('updateType5Success', response.body);  resolve();   })
+            .catch(response => { dispatch('updateType5Failure', response.body); reject();   });
+        
+    })
+},
+updateType5Success: ({commit, dispatch}, body) => 
+{   console.log('csticket-type3.js---updatetype2Success body=', body);
+    commit({   type: types.UPDATE_TICKET_TYPE5_SUCCESS, state: body.state   });
+    dispatch('showSuccessNotification', 'SDA has been updated.');   
+    dispatch('gettickettype5table',body.gett1); 
+},
+updateType5Failure: ({commit, dispatch}, body) => 
+{   commit({  type: types.UPDATE_TICKET_TYPE5_FAILURE, errors: body  });
+    console.error('csticket-type4.js---updateType5Failure body.error=', body.error);
+    if(body.error) {  dispatch('showErrorNotification', body.error);  }
 },
 
 //=========================================
