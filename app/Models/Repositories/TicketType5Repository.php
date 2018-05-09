@@ -20,16 +20,15 @@ class TicketType5Repository extends BaseRepository
     public function addTicketType5Table($request)
     {   $tickettype1 =  new tickettype5(); 
         $tickettype1->ticket_no = $request->input('ticket_no');     
-        $tickettype1->amount = $request->input('price');  
-        $tickettype1->aa = $request->input('status_id');  
+     
+        $tickettype1->astatus = $request->input('status_id');  
         $tickettype1->comment = $request->input('comment');  
         $tickettype1->aaa = $request->input('allitems2'); //all items
-        $tickettype1->bb = $request->input('user.id'); //managed user id
-        $tickettype1->cc = $request->input('group.id');   //managed user group
-        $tickettype1->bbb = $request->input('item1_id');
+        $tickettype1->bbb = $request->input('allerrors2');
+        $tickettype1->ccc = $request->input('allnotes2');
+        $tickettype1->auser = $request->input('user.id'); //managed user id
+        $tickettype1->agroup = $request->input('group.id');   //managed user group
 
-     
-      
         $tickettype1->save();
         return $tickettype1;
     }
@@ -39,13 +38,13 @@ class TicketType5Repository extends BaseRepository
     {
      $tickettype1 =  $this->model->findOrFail($request->input('id'));  
      $tickettype1->ticket_no = $request->input('ticket_no');     
-     $tickettype1->amount = $request->input('price');  
-     $tickettype1->aa = $request->input('status_id');  
+     $tickettype1->astatus = $request->input('status_id');  
      $tickettype1->comment = $request->input('comment');  
      $tickettype1->aaa = $request->input('allitems2'); //all items
-     $tickettype1->bb = $request->input('user.id'); //managed user id
-     $tickettype1->cc = $request->input('group.id');   //managed user group
-     $tickettype1->bbb = $request->input('item1_id');
+     $tickettype1->bbb = $request->input('allerrors2');
+     $tickettype1->ccc = $request->input('allnotes2');
+     $tickettype1->auser = $request->input('user.id'); //managed user id
+     $tickettype1->agroup = $request->input('group.id');   //managed user group
        
        $tickettype1->save();  return $tickettype1;
     }

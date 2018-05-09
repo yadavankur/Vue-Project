@@ -117,7 +117,7 @@ class TicketCsRepository extends BaseRepository
         ->with('auserid')
         ->with('buserid')
         ->with('agroupid')
-       // ->with('items')
+        ->with('terrortype')
         ->with('bgroupid')
         ->with('v6items')
         //->with('bomfinish')

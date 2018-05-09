@@ -95,6 +95,9 @@ class Ticket_cs extends BaseModel
     public function tstatus()
     {  return $this->belongsTo(ticketstatus::class, 'status', 'id')->where('active', 1);
     }
+    public function terrortype()
+    {  return $this->hasMany(ticketerrortype::class, 'ticket_type_id', 'ticket_type_id')->where('active', 1);
+    }
     public function userid()
     {
         return $this->belongsTo(user::class, 'user_id', 'id')->where('active', 1);
