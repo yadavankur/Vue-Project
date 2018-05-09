@@ -33,7 +33,7 @@ class Tickettype3Controller extends Controller
 //-------------------------------------------------------------
 public function addTicketType3Table(Request $request)
 {   $rules = [// 'price'  =>  'required', 
-    'ticket_no' => 'required'  ];
+    'ticket_no' => 'required' , 'user.id' =>'required', 'status_id' =>'required'   ];
     try {    $user = JWTAuth::parseToken()->authenticate();
              $this->validate($request, $rules);
              $gett1 = $this->TicketType3Service->addTicketType3Table($request);
@@ -47,7 +47,7 @@ public function addTicketType3Table(Request $request)
 //------------------------------------------------------------
 //---------------update
 public function updateTicketType3(Request $request)
-{   $rules = ['id' => 'required', 'ticket_no'  =>  'required', ];
+{   $rules = ['id' => 'required', 'ticket_no' => 'required' , 'user.id' =>'required', 'status_id' =>'required'  ];
 try {
     $user = JWTAuth::parseToken()->authenticate();
     $this->validate($request, $rules);

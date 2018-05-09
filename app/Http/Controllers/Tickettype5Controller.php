@@ -28,7 +28,7 @@ class Tickettype5Controller extends Controller
 //-------------------------------------------------------------
 public function addTicketType5Table(Request $request)
 {   $rules = [// 'price'  =>  'required', 
-    'ticket_no' => 'required'  ];
+    'ticket_no' => 'required', 'user.id' =>'required', 'status_id' =>'required'  ];
     try {    $user = JWTAuth::parseToken()->authenticate();
              $this->validate($request, $rules);
              $gett1 = $this->TicketType5Service->addTicketType5Table($request);
@@ -42,7 +42,7 @@ public function addTicketType5Table(Request $request)
 //------------------------------------------------------------
 //---------------update
 public function updateTicketType5(Request $request)
-{   $rules = ['id' => 'required', 'ticket_no'  =>  'required', ];
+{   $rules = ['id' => 'required', 'ticket_no' => 'required' , 'user.id' =>'required', 'status_id' =>'required'  ];
 try {
     $user = JWTAuth::parseToken()->authenticate();
     $this->validate($request, $rules);

@@ -27,7 +27,7 @@ class Tickettype4Controller extends Controller
 //-------------------------------------------------------------
 public function addTicketType4Table(Request $request)
 {   $rules = [// 'price'  =>  'required', 
-    'ticket_no' => 'required'  ];
+    'ticket_no' => 'required' , 'user.id' =>'required', 'status_id' =>'required'  ];
     try {    $user = JWTAuth::parseToken()->authenticate();
              $this->validate($request, $rules);
              $gett1 = $this->TicketType4Service->addTicketType4Table($request);
@@ -41,7 +41,7 @@ public function addTicketType4Table(Request $request)
 //------------------------------------------------------------
 //---------------update
 public function updateTicketType4(Request $request)
-{   $rules = ['id' => 'required', 'ticket_no'  =>  'required', ];
+{   $rules = ['id' => 'required', 'ticket_no' => 'required', 'user.id' =>'required', 'status_id' =>'required'  ];
 try {
     $user = JWTAuth::parseToken()->authenticate();
     $this->validate($request, $rules);
