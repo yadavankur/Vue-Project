@@ -10,20 +10,18 @@
                                         <button class="btn btn-danger btn-sm" @click.prevent="onClickDel">DEL</button>
               </span>
             </div>
+           
             <div id="csticketinfoo" class="panel-collapse collapse in table-responsive">
               <table class="table table-hover table-striped table-responsive table-bordered table-condensed">
                
                 <tbody>
                       <tr><td>SDA ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
-                         <div v-for="find in itemOptions ">
-                        <tr><td>sdfsdfsdf</td><td colspan="2"> {{ find ? find.label : '' }}</td></tr>
-                      
-                        </div>
+
                       <tr><td>Ticket No</td><td colspan="2"> {{csticket[0] ? csticket[0].ticket_no: '' }}</td></tr>
-                      <tr><td>Items</td><td colspan="2"> {{csticket[0] ? csticket[0].aaa: '' }}</td></tr>
-                       <tr><td>Errors</td><td colspan="2"> {{csticket[0] ? csticket[0].bbb: '' }}</td></tr>
-                       <tr><td>Notes</td><td colspan="2"> {{csticket[0] ? csticket[0].ccc: '' }}</td></tr>
-                     <tr><td>Comments</td><td colspan="2"> {{ csticket[0] ? csticket[0].comment : '' }}</td></tr>
+                      <tr v-for="find in csticket.allitems ">
+                        <td>ITEM/ERROR/NOTES</td><td colspan="2"> ITEM:[{{ find ? find.items : '' }}] ERROR:[{{ find ? find.errors : '' }}] NOTES:[{{ find ? find.notes : '' }}]</td></tr>
+                                 
+                    <tr><td>Comments</td><td colspan="2"> {{ csticket[0] ? csticket[0].comment : '' }}</td></tr>
                   
                  
 
@@ -72,21 +70,71 @@ export default
                               return this.selectedTicket; 
                            },
           csticket() { // console.log('/2a/- this.selectedTicketttype1=',this.selectedTicketttype1); 
-                        if (this.csType1perTicket )  
+                        if (this.csType1perTicket )  //if edit done-----
                               { //console.log('/2a/ this.csType1perTicket=',this.csType1perTicket); 
                                 //console.log('/2a/ this.selectedTicketttype1=',this.selectedTicketttype1); 
                                // console.log('/2a/ this.csType1perTicket[0].ttype1=',this.csType1perTicket[0].ttype2a);
                                 if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
-                                  {  return this.csType1perTicket[0].ttype5;
-                                  }
-                                else  {   console.log('/3/this.selectedTicketttype1 inside returned', this.selectedTicketttype1);
-                                          return this.selectedTicketttype1;
+                                  {     // console.log('this.csType1perTicke---outside edit edit=',this.csType1perTicket);
+                                             var gg=[];
+                                            if(this.csType1perTicket[0].ttype5.length>0)
+                                                  {     console.log('this.csType1perTicke---inside edit=',this.csType1perTicket);
+                                                       var abc1=this.csType1perTicket[0].ttype5[0].aaa? this.csType1perTicket[0].ttype5[0].aaa : '';
+                                                       var abb1=this.csType1perTicket[0].ttype5[0].bbb? this.csType1perTicket[0].ttype5[0].bbb : '';
+                                                       var abd1=this.csType1perTicket[0].ttype5[0].ccc? this.csType1perTicket[0].ttype5[0].ccc : '';
+                                                        
+                                                        var gg=[];
+                                                        var abc2=abc1.split("||"); var abb2=abb1.split("||"); var abd2=abd1.split("||");  
+                                                        for ( let j=1,i=0;j<abc2.length;j++,i++)
+                                                        {  var abc3=abc2[j].split("."); var abb3=abb2[j].split(".");  var abd3=abd2[j].split(".");
+                                                          // gg[i].items=abc3[1]; gg[i].errors=abb3[1]; gg[i].notes=abd3[1];
+                                                            gg.push({items:abc3[1],errors:abb3[1], notes: abd3[1]   } )
+                                                        }
+                                                        console.log('gg=',gg); 
+                                                     // this.csType1perTicket[0].ttype5[0].allitems =gg;
+                                                      console.log('this.this.csType1perTicket[0].ttype5[0] with itemsn=',this.csType1perTicket[0].ttype5[0]);
+                                                  }
+                                            if( gg.length>0 ) this.csType1perTicket[0].ttype5.allitems =gg;
+                                            else this.csType1perTicket[0].ttype5.allitems = [];
+                                           return this.csType1perTicket[0].ttype5;
+                                  } //below is if edit done but for some other ticket---then return old
+                                else  {    var gg=[];
+                                          if(this.selectedTicketttype1.length>0)
+                                            {    var abc1=this.selectedTicketttype1[0].aaa? this.selectedTicketttype1[0].aaa : '';
+                                                var abb1=this.selectedTicketttype1[0].bbb? this.selectedTicketttype1[0].bbb : '';
+                                                var abd1=this.selectedTicketttype1[0].ccc? this.selectedTicketttype1[0].ccc : '';
+                                                var gg=[];
+                                                var abc2=abc1.split("||"); var abb2=abb1.split("||"); var abd2=abd1.split("||");  
+                                                for ( let j=1,i=0;j<abc2.length;j++,i++)
+                                                {  var abc3=abc2[j].split("."); var abb3=abb2[j].split(".");  var abd3=abd2[j].split(".");
+                                                   gg.push({items:abc3[1],errors:abb3[1], notes: abd3[1]   } )
+                                                }
+                                             }
+                                            if( gg.length>0 ) this.selectedTicketttype1.allitems =gg;
+                                            else this.selectedTicketttype1.allitems = [];
+                                            console.log('this.selectedTicketttype1[0] with gg=',this.selectedTicketttype1);
+                                            return this.selectedTicketttype1;
                                       }
                               } 
-                        else if (this.selectedTicketttype1)  
-                            {   console.log('this.selectedTicketttype1 returned outside=',this.selectedTicketttype1); 
+                        else if (this.selectedTicketttype1)  //if no edit done
+                            {   
                                 console.log('this.selectedTicketttype1 returned outside=',this.selectedTicketttype1); 
-                                return this.selectedTicketttype1;
+                                var gg=[];
+                               if(this.selectedTicketttype1.length>0)
+                                 {    var abc1=this.selectedTicketttype1[0].aaa? this.selectedTicketttype1[0].aaa : '';
+                                     var abb1=this.selectedTicketttype1[0].bbb? this.selectedTicketttype1[0].bbb : '';
+                                     var abd1=this.selectedTicketttype1[0].ccc? this.selectedTicketttype1[0].ccc : '';
+                                     var gg=[];
+                                     var abc2=abc1.split("||"); var abb2=abb1.split("||"); var abd2=abd1.split("||");  
+                                     for ( let j=1,i=0;j<abc2.length;j++,i++)
+                                     {  var abc3=abc2[j].split("."); var abb3=abb2[j].split(".");  var abd3=abd2[j].split(".");
+                                        gg.push({items:abc3[1],errors:abb3[1], notes: abd3[1]   } )
+                                      }
+                                   }
+                                if( gg.length>0 ) this.selectedTicketttype1.allitems =gg;
+                                else this.selectedTicketttype1.allitems = [];
+                                console.log('this.selectedTicketttype1[0] with gg=',this.selectedTicketttype1);
+                               return this.selectedTicketttype1;
                             } 
                         else return null; 
                      },
