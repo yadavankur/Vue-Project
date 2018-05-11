@@ -39,9 +39,7 @@ class TicketCsController extends Controller
         try {    $user = JWTAuth::parseToken()->authenticate();
                  $this->validate($request, $rules);
                  $gett1 = $this->ticketcsService->addcsticket($request);
-                 //$this->ticketcsService->LogEntity($gett1, 'success', __CLASS__ . '::' .__FUNCTION__);
-                 return response()->json(compact('gett1'));
-               //  return response()->json($gett1);
+                   return response()->json(compact('gett1'));
             } catch (Exception $e) 
             {    return $this->handleValidationException($e, $this->ticketcsService, __CLASS__ . '::' . __FUNCTION__, Log::LOG_LEVEL_ERROR);
             }
@@ -51,58 +49,35 @@ class TicketCsController extends Controller
         try {    $user = JWTAuth::parseToken()->authenticate();
                  $this->validate($request, $rules);
                  $gett1 = $this->ticketcsService->editcsticket($request);
-                 //$this->ticketcsService->LogEntity($gett1, 'success', __CLASS__ . '::' .__FUNCTION__);
                  return response()->json(compact('gett1'));
-               //  return response()->json($gett1);
-            } catch (Exception $e) 
+              } catch (Exception $e) 
             {    return $this->handleValidationException($e, $this->ticketcsService, __CLASS__ . '::' . __FUNCTION__, Log::LOG_LEVEL_ERROR);
             }
     }
     //----------------
     public function displaycs(Request $request)
-    //public function displaycs()
-    {    try {   $user = JWTAuth::parseToken()->authenticate(); // 1) first get user from token to check validation
-               // $this->validate($request, $rules);         
+    {    try {   $user = JWTAuth::parseToken()->authenticate(); 
                 $gett1= $this->ticketcsService->displaycs($request);
-               // $gett1= $this->ticketcsService->displaycs();// 2) get all states
-                 return response()->json(['gett1' => $gett1, ]);
-                // return response()->json($gett1);
+                return response()->json(['gett1' => $gett1, ]);
              } catch (Exception $e) 
              { return response()->json(['error' => $e->getMessage()], 500); }
     }
 
     public function getlastcsticket(Request $request)
-    //public function displaycs()
-    {    try {   $user = JWTAuth::parseToken()->authenticate(); // 1) first get user from token to check validation
-               // $this->validate($request, $rules);         
+     {    try {   $user = JWTAuth::parseToken()->authenticate(); 
                 $gett2= $this->ticketcsService->getlastcsticket($request);
-
-               // $gett1= $this->ticketcsService->displaycs();// 2) get all states
-              // if($gett2){  
-                   return response()->json(['gett2' => $gett2, ]);
-                           // return $gett2;
-                        //  }
-                // else{ }
-                // return response()->json($gett1);
+               return response()->json(['gett2' => $gett2, ]);
              } catch (Exception $e) 
              { return response()->json(['error' => $e->getMessage()], 500); }
     }
 
-    //----------------------pagination-------
+
     public function getByPaginate(Request $request)
-    {
-        try {
-            // 1) first get user from token to check validation
-             $user = JWTAuth::parseToken()->authenticate();
-            // 2) get all permissions
+    {       try {   $user = JWTAuth::parseToken()->authenticate();
              $tt= $this->ticketcsService->getByPaginate($request);
-            // $tt= $this->ticketcsService->getlastcsticket($request);
-            
-            return response()->json($tt);
+              return response()->json($tt);
         } catch (Exception $e) { return response()->json(['error' => $e->getMessage()], 500);  }
     }
-    //-----------------------------------------
-    //-----------------delete
     public function deleteCsTicket(Request $request)
     {
         $rules = [ 'id'  =>  'required',   ];
@@ -119,28 +94,24 @@ class TicketCsController extends Controller
 public function addfile(Request $request)
 {  // $rules = [ 'ticket_no'  =>  'required',  ];
     try {    $user = JWTAuth::parseToken()->authenticate();
-            // $this->validate($request, $rules);
              $gett1 = $this->ticketcsService->addfile($request);
-             //$this->ticketcsService->LogEntity($gett1, 'success', __CLASS__ . '::' .__FUNCTION__);
-          //   return response()->json(compact('gett1'));
-            // return response()->json($gett1);
              return response()->json(compact('gett1'));
-            // return response()->json($request->all());
         } catch (Exception $e) 
         {    return $this->handleValidationException($e, $this->ticketcsService, __CLASS__ . '::' . __FUNCTION__, Log::LOG_LEVEL_ERROR);
         }
 }
 //----------------------------------------------------
     public function gettype1ticket(Request $request)
-        //public function displaycs()
-        {    try {   $user = JWTAuth::parseToken()->authenticate(); // 1) first get user from token to check validation
-                // $this->validate($request, $rules);         
-                    $gett1= $this->ticketcsService->gettype1ticket($request);
-                // $gett1= $this->ticketcsService->displaycs();// 2) get all states
-                    // return response()->json(['gett1' => $gett1, ]);
+        {    try {   $user = JWTAuth::parseToken()->authenticate(); 
+                     $gett1= $this->ticketcsService->gettype1ticket($request);
                     return response()->json($gett1);
-                    // return response()->json($gett1);
-                //  return $gett1;
+                } catch (Exception $e) 
+                { return response()->json(['error' => $e->getMessage()], 500); }
+        }
+        public function gettype2Aticket(Request $request)
+        {    try {   $user = JWTAuth::parseToken()->authenticate(); 
+                    $gett1= $this->ticketcsService->gettype2Aticket($request);
+                    return response()->json($gett1);
                 } catch (Exception $e) 
                 { return response()->json(['error' => $e->getMessage()], 500); }
         }
