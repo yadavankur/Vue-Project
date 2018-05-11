@@ -29,15 +29,9 @@ class AuthController extends Controller
     }
     public function authenticate(Request $request)
     {
-        $rules = [
-            'email'     =>  'required|email',
-            'password'  =>  'required'
-        ];
-
+        $rules = [  'email'     =>  'required|email' ,'password'  =>  'required' ];
         $this->validate($request, $rules);
-
         $credentials = $request->only('email', 'password');
-
         $credentials['active']  = 1;
         try {
             if (! $token = JWTAuth::attempt($credentials)) {

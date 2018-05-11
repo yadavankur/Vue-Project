@@ -78,7 +78,7 @@
                             terrortypes: state => state.cstkt.selectedTicket.terrortype,
                         }), 
                     csticket() 
-                        {  console.log('/t4/- this.selectedTicketttype4=',this.selectedTicketttype1); 
+                        {  console.log('/t5/- this.selectedTicketttype4=',this.selectedTicketttype1); 
                            if (this.csType1perTicket )  
                               { if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
                                    {  console.log('/3t/ this.csType1perTicket[0].ttype4', this.csType1perTicket[0].ttype5);
