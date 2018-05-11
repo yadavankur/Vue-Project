@@ -22,34 +22,23 @@
                                </Select>
                             </div>
                         </td>
-                      
                     </tr> 
-                    <tr> <div><label >Select Items to be picked: </label></div></tr>
-                    <tr> <td colspan="2" >
-                           <div><label for="status">ITEM</label></div>
-                                <Select clearable filterable v-model="formData.item1_id"
-                                       size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
-                                    <Option v-for="item in itemOptions" :value="item.label" :key="item" :label="item.label">{{ item.label }}</Option>
-                               </Select>
-                           
-                        </td>
-                    
-                    </tr>
-              
+                    </tbody>
+              </table>
                 <div v-for="find in formData.finds ">
-                                    <div><label for="status">ITEM</label></div>
+                          <tr>     <div><label for="status">ITEM</label></div>
                                 <Select clearable filterable v-model="find.label"
                                        size="large"  @on-change="onChangeItems"  placeholder="Please select an Item..."   >
                                     <Option v-for="item in itemOptions" :value="item.label" :key="item" :label="item.label">{{ item.label }}</Option>
-                               </Select>
+                               </Select>                         
+                              
+                           </tr>  
                 </div>
-                <button @click="addFind">
-                    add Item
+                <button class="btn btn-primary btn-md" @click="addFind">
+                    add Items
                 </button>
-             
-              </tbody>
-              </table>
-                <bs-input label="Comments" type="textarea" :maxlength="400" :icon="true" v-model="formData.comment"></bs-input>
+         <tr></tr>    
+            <bs-input label="Comments" type="textarea" :maxlength="400" :icon="true" v-model="formData.comment"></bs-input>
             <div slot="modal-footer" class="modal-footer">
                 <button type="button" class="btn btn-success" @click="onClose">Cancel</button>
                 <button type="button" class="btn btn-primary" @click="OnSave">Save</button>
@@ -155,7 +144,18 @@
                 OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
                     {   console.log('add--formdata.finds----',this.formData.finds);
                            // var allitems1= ` 1.${this.formData.item1_id}`; 
-                           var allitems1 = '';
+                           var allitems1 = ''; //var allerrors1 = ''; var allnotes1= '';
+                              for (let i=0;i<= this.formData.finds.length-1; i++) 
+                                {   if (this.formData.finds[i].label != '')
+                                     allitems1= allitems1+`||${i}.`+ this.formData.finds[i].label; 
+                                    // else allitems1= allitems1+`||${i}.undefined`; 
+                                   
+                                }
+                          
+                          
+                     /*     
+                          
+                          var allitems1 = '';
                               if(this.formData.item1_id != '') allitems1= `#${this.formData.item1_id}#`;
                                
                               for (let i=0;i<= this.formData.finds.length-1; i++) 
@@ -163,14 +163,12 @@
                                      allitems1= allitems1+`||`+ this.formData.finds[i].label;                          
                                 }
                           console.log('allitems1=',allitems1);
+                    */
                           this.formData.allitems2=allitems1;
                           console.log('3crud.vue-----OnSave_click this.formdata',this.formData);
                         let payload = {  isShow: false,  data: this.formData, };
                         if (this.type4Data.action === 'Add')// add new state
                         {   console.log('add--formdata----',this.formData);
-
-                           
-                              
                            this.$store.dispatch('setCsTicketType4ShowModal', payload); //---to disable popup
                            this.$store.dispatch('cstype4add', this.formData)
                            .then((response) => {   console.log(' save success'); 
@@ -226,29 +224,16 @@
                                this.formData.item1_id = this.csticket[0].bbb? this.csticket[0].bbb : '';
                                 var abc = [];
                                 var abc1=this.csticket[0].aaa? this.csticket[0].aaa : '';
+                            
+                                
+                                var abc2=abc1.split("||"); console.log('abc3.length=',abc2.length);
+                              
+                                 for ( let j=1;j<abc2.length;j++)
+                                 {  var abc3=abc2[j].split(".");
+                                 
+                                    this.formData.finds.push({ label: abc3[1] }); 
+                                 }
 
-                                console.log('aaa=',abc1);    
-                                var abc2= abc1.split("#");
-                                console.log('abc2.length=',abc2.length);
-                                if(abc2.length>1){
-                                console.log('abc2[2]=',abc2[2]);
-                                var abc3=abc2[2].split("||");
-                                console.log('abc3[0]=',abc3[0]);
-                                console.log('abc3[1]=',abc3[1]);
-                                console.log('abc3[2]=',abc3[2]);
-                                console.log('abc3.length=',abc3.length);
-                                 for ( let j=1;j<abc3.length;j++)
-                                this.formData.finds.push({ label: abc3[j] }); 
-                                }else{
-                                       console.log('abc2[0]=',abc2[0]);
-                                var abc3=abc2[0].split("||");
-                                console.log('abc3[0]=',abc3[0]);
-                                console.log('abc3.length=',abc3.length);
-                                 for ( let j=1;j<abc3.length;j++)
-                                this.formData.finds.push({ label: abc3[j] }); 
-                                    
-                                }
-                                 //this.formData.finds.push({ label: abc3[2] }); 
 
                       
 

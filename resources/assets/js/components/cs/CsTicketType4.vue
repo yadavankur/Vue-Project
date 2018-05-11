@@ -16,8 +16,10 @@
                 <tbody>
                       <tr><td>Pickup Docket ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
                       <tr><td>Ticket No</td><td colspan="2"> {{csticket[0] ? csticket[0].ticket_no: '' }}</td></tr>
-                      <tr><td>Items to be Picked</td><td colspan="2"> {{csticket[0] ? csticket[0].aaa: '' }}</td></tr>
-                      <tr><td>Status</td><td colspan="2"> {{csticket[0] ? csticket[0].tstatus.STATUS: '' }}</td></tr>                      
+                     <tr v-for="find in csticket.allitems ">
+                        <td>Item to be Picked</td><td colspan="2"> {{ find ? find.items : '' }}</td>
+                        </tr>
+                     <tr><td>Status</td><td colspan="2"> {{csticket[0] ? csticket[0].tstatus.STATUS: '' }}</td></tr>                      
                       <tr><td>Approving User : Group </td>
                         <td>{{ csticket[0] ? csticket[0].auserid.name : '' }}</td>
                         <td>{{ csticket[0] ? csticket[0].agroupid.name : '' }}</td>
@@ -72,21 +74,55 @@ export default
                                 //console.log('/2a/ this.selectedTicketttype1=',this.selectedTicketttype1); 
                                // console.log('/2a/ this.csType1perTicket[0].ttype1=',this.csType1perTicket[0].ttype2a);
                                 if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
-                                  {    
+                                  {     var gg=[];
+                                            if(this.csType1perTicket[0].ttype4.length>0)
+                                                  {     console.log('this.csType1perTicke---inside edit=',this.csType1perTicket);
+                                                       var abc1=this.csType1perTicket[0].ttype4[0].aaa? this.csType1perTicket[0].ttype4[0].aaa : '';
+                                                        var gg=[];
+                                                        var abc2=abc1.split("||");  
+                                                        for ( let j=1,i=0;j<abc2.length;j++,i++)
+                                                        {  var abc3=abc2[j].split(".");  
+                                                           gg.push({items:abc3[1]  } )
+                                                        }
+                                                  }
+                                            if( gg.length>0 ) this.csType1perTicket[0].ttype4.allitems =gg;
+                                            else this.csType1perTicket[0].ttype4.allitems = [];
                                             return this.csType1perTicket[0].ttype4;
                                   }
                                 else  {
                                         console.log('/3/this.selectedTicketttype1 inside returned', this.selectedTicketttype1);
-                                        
-                                            return this.selectedTicketttype1;
+                                          var gg=[];
+                                          if(this.selectedTicketttype1.length>0)
+                                            {    var abc1=this.selectedTicketttype1[0].aaa? this.selectedTicketttype1[0].aaa : '';
+                                                  var gg=[];
+                                                var abc2=abc1.split("||"); 
+                                                for ( let j=1,i=0;j<abc2.length;j++,i++)
+                                                {  var abc3=abc2[j].split(".");
+                                                    gg.push({items:abc3[1]  } )
+                                                  }
+                                              }
+                                            if( gg.length>0 ) this.selectedTicketttype1.allitems =gg;
+                                            else this.selectedTicketttype1.allitems = [];
+                                            console.log('this.selectedTicketttype1[0] with gg=',this.selectedTicketttype1);
+                                          return this.selectedTicketttype1;
                                       }
                               } 
                         else if (this.selectedTicketttype1)  
                             {   console.log('this.selectedTicketttype1 returned outside=',this.selectedTicketttype1); 
-                                
-                               
-                                console.log('this.selectedTicketttype1 returned outside=',this.selectedTicketttype1); 
-                                return this.selectedTicketttype1;
+                                 var gg=[];
+                               if(this.selectedTicketttype1.length>0)
+                                 {    var abc1=this.selectedTicketttype1[0].aaa? this.selectedTicketttype1[0].aaa : '';
+                                      var gg=[];
+                                     var abc2=abc1.split("||"); 
+                                     for ( let j=1,i=0;j<abc2.length;j++,i++)
+                                     {  var abc3=abc2[j].split(".");
+                                        gg.push({items:abc3[1]  } )
+                                      }
+                                   }
+                                if( gg.length>0 ) this.selectedTicketttype1.allitems =gg;
+                                else this.selectedTicketttype1.allitems = [];
+                                console.log('this.selectedTicketttype1[0] with gg=',this.selectedTicketttype1);
+                               return this.selectedTicketttype1;
                             } 
                         else return null; 
                      },
