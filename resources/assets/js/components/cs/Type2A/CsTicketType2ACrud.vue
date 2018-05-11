@@ -31,7 +31,7 @@
                             <bs-input label="Reason" type="text" required  :maxlength="255" :icon="true" v-model="formData.reason"></bs-input>
                         </td>
                         <td >
-                            <bs-input label="Price" type="text" required  :maxlength="255" :icon="true" v-model="formData.price"></bs-input>
+                            <bs-input label="Price(AUD)" type="text" required  :maxlength="255" :icon="true" v-model="formData.price"></bs-input>
                          </td>
                     
                     </tr> 
@@ -62,10 +62,7 @@
                         selectedTicketttype1: state => state.cstkt.selectedTicket.ttype2a,
                         csType1perTicket: state => state.cstickettype.csType2AperTicket,
                         }), 
-                      //  cascadeUserOptions() {  console.log('this.cascadeUserOptions1=',this.cascadeUserOptions1);
-                        //      return this.cascadeUserOptions1
-                          //    },
-                        csticket() {  console.log('/2a/- this.selectedTicketttype1=',this.selectedTicketttype1); 
+             csticket() {  console.log('/2a/- this.selectedTicketttype1=',this.selectedTicketttype1); 
                         if (this.csType1perTicket )  
                               { 
                                 if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)

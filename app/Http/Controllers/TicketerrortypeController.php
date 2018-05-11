@@ -28,7 +28,7 @@ class TicketerrortypeController extends Controller
     }
 //-------------------------------------------------------------
     public function addTicketErrortype(Request $request)
-    {   $rules = [ 'STATUS'  =>  'required',  ];
+    {   $rules = [ 'STATUS'  =>  'required','ticket_type_id'  =>  'required',  ];
         try {    $user = JWTAuth::parseToken()->authenticate();
                  $this->validate($request, $rules);
                  $gett1 = $this->TicketErrorTypeService->addTicketErrorTypeTable($request);
