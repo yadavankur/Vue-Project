@@ -20,7 +20,8 @@ class EmailController extends Controller
         $this->emailService = $emailService;
         $this->userService = $userService;
     }
-    public function sendEmail(Request $request) {
+    public function sendEmail(Request $request) 
+    {
 
         try {
             // 1) first get user from token to check validation

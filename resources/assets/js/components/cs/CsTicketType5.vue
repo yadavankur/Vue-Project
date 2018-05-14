@@ -25,7 +25,11 @@
                     <tr><td>Comments</td><td colspan="2"> {{ csticket[0] ? csticket[0].comment : '' }}</td></tr>
                   
                  
-
+                     <tr><td>Status</td><td colspan="2"> {{csticket[0] ? csticket[0].tstatus.STATUS: '' }}</td></tr>                      
+                      <tr><td>Approving User : Group </td>
+                        <td>{{ csticket[0] ? csticket[0].auserid.name : '' }}</td>
+                        <td>{{ csticket[0] ? csticket[0].agroupid.name : '' }}</td>
+                      </tr>
                     <tr><td>Created By/ Updated By </td>
                         <td>{{ csticket[0] ? csticket[0].created_by.name : '' }}</td>
                         <td>{{ csticket[0] ? csticket[0].updated_by.name : '' }}</td>
