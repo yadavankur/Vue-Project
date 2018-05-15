@@ -562,7 +562,7 @@ deletetype5: ({dispatch}, formData) =>
 },
 deletetype5Success: ({commit, dispatch}, body) => 
 {   commit({ type: types.DELETE_TICKET_TYPE5_SUCCESS, state: body });
-    dispatch('showSuccessNotification', 'Pickup Docket has been deleted.');
+    dispatch('showSuccessNotification', 'SDA has been deleted.');
  
     dispatch('gettickettype5table',body.gett1);  //----get back new result with modified values
 },

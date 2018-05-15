@@ -99,8 +99,8 @@ export default
                                                      // this.csType1perTicket[0].ttype5[0].allitems =gg;
                                                       console.log('this.this.csType1perTicket[0].ttype5[0] with itemsn=',this.csType1perTicket[0].ttype5[0]);
                                                   }
-                                            if( gg.length>0 ) this.csType1perTicket[0].ttype5.allitems =gg;
-                                            else this.csType1perTicket[0].ttype5.allitems = [];
+                                              if( gg.length>0 ) this.csType1perTicket[0].ttype5.allitems =gg;
+                                              else this.csType1perTicket[0].ttype5.allitems = [];
                                            return this.csType1perTicket[0].ttype5;
                                   } //below is if edit done but for some other ticket---then return old
                                 else  {    var gg=[];
@@ -248,7 +248,7 @@ export default
                             let swal = this.$swal;  let me = this;
                             this.$swal({
                                       title: 'Are you sure?',
-                                      text: 'You will not be able to recover this Pickup Docket!',
+                                      text: 'You will not be able to recover this SDA!',
                                       type: 'warning',   showCancelButton: true,
                                       confirmButtonColor: '#3085d6',   cancelButtonColor: '#d33',
                                       confirmButtonText: 'Yes',  cancelButtonText: 'cancel',
@@ -274,7 +274,7 @@ export default
                                     let swal = this.$swal;     let me = this;
                                     this.$swal({
                                               title: 'Are you sure?',
-                                              text: 'You will not be able to recover this Pickup Docket!',
+                                              text: 'You will not be able to recover this SDA!',
                                               type: 'warning',  showCancelButton: true,
                                               confirmButtonColor: '#3085d6',   cancelButtonColor: '#d33',
                                               confirmButtonText: 'Yes',   cancelButtonText: 'cancel',
