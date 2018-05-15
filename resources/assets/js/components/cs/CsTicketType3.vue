@@ -15,6 +15,10 @@
                
                 <tbody>
                       <tr><td>Credit Note ID</td><td colspan="2"> {{csticket[0] ? csticket[0].id: '' }}</td></tr>
+                      
+                       <tr v-for="find in csticket.allitems ">
+                        <td>ITEM/ERROR/NOTES</td><td colspan="2"> ITEM:[{{ find ? find.items : '' }}] ERROR:[{{ find ? find.errors : '' }}] NOTES:[{{ find ? find.notes : '' }}]</td>
+                        </tr>
                       <tr><td>Ticket No</td><td colspan="2"> {{csticket[0] ? csticket[0].ticket_no: '' }}</td></tr>
                       <tr><td>Error Caused By</td><td colspan="2"> {{csticket[0] ? csticket[0].errorcausedby : '' }}</td></tr>
                       <tr><td>Issues</td><td colspan="2"> {{csticket[0] ? csticket[0].issues: '' }}</td></tr>
@@ -75,42 +79,77 @@ export default
                                 //console.log('/2a/ this.selectedTicketttype1=',this.selectedTicketttype1); 
                                // console.log('/2a/ this.csType1perTicket[0].ttype1=',this.csType1perTicket[0].ttype2a);
                                 if(this.csType1perTicket[0].ticket_no == this.selectedTicket.ticket_no)
-                                {    
-                                      let aa="";
-                                       if(this.csType1perTicket[0].ttype3.length==1){
-                                if(this.csType1perTicket[0].ttype3[0].builderorcustomer==1) aa=aa+"builderorcustomer"+" ";
-                                 if(this.csType1perTicket[0].ttype3[0].factory==1) aa=aa+"Factory"+" ";
-                                if(this.csType1perTicket[0].ttype3[0].service==1) aa=aa+"Service"+" ";
-                                 if(this.csType1perTicket[0].ttype3[0].customerservice==1) aa=aa+"CustomerService"+" ";
-                                if(this.csType1perTicket[0].ttype3[0].sales==1) aa=aa+"Sales"+" ";
-                                 if(this.csType1perTicket[0].ttype3[0].estimating==1) aa=aa+"Estimating"+" ";
-                                  if(this.csType1perTicket[0].ttype3[0].transport==1) aa=aa+"Transport"+" ";
-                                   if(this.csType1perTicket[0].ttype3[0].supplier==1) aa=aa+"Supplier"+" ";
-                                    if(this.csType1perTicket[0].ttype3[0].other==1) aa=aa+"Other"+" ";
-                               //  if(this.selectedTicketttype1.service) aa=aa+"Service";
-                               this.csType1perTicket[0].ttype3[0].errorcausedby=aa;
-                                       }
-                            console.log('/3/this.csType1perTicket[0].ttype3 inside1', this.csType1perTicket[0].ttype3);
-                                      return this.csType1perTicket[0].ttype3;
+                                { let aa="";
+                                  if(this.csType1perTicket[0].ttype3.length==1)
+                                    {
+                                      if(this.csType1perTicket[0].ttype3[0].builderorcustomer==1) aa=aa+"builderorcustomer"+" ";
+                                      if(this.csType1perTicket[0].ttype3[0].factory==1) aa=aa+"Factory"+" ";
+                                      if(this.csType1perTicket[0].ttype3[0].service==1) aa=aa+"Service"+" ";
+                                      if(this.csType1perTicket[0].ttype3[0].customerservice==1) aa=aa+"CustomerService"+" ";
+                                      if(this.csType1perTicket[0].ttype3[0].sales==1) aa=aa+"Sales"+" ";
+                                      if(this.csType1perTicket[0].ttype3[0].estimating==1) aa=aa+"Estimating"+" ";
+                                      if(this.csType1perTicket[0].ttype3[0].transport==1) aa=aa+"Transport"+" ";
+                                      if(this.csType1perTicket[0].ttype3[0].supplier==1) aa=aa+"Supplier"+" ";
+                                      if(this.csType1perTicket[0].ttype3[0].other==1) aa=aa+"Other"+" ";
+                                      this.csType1perTicket[0].ttype3[0].errorcausedby=aa;
+                                    }
+                                   console.log('/3/this.csType1perTicket[0].ttype3 inside1', this.csType1perTicket[0].ttype3);
+                                    var gg=[];
+                                            if(this.csType1perTicket[0].ttype3.length>0)
+                                                  {     console.log('this.csType1perTicke---inside edit=',this.csType1perTicket);
+                                                       var abc1=this.csType1perTicket[0].ttype3[0].ddd? this.csType1perTicket[0].ttype3[0].ddd : '';
+                                                       var abb1=this.csType1perTicket[0].ttype3[0].eee? this.csType1perTicket[0].ttype3[0].eee : '';
+                                                       var abd1=this.csType1perTicket[0].ttype3[0].fff? this.csType1perTicket[0].ttype3[0].fff : '';
+                                                        
+                                                        var gg=[];
+                                                        var abc2=abc1.split("||"); var abb2=abb1.split("||"); var abd2=abd1.split("||");  
+                                                        for ( let j=1,i=0;j<abc2.length;j++,i++)
+                                                        {  var abc3=abc2[j].split("."); var abb3=abb2[j].split(".");  var abd3=abd2[j].split(".");
+                                                          // gg[i].items=abc3[1]; gg[i].errors=abb3[1]; gg[i].notes=abd3[1];
+                                                            gg.push({items:abc3[1],errors:abb3[1], notes: abd3[1]   } )
+                                                        }
+                                                        console.log('gg=',gg); 
+                                                      console.log('this.this.csType1perTicket[0].ttype3[0] with itemsn=',this.csType1perTicket[0].ttype3[0]);
+                                                  }
+                                              if( gg.length>0 ) this.csType1perTicket[0].ttype3.allitems =gg;
+                                              else this.csType1perTicket[0].ttype3.allitems = [];
+                                   
+                                   return this.csType1perTicket[0].ttype3;
                                 }
-                                else  {
+                                else {
                                        console.log('/3/this.selectedTicketttype1 inside returned', this.selectedTicketttype1);
                                        let aa="";
                                         // if(this.selectedTicketttype1.length==1)
                                        if(this.selectedTicketttype1.length==1)
-                                { 
-                                      if(this.selectedTicketttype1[0].builderorcustomer==1) aa=aa+"Builder/Customer\r\n "+"\n"; 
-                                      if(this.selectedTicketttype1[0].factory==1) aa=aa+"Factory <br/>"+"\n";
-                                      if(this.selectedTicketttype1[0].service==1) aa=aa+"Service"+"\n\r";
-                                      if(this.selectedTicketttype1[0].customerservice==1) aa=aa+"CustomerService \n"+"\n";
-                                      if(this.selectedTicketttype1[0].sales==1) aa=aa+"Sales"+" ";
-                                      if(this.selectedTicketttype1[0].estimating==1) aa=aa+"Estimating"+"\n";
-                                      if(this.selectedTicketttype1[0].transport==1) aa=aa+"Transport"+"\n";
-                                      if(this.selectedTicketttype1[0].supplier==1) aa=aa+"Supplier"+"\n";
-                                      if(this.selectedTicketttype1[0].other==1) aa=aa+"Other"+"\n";
-                               //  if(this.selectedTicketttype1.service) aa=aa+"Service";
-                               this.selectedTicketttype1[0].errorcausedby=aa;
-                                }
+                                         { 
+                                            if(this.selectedTicketttype1[0].builderorcustomer==1) aa=aa+"Builder/Customer\r\n "+"\n"; 
+                                            if(this.selectedTicketttype1[0].factory==1) aa=aa+"Factory <br/>"+"\n";
+                                            if(this.selectedTicketttype1[0].service==1) aa=aa+"Service"+"\n\r";
+                                            if(this.selectedTicketttype1[0].customerservice==1) aa=aa+"CustomerService \n"+"\n";
+                                            if(this.selectedTicketttype1[0].sales==1) aa=aa+"Sales"+" ";
+                                            if(this.selectedTicketttype1[0].estimating==1) aa=aa+"Estimating"+"\n";
+                                            if(this.selectedTicketttype1[0].transport==1) aa=aa+"Transport"+"\n";
+                                            if(this.selectedTicketttype1[0].supplier==1) aa=aa+"Supplier"+"\n";
+                                            if(this.selectedTicketttype1[0].other==1) aa=aa+"Other"+"\n";
+                                           //  if(this.selectedTicketttype1.service) aa=aa+"Service";
+                                           this.selectedTicketttype1[0].errorcausedby=aa;
+                                         }
+                                //---------------------
+                                          var gg=[];
+                                          if(this.selectedTicketttype1.length>0)
+                                            {   var abc1=this.selectedTicketttype1[0].ddd? this.selectedTicketttype1[0].ddd : '';
+                                                var abb1=this.selectedTicketttype1[0].eee? this.selectedTicketttype1[0].eee : '';
+                                                var abd1=this.selectedTicketttype1[0].fff? this.selectedTicketttype1[0].fff : '';
+                                                var gg=[];
+                                                var abc2=abc1.split("||"); var abb2=abb1.split("||"); var abd2=abd1.split("||");  
+                                                for ( let j=1,i=0;j<abc2.length;j++,i++)
+                                                {  var abc3=abc2[j].split("."); var abb3=abb2[j].split(".");  var abd3=abd2[j].split(".");
+                                                   gg.push({items:abc3[1],errors:abb3[1], notes: abd3[1]   } )
+                                                }
+                                             }
+                                            if( gg.length>0 ) this.selectedTicketttype1.allitems =gg;
+                                            else this.selectedTicketttype1.allitems = [];
+                                            //---------------
                                        return this.selectedTicketttype1;
                                       }
                               } 
@@ -132,6 +171,22 @@ export default
                                     console.log('issuecause=',aa); 
                                   this.selectedTicketttype1[0].errorcausedby=aa;
                                 }
+                          //--------------------------------------------------
+                                var gg=[];
+                               if(this.selectedTicketttype1.length>0)
+                                 {    var abc1=this.selectedTicketttype1[0].ddd? this.selectedTicketttype1[0].ddd : '';
+                                     var abb1=this.selectedTicketttype1[0].eee? this.selectedTicketttype1[0].eee : '';
+                                     var abd1=this.selectedTicketttype1[0].fff? this.selectedTicketttype1[0].fff : '';
+                                     var gg=[];
+                                     var abc2=abc1.split("||"); var abb2=abb1.split("||"); var abd2=abd1.split("||");  
+                                     for ( let j=1,i=0;j<abc2.length;j++,i++)
+                                     {  var abc3=abc2[j].split("."); var abb3=abb2[j].split(".");  var abd3=abd2[j].split(".");
+                                        gg.push({items:abc3[1],errors:abb3[1], notes: abd3[1]   } )
+                                      }
+                                   }
+                                if( gg.length>0 ) this.selectedTicketttype1.allitems =gg;
+                                else this.selectedTicketttype1.allitems = [];
+                                console.log('this.selectedTicketttype1[0] with gg=',this.selectedTicketttype1);
                                
                                 console.log('this.selectedTicketttype1 returned outside=',this.selectedTicketttype1); 
                                 return this.selectedTicketttype1;

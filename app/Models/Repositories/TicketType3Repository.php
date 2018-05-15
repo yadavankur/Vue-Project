@@ -38,6 +38,11 @@ class TicketType3Repository extends BaseRepository
 
         $tickettype1->issues = $request->input('issues'); 
         $tickettype1->officeuse = $request->input('officeuse'); 
+
+        $tickettype1->ddd = $request->input('allitems2'); //all items
+        $tickettype1->eee = $request->input('allerrors2');
+        $tickettype1->fff = $request->input('allnotes2');
+          
       
         $tickettype1->save();
         return $tickettype1;
@@ -65,7 +70,11 @@ class TicketType3Repository extends BaseRepository
      $ttt->other = $request->input('other'); 
      $ttt->issues = $request->input('issues'); 
      $ttt->officeuse = $request->input('officeuse'); 
-       
+
+     $ttt->ddd = $request->input('allitems2'); //all items
+     $ttt->eee = $request->input('allerrors2');
+     $ttt->fff = $request->input('allnotes2');
+
        $ttt->save();  return $ttt;
     }
 
@@ -82,20 +91,6 @@ class TicketType3Repository extends BaseRepository
         $testb1->active = 0;   
         $testb1->save();   
         return $testb1;
-    }
-
-
-    public function getByPaginate($request)
-    {
-        $sort = $request->sort;                 $sort = explode('|', $sort);
-        $sortBy = $sort[0];                     $sortDirection = $sort[1];
-        $perPage = $request->per_page;          $search = $request->filter;
-        
-        $query = $this->model->orderBy($sortBy, $sortDirection) 
-        ->where('active',1);
-  
-        return $query->paginate($perPage);
-     
     }
 
 }

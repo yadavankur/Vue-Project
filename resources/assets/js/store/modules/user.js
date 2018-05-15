@@ -11,9 +11,7 @@ export default {
             user: null,
         },
     },
-    getters: {
-        allUserNodes: state => state.userNodes
-    },
+    getters: {  allUserNodes: state => state.userNodes  },
     mutations: {
         [types.ADD_USER_SUCCESS] (state, payload) {
             console.log('/store/modules/user.js-types.ADD_USER_SUCCESS payload=', payload);

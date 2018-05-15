@@ -278,6 +278,22 @@
                                 if(this.csticket[0].other==1) this.formData.other=true 
                                     else this.formData.other=false;
 
+                                var abc1=this.csticket[0].ddd? this.csticket[0].ddd : '';
+                                var abb1=this.csticket[0].ddd? this.csticket[0].eee : '';
+                                var abd1=this.csticket[0].fff? this.csticket[0].fff : '';
+                                
+                                var abc2=abc1.split("||"); console.log('abc3.length=',abc2.length);
+                                var abb2=abb1.split("||");  console.log('abc3.length=',abb2.length);
+                                var abd2=abd1.split("||");  console.log('abc3.length=',abd2.length);
+                                 for ( let j=1;j<abc2.length;j++)
+                                 {  var abc3=abc2[j].split(".");
+                                    var abb3=abb2[j].split(".");
+                                    var abd3=abd2[j].split(".");
+                                    this.formData.finds.push({ label: abc3[1],error: abb3[1] ,notes: abd3[1] }); 
+                                 }
+
+
+
                            }
                        }
                }
