@@ -2,15 +2,9 @@ import Vue from 'vue';
 import * as api from './../../config';
 import * as types from './../../mutation-types';
 
-export default {
-    state: {
-        userNodes: null,
-        showModal: false,
-        userData: null,
-        modalForm: {
-            user: null,
-        },
-    },
+export default 
+{
+    state: { userNodes: null, userTable:null, showModal: false, userData: null,  modalForm: { user: null, },    },
     getters: {  allUserNodes: state => state.userNodes  },
     mutations: {
         [types.ADD_USER_SUCCESS] (state, payload) {
@@ -46,6 +40,11 @@ export default {
             console.log('/store/modules/user.js-types.SET_USER_SHOW_MODAL state=', state);
             state.showModal = payload.data.isShow;
             state.userData = payload.data.data;
+        },
+        [types.GET_ALL_USER_TABLE] (state, payload) //-----this is for refresh
+        {  console.log('types.GET_ALL_USER_TABLE payload=',  state.userTable);
+           console.log('types.GET_ALL_USER_TABLE state=', state);
+           state.userTable = payload.userTable;
         },
     },
     actions: 
@@ -149,12 +148,13 @@ export default {
         },
 
 
-        getuserlist: ({dispatch}, body) => 
+        getuserlist: ({commit, dispatch}, body) => 
          {  return new Promise((resolve, reject) => 
            {  Vue.http.get(api.userlists)
-                   .then(response => {   console.log('/store/userlist response.body=', response.body);                      
+                   .then(response => {   console.log('/store/userlist response.body=', response.body); 
+                                         commit({type: types.GET_ALL_USER_TABLE, userTable: response.body});                       
                                           resolve(response);
-                                   }) 
+                                     }) 
                    .catch(error => {  console.error('/store/userlist response.body=', error);  reject(error); });
            });
          },

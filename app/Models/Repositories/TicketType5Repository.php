@@ -28,7 +28,6 @@ class TicketType5Repository extends BaseRepository
     public function addTicketType5Table($request)
     {   $tickettype1 =  new tickettype5(); 
         $tickettype1->ticket_no = $request->input('ticket_no');     
-     
         $tickettype1->astatus = $request->input('status_id');  
         $tickettype1->comment = $request->input('comment');  
         $tickettype1->aaa = $request->input('allitems2'); //all items
@@ -36,31 +35,23 @@ class TicketType5Repository extends BaseRepository
         $tickettype1->ccc = $request->input('allnotes2');
         $tickettype1->auser = $request->input('user.id'); //managed user id
         $tickettype1->agroup = $request->input('group.id');   //managed user group
-       
-       
-     //   $ticket_cs1 =  ticket_cs::findOrFail($request->input('ticket_no'));
-
         $tickettype1->save();
-        //----------------
-         
-       // $ticket_cs1->save();
-        //----------------
 
-
-        //Mail::send('emails.welcome', ['name' => 'Novice'], function($message){
-         //   $message->to('manoj.mishra@dowell.com.au', 'Fabien')->subject('Bienvenue !');
-       // });
  //Mail::raw("An SDA in Ticket No. $tickettype1->ticket_no has been added for your approval ", function($message)
   //  {   // $message->from('us@example.com', 'Laravel');
   //   $message->to('mark.greenwood@dowell.com.au')->cc('manoj.mishra@dowell.com.au');
   //  });
-  
-Mail::raw([], function($message) {
-    $message->from('contact@company.com', 'Company name');
-    $message->to('manoj.mishra@dowell.com.au');
-    $message->subject('5% off all our website');
-    $message->setBody( '<html><h1>5% off its awesome</h1><p>Go get it now !</p></html>', 'text/html' );
-    $message->addPart("5% off its awesome\n\nGo get it now!", 'text/plain');
+
+
+Mail::raw( $request , function($message) use ($request) {
+    $message->from('OMS@dowell.com.au', 'OMS');
+    $message->to($request->input('approvinguseremail'));
+    $message->cc('manoj.mishra@dowell.com.au');
+    $tktno=$request->input('ticket_no');$status=$request->input('status_id');
+    $message->subject("OMS: New SDA added to Ticket No: $tktno");
+    $message->setBody("OMS: New SDA has been added to Ticket No: $tktno, STATUS:$status" );
+    //$message->setBody( '<html><h1>5% off its awesome</h1><p>Go get it now !</p></html>', 'text/html' );
+    //$message->addPart("5% off its awesome\n\nGo get it now!", 'text/plain');
 });
 
       //  Mail::send(new $class($content, $order));
@@ -71,17 +62,19 @@ Mail::raw([], function($message) {
     public function updateTicketType5Table($request)
     {
      $tickettype1 =  $this->model->findOrFail($request->input('id'));  
-     $ticketcs =  ticket_cs::findOrFail($request->input('ticket_no'));  
+  //   $ticketcs =  ticket_cs::findOrFail($request->input('ticket_no'));  
      $tickettype1->ticket_no = $request->input('ticket_no');     
      $tickettype1->astatus = $request->input('status_id');  
      $tickettype1->comment = $request->input('comment');  
      $tickettype1->aaa = $request->input('allitems2'); //all items
      $tickettype1->bbb = $request->input('allerrors2');
      $tickettype1->ccc = $request->input('allnotes2');
-     $tickettype1->officeuse = $ticketcs;
+    // $tickettype1->officeuse = $ticketcs;
      $tickettype1->auser = $request->input('user.id'); //managed user id
      $tickettype1->agroup = $request->input('group.id');   //managed user group
-       
+      
+    ///// $ticketcs->ticket_no = $request->input('ticket_no');
+     //$ticketcs->save();
      $tickettype1->save(); // $ticketcs->save(); 
      return $tickettype1;
     }

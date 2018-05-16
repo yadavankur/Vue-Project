@@ -76,6 +76,7 @@
                             csType1perTicket: state => state.cstickettype.csType5perTicket,
                             v6itemstable: state => state.cstkt.selectedTicket.v6items,
                             terrortypes: state => state.cstkt.selectedTicket.terrortype,
+                            allusers: state => state.user.userTable,
                         }), 
                     csticket() 
                         {  console.log('/t5/- this.selectedTicketttype4=',this.selectedTicketttype1); 
@@ -100,7 +101,7 @@
                         
             },
        data ()  {  return {  title: '',  formData: {     id: '', comment: '', item1_id : '', item2_id : '', allitems : '', allerrors: '', notes: '',
-                            price: '', description: '', ticket_no: '', status_id: '', finds: [], find: '' , allitems2: '', allerrors2:'', allnotes2: ''} ,statusOptions: [] ,
+                            price: '', description: '', ticket_no: '', status_id: '',approvinguseremail:'', finds: [], find: '' , allitems2: '', allerrors2:'', allnotes2: ''} ,statusOptions: [] ,
                             cascade_group_user:[] , finds: []   }   },
        created() {  console.log('cs/cstickettype1crud.vue-- Component created.')      
                     this.collectCnStatusOptions(this.ticketcnstatustable); //to collect cn status options for dropdown
@@ -110,9 +111,7 @@
        components: {  'custom-modal': modal, 'bs-input': input,  },
        mounted() { console.log('cs/cstickettype1crud.vue--- Component mounted. typeData=', this.type2Data) },
        methods: 
-           {   
-               
-               addFind: function () {   let len= this.selectedTicket.v6items.length;
+           {   addFind: function () {   let len= this.selectedTicket.v6items.length;
                                         let findslen=Object.keys(this.formData.finds).length;
                                         console.log('items len=',len);
                                         console.log('finds len=', findslen);
@@ -133,10 +132,10 @@
                         let options = [];
                         for (let i=0;i< statuses.length; i++) 
                          { var ss=statuses[i];
-                             options.push({value: ss.id, label: ss.errorcode});  
+                           options.push({value: ss.id, label: ss.errorcode});  
                          }
-                           this.errorOptions = options;
-                           console.log('Type5Crud---errorOptions=',this.errorOptions);
+                        this.errorOptions = options;
+                        console.log('Type5Crud---errorOptions=',this.errorOptions);
                      },
                 collectItemOptions(statuses) 
                      {  console.log('Type5Crud--- Items=',statuses);
@@ -149,30 +148,44 @@
                             console.log('Type5Crud--- ItemOptions=',this.itemOptions);
                      },
                 onChangeStatus(val) { console.log('Type5Crud-onStatusChange val=',val);    },
-                 onChangeError(val) { console.log('Type5Crud-onStatusChange val=',val);   },
+                onChangeError(val) { console.log('Type5Crud-onStatusChange val=',val);   },
                 onChangeItems(val) {  console.log('Type5Cruds=-onItemsChange val=',val);  },
                 handleUserChange1 (value, selectedData) //----change user
-                            {  console.log('/csticket/crud.vue--handleUserChange value=', value);
+                            {   console.log('/csticket/crud.vue--handleUserChange value=', value);
                                 console.log('/csticket/crud.vue--handleUserChange selectedData=', selectedData);
                                 this.formData.user = {id:'', name:''};
-                               this.formData.group = {id:'', name:''};
+                                this.formData.group = {id:'', name:''};
                                 if (selectedData.length > 0)
                                 {  this.formData.group = {id: selectedData[0].value, name: selectedData[0].label};
                                    this.formData.user = {id: selectedData[selectedData.length-1].value, name: selectedData[selectedData.length-1].label};
                                 }
                             },
                 OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
-                    {   console.log('add--formdata.finds----',this.formData.finds);
-                           // var allitems1= ` 1.${this.formData.item1_id}`; 
+                    {       
+                        var allu=this.allusers; var uu=this.formData.user
+                        let userslen=Object.keys(this.allusers).length;
+                        console.log('this.errortypes--',this.terrortypes);  
+                        console.log('this.errortypes.len--',this.terrortypes.length);  
+                        console.log('this.allusers--',this.allusers);
+                    console.log('this.allusers.len--',userslen);
+                    var approvinguseremail='';
+                    Object.keys(allu).forEach(function(key) {
+                                                // console.log(key);
+                                               // console.log(allu[key]);
+                                                if(allu[key].id==uu.id)
+                                                 approvinguseremail=allu[key].email
+                                                        });
+                            // return;
+                                this.formData.approvinguseremail=approvinguseremail;
                               var allitems1 = ''; var allerrors1 = ''; var allnotes1= '';
                               for (let i=0;i<= this.formData.finds.length-1; i++) 
-                                {   if (this.formData.finds[i].label != '')
+                                {   if(this.formData.finds[i].label != '')
                                      allitems1= allitems1+`||${i}.`+ this.formData.finds[i].label; 
                                      else allitems1= allitems1+`||${i}.undefined`; 
-                                    if (this.formData.finds[i].error != '')
+                                    if(this.formData.finds[i].error != '')
                                      allerrors1= allerrors1+`||${i}.`+ this.formData.finds[i].error; 
                                      else    allerrors1= allerrors1+`||${i}.undefined`;
-                                    if (this.formData.finds[i].notes != '')
+                                    if(this.formData.finds[i].notes != '')
                                      allnotes1= allnotes1+`||${i}.`+ this.formData.finds[i].notes;   
                                      else allnotes1= allnotes1+`||${i}.undefined`;
                                 }
@@ -185,6 +198,7 @@
                         let payload = {  isShow: false,  data: this.formData, };
                         if (this.type5Data.action === 'Add')// add new state
                         {   console.log('add--formdata----',this.formData);
+                      
                            this.$store.dispatch('setCsTicketType5ShowModal', payload); //---to disable popup
                            this.$store.dispatch('cstype5add', this.formData)
                            .then((response) => {   console.log(' save success'); 
@@ -206,7 +220,7 @@
                            this.resetFormData();
                         },
                resetFormData() {  this.formData = { id: '', allitems: '', allerrors2:'', allerrors:'', price: '',  user:{id:'', name:''}, group :{id:'', name:''}, status_id: '', 
-                                  comment: '', reason: '' , item1_id: '', item2_id: '', find: '', finds : [], allitems2: '', allnotes2: '', notes: ''  };this.cascade_group_user=[]; 
+                                  comment: '', reason: '' ,approvinguseremail:'', item1_id: '', item2_id: '', find: '', finds : [], allitems2: '', allnotes2: '', notes: ''  };this.cascade_group_user=[]; 
                                 }
            }, //actions finish
            watch: {  type5Data() 
@@ -218,44 +232,37 @@
                                 console.log('cs/4crud.vue--ticket_no', this.selectedTicket.ticket_no);
                             }
                          else if (this.type5Data && this.type5Data.action === 'Edit')
-                           {   this.resetFormData();  this.title = 'Editing SDA';
-                               console.log('cs/cstickettype1crud.vue--ticket_no', this.csticket);
-                               this.formData.id = this.csticket[0].id;
-                             
-                         
-                               this.formData.comment = this.csticket[0].comment;
-                               this.formData.ticket_no = this.csticket[0].ticket_no;
-
-                             //   this.formData.issues = this.csticket[0].issues;
-                             //   this.formData.officeuse = this.csticket[0].officeuse;
-                               this.formData.group = {  id : this.csticket[0].agroupid.id,
+                           {    this.resetFormData();  this.title = 'Editing SDA';
+                                console.log('cs/cstickettype1crud.vue--ticket_no', this.csticket);
+                                this.formData.id = this.csticket[0].id;
+                                this.formData.comment = this.csticket[0].comment;
+                                this.formData.ticket_no = this.csticket[0].ticket_no;
+                                this.formData.group = {  id : this.csticket[0].agroupid.id,
                                                          name: this.csticket[0].agroupid.name
                                                      };
-                               this.formData.user = { id : this.csticket[0].auserid.id,
+                                this.formData.user = { id : this.csticket[0].auserid.id,
                                                       name: this.csticket[0].name,
                                                     };
-                               this.cascade_group_user.push(this.formData.group.id);
-                               this.cascade_group_user.push(this.formData.user.id);
-                               this.formData.status_id = this.csticket[0].tstatus? this.csticket[0].tstatus.id : '';
+                                this.cascade_group_user.push(this.formData.group.id);
+                                this.cascade_group_user.push(this.formData.user.id);
+                                this.formData.status_id = this.csticket[0].tstatus? this.csticket[0].tstatus.id : '';
                             //   this.formData.item1_id = this.csticket[0].bbb? this.csticket[0].bbb : '';
                                 var abc1=this.csticket[0].aaa? this.csticket[0].aaa : '';
                                 var abb1=this.csticket[0].bbb? this.csticket[0].bbb : '';
                                 var abd1=this.csticket[0].ccc? this.csticket[0].ccc : '';
                                 
                                 var abc2=abc1.split("||"); console.log('abc3.length=',abc2.length);
-                                  var abb2=abb1.split("||");  console.log('abc3.length=',abb2.length);
-                                   var abd2=abd1.split("||");  console.log('abc3.length=',abd2.length);
+                                var abb2=abb1.split("||");  console.log('abc3.length=',abb2.length);
+                                var abd2=abd1.split("||");  console.log('abc3.length=',abd2.length);
                                  for ( let j=1;j<abc2.length;j++)
                                  {  var abc3=abc2[j].split(".");
                                     var abb3=abb2[j].split(".");
                                     var abd3=abd2[j].split(".");
                                     this.formData.finds.push({ label: abc3[1],error: abb3[1] ,notes: abd3[1] }); 
                                  }
-
-
                            }
-                       }
-               }
+                       }//typedata finish
+               } //watch finish
     }
 
     </script>
