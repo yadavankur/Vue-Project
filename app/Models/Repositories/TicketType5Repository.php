@@ -47,9 +47,9 @@ Mail::raw( $request , function($message) use ($request) {
     $message->from('OMS@dowell.com.au', 'OMS');
     $message->to($request->input('approvinguseremail'));
     $message->cc('manoj.mishra@dowell.com.au');
-    $tktno=$request->input('ticket_no');$status=$request->input('status_id');
-    $message->subject("OMS: New SDA added to Ticket No: $tktno");
-    $message->setBody("OMS: New SDA has been added to Ticket No: $tktno, STATUS:$status" );
+    $tktno=$request->input('ticket_no');$status=$request->input('sdastatus'); $comments=$request->input('comment'); 
+    $message->subject("OMS: New SDA added to Ticket No-$tktno");
+    $message->setBody("New SDA has been added to Ticket No- $tktno, and assigned to you for approval.\n\n STATUS:$status\n\n Comments:$comments" );
     //$message->setBody( '<html><h1>5% off its awesome</h1><p>Go get it now !</p></html>', 'text/html' );
     //$message->addPart("5% off its awesome\n\nGo get it now!", 'text/plain');
 });
@@ -72,10 +72,18 @@ Mail::raw( $request , function($message) use ($request) {
     // $tickettype1->officeuse = $ticketcs;
      $tickettype1->auser = $request->input('user.id'); //managed user id
      $tickettype1->agroup = $request->input('group.id');   //managed user group
-      
-    ///// $ticketcs->ticket_no = $request->input('ticket_no');
-     //$ticketcs->save();
-     $tickettype1->save(); // $ticketcs->save(); 
+     $tickettype1->save();
+   
+                  Mail::raw( $request , function($message) use ($request) 
+                    {   $message->from('OMS@dowell.com.au', 'OMS');
+                        $message->to($request->input('approvinguseremail'));
+                        $message->cc('manoj.mishra@dowell.com.au');
+                        $tktno=$request->input('ticket_no');$status=$request->input('sdastatus'); $comments=$request->input('comment'); 
+                        $message->subject("OMS:SDA changed in Ticket No-$tktno");
+                        $message->setBody("SDA has been changed in Ticket No- $tktno.\n\n Present Status:$status\n\n Comments:$comments" );
+                       
+                    });
+
      return $tickettype1;
     }
 

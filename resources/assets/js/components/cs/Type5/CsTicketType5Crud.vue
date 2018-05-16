@@ -100,8 +100,8 @@
                         },
                         
             },
-       data ()  {  return {  title: '',  formData: {     id: '', comment: '', item1_id : '', item2_id : '', allitems : '', allerrors: '', notes: '',
-                            price: '', description: '', ticket_no: '', status_id: '',approvinguseremail:'', finds: [], find: '' , allitems2: '', allerrors2:'', allnotes2: ''} ,statusOptions: [] ,
+       data ()  {  return {  title: '',  formData: {     id: '', comment: '', sdastatus:'',item1_id : '', item2_id : '', allitems : '', allerrors: '', notes: '',
+                            price: '', description: '', ticket_no: '',statuschanged:'', status_id: '',approvinguseremail:'', finds: [], find: '' , allitems2: '', allerrors2:'', allnotes2: ''} ,statusOptions: [] ,
                             cascade_group_user:[] , finds: []   }   },
        created() {  console.log('cs/cstickettype1crud.vue-- Component created.')      
                     this.collectCnStatusOptions(this.ticketcnstatustable); //to collect cn status options for dropdown
@@ -162,20 +162,22 @@
                             },
                 OnSave() //---------------on save while adding and edit----coming from action=Add in  onClickNew() in statelistview
                     {       
-                        var allu=this.allusers; var uu=this.formData.user
-                        let userslen=Object.keys(this.allusers).length;
-                        console.log('this.errortypes--',this.terrortypes);  
-                        console.log('this.errortypes.len--',this.terrortypes.length);  
-                        console.log('this.allusers--',this.allusers);
-                    console.log('this.allusers.len--',userslen);
-                    var approvinguseremail='';
-                    Object.keys(allu).forEach(function(key) {
-                                                // console.log(key);
-                                               // console.log(allu[key]);
-                                                if(allu[key].id==uu.id)
-                                                 approvinguseremail=allu[key].email
-                                                        });
-                            // return;
+                        var allu=this.allusers; var uu=this.formData.user;
+                        var allstatus=this.ticketcnstatustable; var ss=this.formData.status_id;
+                                var sdastatus='';
+                                for (let status in allstatus) 
+                                    { if (allstatus[status].id==ss)
+                                        sdastatus=allstatus[status].STATUS;
+                                     }
+                                console.log('sdastatus=',sdastatus);
+                                // return;                  
+                       
+                                var approvinguseremail='';
+                                Object.keys(allu).forEach(function(key) 
+                                {  if(allu[key].id==uu.id)
+                                    approvinguseremail=allu[key].email
+                                });
+                                this.formData.sdastatus=sdastatus;
                                 this.formData.approvinguseremail=approvinguseremail;
                               var allitems1 = ''; var allerrors1 = ''; var allnotes1= '';
                               for (let i=0;i<= this.formData.finds.length-1; i++) 
@@ -197,7 +199,7 @@
                           console.log('3crud.vue-----OnSave_click this.formdata',this.formData);
                         let payload = {  isShow: false,  data: this.formData, };
                         if (this.type5Data.action === 'Add')// add new state
-                        {   console.log('add--formdata----',this.formData);
+                        {   console.log('type5-add--formdata----',this.formData);
                       
                            this.$store.dispatch('setCsTicketType5ShowModal', payload); //---to disable popup
                            this.$store.dispatch('cstype5add', this.formData)
@@ -206,7 +208,12 @@
                                           }).catch((error) => {console.log('save error');});
                         } 
                       else if (this.type5Data.action === 'Edit')// update
-                        { this.$store.dispatch('setCsTicketType5ShowModal', payload);  
+                        {   var oldstatus=this.csticket[0].tstatus.STATUS;
+                            if(sdastatus !=oldstatus)
+                            console.log('status changed=',oldstatus,sdastatus);
+                            this.formData.statuschanged=1;
+                            this.$store.dispatch('setCsTicketType5ShowModal', payload);  
+                         console.log('Type5-sda edit formData=',this.formData);
                           console.log(' payload=',payload); 
                           this.$store.dispatch('updatetype5', this.formData)
                           .then((response) => { console.log(' edit success');  this.$events.fire('refreshcsticket');})     
@@ -219,8 +226,8 @@
                            this.$store.dispatch('setCsTicketType5ShowModal', payload);
                            this.resetFormData();
                         },
-               resetFormData() {  this.formData = { id: '', allitems: '', allerrors2:'', allerrors:'', price: '',  user:{id:'', name:''}, group :{id:'', name:''}, status_id: '', 
-                                  comment: '', reason: '' ,approvinguseremail:'', item1_id: '', item2_id: '', find: '', finds : [], allitems2: '', allnotes2: '', notes: ''  };this.cascade_group_user=[]; 
+               resetFormData() {  this.formData = { id: '', allitems: '',sdastatus:'', allerrors2:'', allerrors:'', price: '',  user:{id:'', name:''}, group :{id:'', name:''}, status_id: '', 
+                                  comment: '', reason: '' ,approvinguseremail:'',statuschanged:'', item1_id: '', item2_id: '', find: '', finds : [], allitems2: '', allnotes2: '', notes: ''  };this.cascade_group_user=[]; 
                                 }
            }, //actions finish
            watch: {  type5Data() 

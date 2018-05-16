@@ -58,10 +58,7 @@
                       <div class="col-md-6" v-if="selectedTicketType == 'TYPE9'">
                     <ticket-type9></ticket-type9>
                     </div>
-                    <div class="col-md-6" v-if="selectedTicket">
-
-                    <email-booking-info> </email-booking-info>
-                    </div>
+                   
 
                 </div>
             </div>
@@ -99,7 +96,7 @@
     import CsTicketType8 from './CsTicketType8.vue'
     import CsTicketType9 from './CsTicketType9.vue'
 
-    import EmailBookingInfo from './EmailnCommentsinfo.vue'
+    //import EmailBookingInfo from './EmailnCommentsinfo.vue'
 
     export default 
     {   data () {      return {     }    },
@@ -117,7 +114,7 @@
                       'csticket-list-table': CsTicketListTable,
                       'order-info': OrderInfo,
                       'order-history-summary': OrderHistorySummary, 'v6items':V6Items,'bomfinish':bomfinish,'bomcomponent':bomcomponent,
-                      'email-booking-info': EmailBookingInfo,
+                     // 'email-booking-info': EmailBookingInfo,
                       'ticket-type1': CsTicketType1,'ticket-type1crud': CsTicketType1Crud,
                       'ticket-type2A': CsTicketType2A,'ticket-type2Acrud': CsTicketType2ACrud,
                       'ticket-type2B': CsTicketType2B,
