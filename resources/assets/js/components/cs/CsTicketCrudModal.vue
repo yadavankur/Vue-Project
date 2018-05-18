@@ -168,10 +168,10 @@
                           permissionData: state=> state.permission.permissionData,
                           csticketActivityData:state=> state.cstkt.csticketActivityData,
                           user: state => state.authUser,
-                         //  cascadeUserOptions1: state => state.cstkt.useraspgroup,
                           csTicketlast: state => state.csticket.csTicketlast,
-                        //  cascadeLocationOptions: state => state.cstkt.useraspgroup.groupNodes,
-                      }),
+                          allusers: state => state.user.userTable,
+                          ticketstatustable: state => state.csticketstatus.ticketstatustable,
+                       }),
 
             order() {  if (this.selectedOrder)  return this.selectedOrder;  else return null;  },
             locationOptions() {  if (this.csticketActivityData)  return this.csticketActivityData.locationOptions;  else return null;  },
@@ -183,7 +183,8 @@
         data () {  return {  title: '',orderNo: '', locationOptions: [],
                              formData: {   ticket_no: '',ticket_type_id: '',status_id:'',QUOTE_ID: '',ORDER_ID: '',
                                            location_id: '',name: '',  comment: '',  id: ''  ,orderStatus: '', CONTACT_NAME:'', CONTACT_PHONE:'',
-                                       }, statusOptions: [], typeOptions: [], 
+                                       allocateduseremail:'', manageduseremail:'', tktstatus:'',
+                                       }, statusOptions: [], typeOptions: [], allstatus:'',alltypes:'',tkttype:'',
                               cascadeLocationOptions: [],
                               cascade_state_location: [],cascade_state_location1: [],
                              } 
@@ -204,18 +205,21 @@
                         { console.log('/cs/crud.vue-created gettickettypetable success=', response);
                           //this.setOrderStatusOptions(response.data);
                           this.collectTypeOptions(response.data);
+                          this.alltypes=response.data;
                         })
                        .catch((error) => {  console.error('/cs/crud.vue-created gettickettypetable error=', error); });
-
+                            
+                         
                     this.$store.dispatch('getticketstatustable') //---create dropdown for ticket status
                        .then((response) =>
                         { console.log('/cs/crud.vue-created getticketstatustable success=', response);
                           this.collectStatusOptions(response.data);
+                          this.allstatus=response.data;
                         })
                        .catch((error) => {  console.error('/cs/crud.vue-created getticketstatustable error=', error); });
-                 
-                   // this.$store.dispatch('useraspergroupscascade');
-        
+                            
+                          // console.log('hehe this.ticketstatustable=',this.ticketstatustable)
+                           // this.collectStatusOptions(this.ticketstatustable);
 //-----------------------------------------------------------------------------
                  this.$store.dispatch('useraspergroupscascade')//----------------users
                         .then((response) => 
@@ -248,10 +252,44 @@
                
                OnSave() 
                 {  console.log('/cs/cscrud-----OnSave_click');
+
+                          var allu=this.allusers; var uu1=this.formData.user1; var uu2=this.formData.user2;
+                          var allocateduseremail=''; var manageduseremail='';
+                          Object.keys(allu).forEach(function(key) 
+                          {  if(allu[key].id==uu1.id)
+                               allocateduseremail=allu[key].email
+                               if(allu[key].id==uu2.id)
+                               manageduseremail=allu[key].email
+                           });
+                          this.formData.allocateduseremail=allocateduseremail;
+                          this.formData.manageduseremail=manageduseremail;
+
+                            var ss=this.formData.status_id;
+                                var tktstatus=''; var allstatus1= this.allstatus;
+                                console.log('allstatus',this.allstatus);
+                                for (let status in allstatus1) 
+                                    { if (allstatus1[status].id==ss)
+                                        tktstatus=allstatus1[status].STATUS;
+                                     }
+                                console.log('tktstatus=',tktstatus);
+                                this.formData.tktstatus=tktstatus;
+
+                                var tt=this.formData.ticket_type_id;
+                                var tkttype=''; var alltypes1= this.alltypes;
+                                console.log('alltypes',this.alltypes);
+                                for (let status in alltypes1) 
+                                    { if (alltypes1[status].id==tt)
+                                        tkttype=alltypes1[status].ticket_type;
+                                     }
+                                console.log('tkttype=',tkttype);
+                                this.formData.tkttype=tkttype;
+                               // return;
+
                     let payload = {  isShow: false,  data: this.formData, };
                     if (this.csticketActivityData.action === 'Add')// add new state
                        {    console.log('/cs/crud-----inside add');
                             console.log('/cs/crud-----add inside formdata:',this.formData);
+                              
                             console.log('/cs/crud-----add inside formdata:',this.formData.CONTACT_PERSON);
                           //  if (this.isEmpty(this.formData.CONTACT_PERSON) || this.isEmpty(this.formData.ticket_type_id) || this.isEmpty(this.formData.status_id) )
                             if (this.isEmpty(this.formData.CONTACT_PERSON)  )
@@ -317,8 +355,8 @@
                                     { name: '', comment: '', id: '', 
                                       user1: {id:'', name:''},
                                       group1: {id:'', name:''}, 
-                                      status_id:'',
-                                      ticket_type_id:'',  CONTACT_PERSON:'',
+                                      status_id:'', allocateduseremail:'', manageduseremail:'',
+                                      ticket_type_id:'',  CONTACT_PERSON:'', tktstatus:'',alltypes:'',allstatus:'',tkttype:'',
                                     };  
                               this.cascade_state_location = []; this.cascade_state_location1 = [];
                             },

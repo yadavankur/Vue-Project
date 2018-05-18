@@ -72,6 +72,9 @@
         created() {             this.$store.dispatch('getticketcnstatustable'); //to get credit note status--used /type2A/crud   
                                this.$store.dispatch('getticketerrortypetable');
                                this.$store.dispatch('getuserlist');
+                              //  this.$store.dispatch('getticketstatustable');
+
+                      
 
         },
         data () 

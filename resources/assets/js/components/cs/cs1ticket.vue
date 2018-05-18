@@ -108,7 +108,9 @@
                      
                                 }),
                   },
-        created() {  console.log('/cs/cs1ticket -vue Component created.');  },
+        created() {  console.log('/cs/cs1ticket -vue Component created.');  
+                   // this.$store.dispatch('getticketstatustable')
+                  },
         components: { 'csticket-list-search': CsTicketSearch, 
                       'csticket-crud-modal': CsTicketCrudModal,
                       'csticket-list-table': CsTicketListTable,
